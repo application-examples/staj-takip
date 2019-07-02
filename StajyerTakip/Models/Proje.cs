@@ -14,3 +14,4 @@ namespace StajyerTakip.Models
         public string ProjeTakimi { get; set; }
     }
 }
+
