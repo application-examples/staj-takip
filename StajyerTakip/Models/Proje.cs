@@ -14,3 +14,4 @@ namespace StajyerTakip.Models
         public int ProjeTakimiID { get; set; }
     }
 }
+
