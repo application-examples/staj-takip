@@ -9,6 +9,6 @@ namespace StajyerTakip.Models
     {
         public int TakimID { get; set; }
         public string TakimAdi { get; set; }
-        public string Aciklaması { get; set; }
+        public string Aciklamasi { get; set; }
     }
 }
