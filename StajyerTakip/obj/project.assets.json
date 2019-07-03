@@ -12533,23 +12533,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Niyazi\\.nuget\\packages\\": {},
+    "C:\\Users\\Yasemin BADILLI\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Niyazi\\source\\repos\\StajyerTakip\\StajyerTakip\\StajyerTakip.csproj",
+      "projectUniqueName": "C:\\Users\\Yasemin BADILLI\\source\\repos\\staj-takip2\\staj-takip\\StajyerTakip\\StajyerTakip.csproj",
       "projectName": "StajyerTakip",
-      "projectPath": "C:\\Users\\Niyazi\\source\\repos\\StajyerTakip\\StajyerTakip\\StajyerTakip.csproj",
-      "packagesPath": "C:\\Users\\Niyazi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Niyazi\\source\\repos\\StajyerTakip\\StajyerTakip\\obj\\",
+      "projectPath": "C:\\Users\\Yasemin BADILLI\\source\\repos\\staj-takip2\\staj-takip\\StajyerTakip\\StajyerTakip.csproj",
+      "packagesPath": "C:\\Users\\Yasemin BADILLI\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Yasemin BADILLI\\source\\repos\\staj-takip2\\staj-takip\\StajyerTakip\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Niyazi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Yasemin BADILLI\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
