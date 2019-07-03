@@ -58,7 +58,7 @@ using StajyerTakip.Models;
             WriteLiteral("\r\n<!doctype html>\r\n<html lang=\"en\">\r\n");
             EndContext();
             BeginContext(37, 700, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "164a8152c4194c49b47f5e4f136187cf", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4a4eaa6d040b40e1b7d1d16788c95b1b", async() => {
                 BeginContext(43, 687, true);
                 WriteLiteral(@"
     <meta charset=""utf-8"">
@@ -94,12 +94,12 @@ using StajyerTakip.Models;
             WriteLiteral("\r\n\r\n");
             EndContext();
             BeginContext(741, 1006, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "57351c5147944090856a93b9715d35e2", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "11de862ce1634d5780d8066569d4d5e8", async() => {
                 BeginContext(767, 6, true);
                 WriteLiteral("\r\n    ");
                 EndContext();
                 BeginContext(773, 965, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a035f167a29e42dabc0708f669633eb0", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "01c8666489934d53880814beb727dda3", async() => {
                     BeginContext(799, 932, true);
                     WriteLiteral(@"
         <img class=""mb-4"" src=""akdeniz-universitesi-logo-B017290F9B-seeklogo.com.png"" alt="""" width=""229"" height=""230"">
