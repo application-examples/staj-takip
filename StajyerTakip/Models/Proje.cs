@@ -7,5 +7,11 @@ namespace StajyerTakip.Models
 {
     public class Proje
     {
+        public string  Ad { get; set; }
+        public string  Icerik{ get; set; }
+        public int TanimlananSure { get; set; }
+        public string KullanilanTeknolojiler { get; set; }
+        public string ProjeTakimi { get; set; }
     }
 }
+
