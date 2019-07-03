@@ -8,7 +8,7 @@ namespace StajyerTakip.Models
     public class Takim
     {
         public int ID { get; set; }
-        public string TakimAdi { get; set; }
-        public string Aciklamasi { get; set; }
+        public string Ad { get; set; }
+        public string Aciklama { get; set; }
     }
 }
