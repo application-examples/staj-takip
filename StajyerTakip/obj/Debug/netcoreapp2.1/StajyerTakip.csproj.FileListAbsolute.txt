@@ -25,3 +25,31 @@ C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\bin\Debug\netcoreapp2.1\S
 C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.Views.pdb
 C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.csproj.CopyComplete
 C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\obj\Debug\netcoreapp2.1\Razor\Views\Login\Login.g.cshtml.cs
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.csproj.CoreCompileInputs.cache
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.RazorAssemblyInfo.cache
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.RazorAssemblyInfo.cs
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.AssemblyInfoInputs.cache
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.AssemblyInfo.cs
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.TagHelpers.input.cache
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.TagHelpers.output.cache
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.RazorCoreGenerate.cache
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\Razor\Views\Login\Index.g.cshtml.cs
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\Razor\Views\Login\Login.g.cshtml.cs
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\Razor\Views\Ogrenci\ModeratorKayit.g.cshtml.cs
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\Razor\Views\Ogrenci\OgrenciKayit.g.cshtml.cs
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\Razor\Views\_ViewStart.g.cshtml.cs
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.RazorTargetAssemblyInfo.cache
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.RazorTargetAssemblyInfo.cs
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.dll
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.pdb
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\bin\Debug\netcoreapp2.1\StajyerTakip.deps.json
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\bin\Debug\netcoreapp2.1\StajyerTakip.runtimeconfig.json
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\bin\Debug\netcoreapp2.1\StajyerTakip.runtimeconfig.dev.json
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\bin\Debug\netcoreapp2.1\StajyerTakip.dll
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\bin\Debug\netcoreapp2.1\StajyerTakip.pdb
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\bin\Debug\netcoreapp2.1\StajyerTakip.Views.dll
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\bin\Debug\netcoreapp2.1\StajyerTakip.Views.pdb
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.Views.pdb
+C:\Users\Yasemin BADILLI\source\repos\staj-takip2\staj-takip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.csproj.CopyComplete
