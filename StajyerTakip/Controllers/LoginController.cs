@@ -10,6 +10,7 @@ namespace StajyerTakip.Controllers
     {
         public IActionResult Index()
         {
+            //Login indexe yönlendir.
             return View();
         }
     }
