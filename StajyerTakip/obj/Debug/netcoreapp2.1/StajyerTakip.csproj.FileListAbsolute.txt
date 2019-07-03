@@ -25,3 +25,5 @@ C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\bin\Debug\netcoreapp2.1\S
 C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.Views.pdb
 C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.csproj.CopyComplete
 C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\obj\Debug\netcoreapp2.1\Razor\Views\Login\Login.g.cshtml.cs
+C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\obj\Debug\netcoreapp2.1\Razor\Views\Ogrenci\ModeratorKayit.g.cshtml.cs
+C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\obj\Debug\netcoreapp2.1\Razor\Views\Ogrenci\OgrenciKayit.g.cshtml.cs
