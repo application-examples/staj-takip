@@ -27,3 +27,4 @@ C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\obj\Debug\netcoreapp2.1\S
 C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.dll
 C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.pdb
 C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.csproj.CopyComplete
+C:\Users\Niyazi\source\repos\StajyerTakip\StajyerTakip\obj\Debug\netcoreapp2.1\Razor\Views\Ogrenci\Defter.g.cshtml.cs
