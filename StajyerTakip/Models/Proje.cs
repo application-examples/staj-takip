@@ -7,6 +7,7 @@ namespace StajyerTakip.Models
 {
     public class Proje
     {
+        public int ID { get; set; }
         public string  Ad { get; set; }
         public string  Icerik{ get; set; }
         public int TanimlananSure { get; set; }

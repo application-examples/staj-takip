@@ -57,7 +57,7 @@ using StajyerTakip.Models;
             WriteLiteral("<!DOCTYPE html>\r\n<html lang=\"tr\">\r\n\r\n");
             EndContext();
             BeginContext(51, 447, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1823b03fd439449fa6dea9aaa98e6fbc", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "144eb7b87c3f44b7ba0630792c506960", async() => {
                 BeginContext(57, 434, true);
                 WriteLiteral(@"
     <title>Ogrenci Form</title>
@@ -84,12 +84,12 @@ using StajyerTakip.Models;
             WriteLiteral("\r\n\r\n");
             EndContext();
             BeginContext(502, 2973, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3d7f99be4b3340e299e8a25c2834ca37", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3adf972a2a8841ae9130dda1c415b028", async() => {
                 BeginContext(508, 77, true);
                 WriteLiteral("\r\n\r\n    <div class=\"container\">\r\n        <h2>Öğrenci Bilgileri</h2>\r\n        ");
                 EndContext();
                 BeginContext(585, 2867, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0f8acd824c7f4efab35b8499a8c5425c", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ed637813c804788983c198527b0699e", async() => {
                     BeginContext(617, 2828, true);
                     WriteLiteral(@"
 

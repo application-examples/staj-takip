@@ -13,5 +13,10 @@ namespace StajyerTakip.Controllers
             //Login indexe yönlendir.
             return View();
         }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
     }
 }
