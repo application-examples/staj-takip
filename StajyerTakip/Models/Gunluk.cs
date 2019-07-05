@@ -5,12 +5,10 @@ using System.Threading.Tasks;
 
 namespace StajyerTakip.Models
 {
-    public class Takim
+    public class Gunluk
     {
         public int ID { get; set; }
-        public string Ad { get; set; }
-        public string Aciklama { get; set; }
+        public int GrupID { get; set; }
 
-        public List<Ogrenci> Uyeler { get; set; }
     }
 }
