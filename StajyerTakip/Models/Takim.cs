@@ -9,8 +9,10 @@ namespace StajyerTakip.Models
     {
         public int ID { get; set; }
         public string Ad { get; set; }
+
         public string Aciklama { get; set; }
 
         public List<Ogrenci> Uyeler { get; set; }
+
     }
 }
