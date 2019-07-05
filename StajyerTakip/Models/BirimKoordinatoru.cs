@@ -17,4 +17,3 @@ namespace StajyerTakip.Models
         public string Telefon { get; set; }
     }
 }
-}
