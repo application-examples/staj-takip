@@ -13,14 +13,23 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="~/css/signin.css" rel="stylesheet">
+    <style>
+        .btn-orange {
+            background-color: #F47424;
+        }
+
+        .btn-orange:hover {
+                background-color: #F46321;
+        }
+    </style>
 </head>
 
 <body class="text-center">
     <form class="form-signin">
-        <img class="mb-4" src="~/images/akdeniz-logo.png" alt="" width="200em;">
+        <img class="mb-4" src="~/images/akdeniz-logo.png" alt="" width="290em;">
         <h1 class="h3 mb-3 font-weight-normal">Lütfen Giriş Yapın</h1>
         <label for="inputEmail" class="sr-only">Mail Adresi</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Mail Adresi" required autofocus>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Mail Adresi veya Kullanıcı Adı" required autofocus>
         <label for="inputPassword" class="sr-only">Şifre</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Şifre" required>
         <div class="checkbox mb-3">
@@ -28,7 +37,7 @@
                 <input type="checkbox" value="remember-me"> Beni Hatırla
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Giriş yap</button>
+        <button class="btn btn-lg btn-block text-white btn-orange" style="" type="submit">Giriş yap</button>
         <p class="mt-5 mb-3 text-muted">Bilgisayar Bilimleri Araştırma ve Uygulama Merkezi&copy; 2019</p>
     </form>
 </body>

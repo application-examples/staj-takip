@@ -1,14 +1,53 @@
-﻿<html>
+﻿<!DOCTYPE html5>
+<html lang="tr">
+
 <head>
-    <title>Stajyer Takip Otomasyonu</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, inital-scale=1, shrink-to-fit=no" />
+    <title>@ViewData["Title"] | Staj Takip Otomasyonu</title>
+
+    <!-- CSS Importlari Başlangıç-->
+    <link rel="stylesheet" href="~/css/style.css" /> <!-- Style Css Özelleştirilmiş Bootstrap CSS-->
+    <link rel="stylesheet" href="~/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="~/css/vendor.bundle.addons.css" />
+    <link rel="stylesheet" href="~/css/mdi/css/materialdesignicons.css" />
+    <!-- CSS Importlari Bitiş-->
+
 </head>
 
 <body>
-    <div class="row">
-        <div class="col-3 d-flex bg-danger">
-
+    <!-- Ana Container -->
+    <div class="container-scroller">
+        <!-- Navbar Render -->
+        @{
+            await Html.RenderPartialAsync("_Navbar");
+        }
+        <!-- Navbar Render Bitiş -->
+        <!-- Sayfa Body -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- Sidebar Render -->
+            @{
+                await Html.RenderPartialAsync("_Sidebar");
+            }
+            <!-- Sidebar Render Bitiş-->
+            <!-- Main Panel -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <!-- Controllerdan gelen view -->
+                    @RenderBody()
+                    <!-- Controllerdan gelen view bitiş-->
+                </div>
+                <!--Footer Render-->
+                @{
+                    await Html.RenderPartialAsync("_Footer");
+                }
+                <!-- Footer Render Bitiş-->
+            </div>
+            <!-- Main Panel Bitiş -->
         </div>
+        <!-- Sayfa Body Bitiş -->
     </div>
+    <!-- Ana Container Bitiş-->
 </body>
+
 </html>
