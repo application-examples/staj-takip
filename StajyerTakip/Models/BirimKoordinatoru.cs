@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StajyerTakip.Models
 {
-    public class BirimKoordinatoru
+    public class BirimKoordinatoru 
     {
         public int ID { get; set; }
         public string Ad { get; set; }
