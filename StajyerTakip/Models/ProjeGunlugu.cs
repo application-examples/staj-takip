@@ -5,13 +5,12 @@ using System.Threading.Tasks;
 
 namespace StajyerTakip.Models
 {
-    public class Gunluk
+    public class ProjeGunlugu
     {
         public int ID { get; set; }
-        public int GrupID { get; set; }
-        public string Baslik { get; set; }
-        public string Bilgiler { get; set; }
-        public Boolean OnayDurumu { get; set; }
+        public int ProjeID { get; set; }
+        public string Durum { get; set; }
         public DateTime Tarih { get; set; }
+        public string Baslik { get; set; }
     }
 }
