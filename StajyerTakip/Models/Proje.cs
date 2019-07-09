@@ -12,7 +12,9 @@ namespace StajyerTakip.Models
         public string Icerik { get; set; }
         public int TanimlananSure { get; set; }
         public string KullanilanTeknolojiler { get; set; }
-        public int ProjeTakimiID { get; set; }
+
+        public List<Stajyer> Stajyerler { get; set; }
+        public List<BirimKoordinatoru> BirimKoordinatorleri { get; set; }
     }
 }
 

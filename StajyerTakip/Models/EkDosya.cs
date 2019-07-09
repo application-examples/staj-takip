@@ -10,6 +10,6 @@ namespace StajyerTakip.Models
         public int ID { get; set; }
         public int GunlukID { get; set; }
         public string Path { get; set; }
-        public string Gunluk { get; set; }
+        public Gunluk Gunluk { get; set; }
     }
 }

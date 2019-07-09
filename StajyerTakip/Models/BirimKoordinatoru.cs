@@ -8,12 +8,14 @@ namespace StajyerTakip.Models
     public class BirimKoordinatoru 
     {
         public int ID { get; set; }
-        public string Ad { get; set; }
-        public string Soyad { get; set; }
-        public string Email { get; set; }
-        public string Sifre { get; set; }
-        public string KullaniciAdi { get; set; }
-        public string Resim { get; set; }
-        public string Telefon { get; set; }
+        public Profil Profil { get; set; }
+        public int ProfilID { get; set; }
+        public int BirimID { get; set; }
+        public Birim Birim { get; set; }
+
+        public List<StajyerBirim> Stajyerler { get; set; }
+        public List<Gunluk> Gunlukler { get; set; }
+        public List<ProjeBirim> Projeler { get; set; }
+        public List<Devamsizlik> Devamsizliklar { get; set; }
     }
 }

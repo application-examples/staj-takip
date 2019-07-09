@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace StajyerTakip.Models
 {
-    public class Devamsızlık
+    public class Devamsizlik
     {
         public int ID { get; set; }
-        public int OrenciID { get; set; }
-        public string Ogrenci { get; set; }
+        public int StajyerID { get; set; }
+        public Stajyer Stajyer { get; set; }
         public DateTime Tarih { get; set; }
 
     }

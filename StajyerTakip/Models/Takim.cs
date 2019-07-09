@@ -12,7 +12,7 @@ namespace StajyerTakip.Models
 
         public string Aciklama { get; set; }
 
-        public List<Ogrenci> Uyeler { get; set; }
+        public List<Stajyer> Uyeler { get; set; }
 
     }
 }
