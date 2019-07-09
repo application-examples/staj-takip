@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StajyerTakip.Models
 {
-    public class Ogrenci : Kullanici
+    public class Ogrenci 
     {
         public int ID { get; set; }
         public string Ad { get; set; }
