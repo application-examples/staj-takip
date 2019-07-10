@@ -20,18 +20,34 @@ namespace StajyerTakip
         public DbSet<Profil> Hesaplar { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<StajyerBirim>().HasKey(bc => new { bc.StajyerID, bc.BirimKoordinatoruID });
-
-            modelBuilder.Entity<StajyerBirim>().HasOne(bc => bc.Stajyer).WithMany(b => b.BirimKoordinatorleri).HasForeignKey(bc => bc.BirimKoordinatoruID);
-
-            modelBuilder.Entity<StajyerBirim>().HasOne(bc => bc.BirimKoordinatoru).WithMany(b => b.Stajyerler).HasForeignKey(bc => bc.StajyerID);
-
-
+        { 
+            //StajyerProje
             modelBuilder.Entity<StajyerProje>().HasKey(bc => new { bc.StajyerID, bc.ProjeID });
+
+            modelBuilder.Entity<StajyerProje>().HasOne(bc => bc.Stajyer).WithMany(b => b.Projeler).HasForeignKey(bc => bc.StajyerID);
+
+            modelBuilder.Entity<StajyerProje>().HasOne(bc => bc.Proje).WithMany(b => b.Stajyerler).HasForeignKey(bc => bc.ProjeID);
+
+            //End
+
+            //ProjeBirim
+
 
             modelBuilder.Entity<ProjeBirim>().HasKey(bc => new { bc.ProjeID, bc.BirimKoordinatoruID });
 
+            modelBuilder.Entity<ProjeBirim>().HasOne(bc => bc.Proje).WithMany(b => b.BirimKoordinatorleri).HasForeignKey(bc => bc.ProjeID);
+
+            modelBuilder.Entity<ProjeBirim>().HasOne(bc => bc.BirimKoordinatoru).WithMany(b => b.Projeler).HasForeignKey(bc => bc.BirimKoordinatoruID);
+
+            //End
+
+            //StajyerBirim
+            modelBuilder.Entity<StajyerBirimK>().HasKey(bc => new { bc.StajyerID, bc.BirimKID });
+            modelBuilder.Entity<StajyerBirimK>().HasOne(bc => bc.Stajyer).WithMany(b => b.BirimKoordinatorleri).HasForeignKey(bc => bc.StajyerID).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<StajyerBirimK>().HasOne(bc => bc.BirimK).WithMany(b => b.Stajyerler).HasForeignKey(bc => bc.BirimKID).OnDelete(DeleteBehavior.Restrict);
+            
+            
+            //End
         }
     }
 }

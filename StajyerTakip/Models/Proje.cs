@@ -13,8 +13,8 @@ namespace StajyerTakip.Models
         public int TanimlananSure { get; set; }
         public string KullanilanTeknolojiler { get; set; }
 
-        public List<Stajyer> Stajyerler { get; set; }
-        public List<BirimKoordinatoru> BirimKoordinatorleri { get; set; }
+        public List<StajyerProje> Stajyerler { get; set; }
+        public List<ProjeBirim> BirimKoordinatorleri { get; set; }
     }
 }
 

@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace StajyerTakip.Models
 {
-    public class StajyerBirim
+    public class StajyerBirimK
     {
         public int StajyerID { get; set; }
-        public int BirimKoordinatoruID { get; set; }
+        public int BirimKID { get; set; }
 
         public Stajyer Stajyer { get; set; }
-        public BirimKoordinatoru BirimKoordinatoru { get; set; }
+        public BirimKoordinatoru BirimK { get; set; }
     }
 }

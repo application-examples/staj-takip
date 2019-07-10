@@ -5,6 +5,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190709124923_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190709124923_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20190709125758_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190709125758_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20190709130342_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190709130342_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20190709131234_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190709131234_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20190710074502_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190710074502_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20190710074659_InitialCreate.cs" />
+    <Compile Remove="Migrations\20190710074659_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20190710074939_Init.cs" />
+    <Compile Remove="Migrations\20190710074939_Init.Designer.cs" />
+    <Compile Remove="Migrations\20190710075248_init.cs" />
+    <Compile Remove="Migrations\20190710075248_init.Designer.cs" />
+    <Compile Remove="Migrations\20190710075513_init.cs" />
+    <Compile Remove="Migrations\20190710075513_init.Designer.cs" />
+    <Compile Remove="Migrations\20190710080950_init.cs" />
+    <Compile Remove="Migrations\20190710080950_init.Designer.cs" />
+    <Compile Remove="Migrations\20190710082008_init.cs" />
+    <Compile Remove="Migrations\20190710082008_init.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.8" />

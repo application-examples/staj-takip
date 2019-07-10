@@ -13,7 +13,7 @@ namespace StajyerTakip.Models
         public int BirimID { get; set; }
         public Birim Birim { get; set; }
 
-        public List<StajyerBirim> Stajyerler { get; set; }
+        public List<StajyerBirimK> Stajyerler { get; set; }
         public List<Gunluk> Gunlukler { get; set; }
         public List<ProjeBirim> Projeler { get; set; }
         public List<Devamsizlik> Devamsizliklar { get; set; }
