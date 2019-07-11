@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 namespace StajyerTakip.Models
 {
     public class Startup
-    {
+    {//sfaf
     }
 }
