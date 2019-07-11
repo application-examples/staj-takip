@@ -9,6 +9,7 @@ namespace StajyerTakip.Models
     {
         public int ID { get; set; }
         public int ProfilID { get; set; }
+        public int ModeratorID { get; set; }
         public string Okul { get; set; }
         public string Bolum { get; set; }
 
@@ -19,5 +20,6 @@ namespace StajyerTakip.Models
         public List<StajyerBirimK> BirimKoordinatorleri { get; set; }
         public List<StajyerProje> Projeler { get; set; }
 
+        public Moderator Moderator { get; set; }
     }
 }
