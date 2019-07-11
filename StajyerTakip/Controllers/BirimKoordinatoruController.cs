@@ -30,7 +30,7 @@ namespace StajyerTakip.Controllers
             birimkoordinatoru.BirimID = 1;
             birimkoordinatoru.ModeratorID = 1;
             db.Hesaplar.Add(birimkoordinatoru.Profil);
-            db.BirimKoordinatorleri.Add(birimkoordinatoru);
+            db.Birim.Add(birimkoordinatoru);
             db.SaveChanges();
             return RedirectToAction("Ekle");
 
