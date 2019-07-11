@@ -1,5 +1,0 @@
-C:\Users\Yasemin BADILLI\Source\repos\Staj Takip\staj-takip-1\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.csproj.CoreCompileInputs.cache
-C:\Users\Yasemin BADILLI\Source\repos\Staj Takip\staj-takip-1\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.RazorAssemblyInfo.cache
-C:\Users\Yasemin BADILLI\Source\repos\Staj Takip\staj-takip-1\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.RazorAssemblyInfo.cs
-C:\Users\Yasemin BADILLI\Source\repos\Staj Takip\staj-takip-1\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.AssemblyInfoInputs.cache
-C:\Users\Yasemin BADILLI\Source\repos\Staj Takip\staj-takip-1\StajyerTakip\obj\Debug\netcoreapp2.1\StajyerTakip.AssemblyInfo.cs
