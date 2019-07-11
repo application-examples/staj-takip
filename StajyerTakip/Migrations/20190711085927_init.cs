@@ -13,7 +13,7 @@ namespace StajyerTakip.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Ad = table.Column<string>(nullable: true),
                     Aciklama = table.Column<string>(nullable: true)
                 },
@@ -27,15 +27,18 @@ namespace StajyerTakip.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Ad = table.Column<string>(nullable: true),
                     Soyad = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Sifre = table.Column<string>(nullable: true),
                     KullaniciAdi = table.Column<string>(nullable: true),
-                    Resim = table.Column<string>(nullable: true),
+                    Fotograf = table.Column<string>(nullable: true),
                     Telefon = table.Column<string>(nullable: true),
                     Adres = table.Column<string>(nullable: true),
+                    Il = table.Column<string>(nullable: true),
+                    Ilce = table.Column<string>(nullable: true),
+                    Sokak = table.Column<string>(nullable: true),
                     Rol = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -48,7 +51,7 @@ namespace StajyerTakip.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Ad = table.Column<string>(nullable: true),
                     Icerik = table.Column<string>(nullable: true),
                     TanimlananSure = table.Column<int>(nullable: false),
@@ -60,11 +63,31 @@ namespace StajyerTakip.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Moderatorler",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ProfilID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Moderatorler", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Moderatorler_Hesaplar_ProfilID",
+                        column: x => x.ProfilID,
+                        principalTable: "Hesaplar",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BirimKoordinatorleri",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ModeratorID = table.Column<int>(nullable: false),
                     ProfilID = table.Column<int>(nullable: false),
                     BirimID = table.Column<int>(nullable: false)
                 },
@@ -75,6 +98,12 @@ namespace StajyerTakip.Migrations
                         name: "FK_BirimKoordinatorleri_Birim_BirimID",
                         column: x => x.BirimID,
                         principalTable: "Birim",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BirimKoordinatorleri_Moderatorler_ModeratorID",
+                        column: x => x.ModeratorID,
+                        principalTable: "Moderatorler",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -90,14 +119,21 @@ namespace StajyerTakip.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ProfilID = table.Column<int>(nullable: false),
+                    ModeratorID = table.Column<int>(nullable: false),
                     Okul = table.Column<string>(nullable: true),
                     Bolum = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Stajyerler", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Stajyerler_Moderatorler_ModeratorID",
+                        column: x => x.ModeratorID,
+                        principalTable: "Moderatorler",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Stajyerler_Hesaplar_ProfilID",
                         column: x => x.ProfilID,
@@ -135,7 +171,7 @@ namespace StajyerTakip.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     StajyerID = table.Column<int>(nullable: false),
                     Tarih = table.Column<DateTime>(nullable: false),
                     BirimKoordinatoruID = table.Column<int>(nullable: true)
@@ -162,7 +198,7 @@ namespace StajyerTakip.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     OgrenciID = table.Column<int>(nullable: false),
                     Baslik = table.Column<string>(nullable: true),
                     Bilgiler = table.Column<string>(nullable: true),
@@ -240,7 +276,7 @@ namespace StajyerTakip.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     GunlukID = table.Column<int>(nullable: false),
                     Path = table.Column<string>(nullable: true)
                 },
@@ -259,6 +295,11 @@ namespace StajyerTakip.Migrations
                 name: "IX_BirimKoordinatorleri_BirimID",
                 table: "BirimKoordinatorleri",
                 column: "BirimID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BirimKoordinatorleri_ModeratorID",
+                table: "BirimKoordinatorleri",
+                column: "ModeratorID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BirimKoordinatorleri_ProfilID",
@@ -291,6 +332,11 @@ namespace StajyerTakip.Migrations
                 column: "OgrenciID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Moderatorler_ProfilID",
+                table: "Moderatorler",
+                column: "ProfilID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProjeBirim_BirimKoordinatoruID",
                 table: "ProjeBirim",
                 column: "BirimKoordinatoruID");
@@ -299,6 +345,11 @@ namespace StajyerTakip.Migrations
                 name: "IX_StajyerBirimK_BirimKID",
                 table: "StajyerBirimK",
                 column: "BirimKID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stajyerler_ModeratorID",
+                table: "Stajyerler",
+                column: "ModeratorID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stajyerler_ProfilID",
@@ -342,6 +393,9 @@ namespace StajyerTakip.Migrations
 
             migrationBuilder.DropTable(
                 name: "Birim");
+
+            migrationBuilder.DropTable(
+                name: "Moderatorler");
 
             migrationBuilder.DropTable(
                 name: "Hesaplar");

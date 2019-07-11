@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StajyerTakip;
 
@@ -15,15 +14,13 @@ namespace StajyerTakip.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("StajyerTakip.Models.Birim", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Aciklama");
 
@@ -37,16 +34,19 @@ namespace StajyerTakip.Migrations
             modelBuilder.Entity("StajyerTakip.Models.BirimKoordinatoru", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("BirimID");
+
+                    b.Property<int>("ModeratorID");
 
                     b.Property<int>("ProfilID");
 
                     b.HasKey("ID");
 
                     b.HasIndex("BirimID");
+
+                    b.HasIndex("ModeratorID");
 
                     b.HasIndex("ProfilID");
 
@@ -56,8 +56,7 @@ namespace StajyerTakip.Migrations
             modelBuilder.Entity("StajyerTakip.Models.Devamsizlik", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int?>("BirimKoordinatoruID");
 
@@ -77,8 +76,7 @@ namespace StajyerTakip.Migrations
             modelBuilder.Entity("StajyerTakip.Models.EkDosya", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("GunlukID");
 
@@ -94,8 +92,7 @@ namespace StajyerTakip.Migrations
             modelBuilder.Entity("StajyerTakip.Models.Gunluk", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Baslik");
 
@@ -118,11 +115,24 @@ namespace StajyerTakip.Migrations
                     b.ToTable("Gunluk");
                 });
 
+            modelBuilder.Entity("StajyerTakip.Models.Moderator", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ProfilID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProfilID");
+
+                    b.ToTable("Moderatorler");
+                });
+
             modelBuilder.Entity("StajyerTakip.Models.Profil", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Ad");
 
@@ -130,13 +140,19 @@ namespace StajyerTakip.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<string>("KullaniciAdi");
+                    b.Property<string>("Fotograf");
 
-                    b.Property<string>("Resim");
+                    b.Property<string>("Il");
+
+                    b.Property<string>("Ilce");
+
+                    b.Property<string>("KullaniciAdi");
 
                     b.Property<int>("Rol");
 
                     b.Property<string>("Sifre");
+
+                    b.Property<string>("Sokak");
 
                     b.Property<string>("Soyad");
 
@@ -150,8 +166,7 @@ namespace StajyerTakip.Migrations
             modelBuilder.Entity("StajyerTakip.Models.Proje", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Ad");
 
@@ -182,16 +197,19 @@ namespace StajyerTakip.Migrations
             modelBuilder.Entity("StajyerTakip.Models.Stajyer", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Bolum");
+
+                    b.Property<int>("ModeratorID");
 
                     b.Property<string>("Okul");
 
                     b.Property<int>("ProfilID");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("ModeratorID");
 
                     b.HasIndex("ProfilID");
 
@@ -229,6 +247,11 @@ namespace StajyerTakip.Migrations
                     b.HasOne("StajyerTakip.Models.Birim", "Birim")
                         .WithMany()
                         .HasForeignKey("BirimID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("StajyerTakip.Models.Moderator", "Moderator")
+                        .WithMany("BirimKoordinatorleri")
+                        .HasForeignKey("ModeratorID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("StajyerTakip.Models.Profil", "Profil")
@@ -269,6 +292,14 @@ namespace StajyerTakip.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("StajyerTakip.Models.Moderator", b =>
+                {
+                    b.HasOne("StajyerTakip.Models.Profil", "Profil")
+                        .WithMany()
+                        .HasForeignKey("ProfilID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("StajyerTakip.Models.ProjeBirim", b =>
                 {
                     b.HasOne("StajyerTakip.Models.BirimKoordinatoru", "BirimKoordinatoru")
@@ -284,6 +315,11 @@ namespace StajyerTakip.Migrations
 
             modelBuilder.Entity("StajyerTakip.Models.Stajyer", b =>
                 {
+                    b.HasOne("StajyerTakip.Models.Moderator", "Moderator")
+                        .WithMany("Stajyerler")
+                        .HasForeignKey("ModeratorID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("StajyerTakip.Models.Profil", "Profil")
                         .WithMany()
                         .HasForeignKey("ProfilID")

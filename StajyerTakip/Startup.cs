@@ -32,8 +32,8 @@ namespace StajyerTakip
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            var connection = @"Server= DESKTOP-CJP5S00; Database = DenemeDB; Trusted_Connection = True; ConnectRetryCount = 0 ";
-            services.AddDbContext<Context>(options => options.UseSqlServer(connection));
+            var connection = @"Server= localhost; Port=3306; Database = DenemeDB; username=root;pwd=root;";
+            services.AddDbContext<Context>(options => options.UseMySql(connection));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

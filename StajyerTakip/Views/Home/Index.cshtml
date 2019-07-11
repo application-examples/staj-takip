@@ -1,101 +1,68 @@
-﻿
+﻿@model  List<Profil>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="col-md-6 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Birim Koordinatörü Bilgileri</h4>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Proje Bilgileri</h4>
 
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
 
+                                <th>
+                                    Kişi Adı
+                                </th>
+                                <th>
+                                    Soyadı
+                                </th>
+                                <th>
+                                    Kullanıcı Adı
+                                </th>
+                                <th>
+                                    Mail
+                                </th>
+                                <th>
 
-            <form class="forms-sample">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var i in Model)
+                            {
+                                <tr>
 
-                <div class="form-group">
-                    <label for="ad">Ad</label>
-                    <input type="text" class="form-control" id="Ad" placeholder="Ad">
+                                    <td>
+                                        @i.Ad
+                                    </td>
+                                    <td>
+                                        @i.Soyad
+                                    </td>
+                                    <td>
+                                        @i.KullaniciAdi
+                                    </td>
+                                    <td>
+
+                                        @i.Email
+
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-primary">Düzenle</button>
+
+                                            <button type="button" class="btn btn-danger">Sil</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
                 </div>
-                <div class="form-group">
-                    <label for="soyad">Soyad</label>
-                    <input type="text" class="form-control" id="soyad" placeholder="Soyad">
-                </div>
-                <div class="form-group">
-                    <label for="kullaniciadi">Kullanıcı Adı</label>
-                    <input type="text" class="form-control" id="kullaniciadi" placeholder="Kullancı Adı">
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Adres</label>
-                    <input type="email" class="form-control" id="email" placeholder="Email">
-                </div>
-                <div class="form-group">
-                    <label for="sifre">Şifre</label>
-                    <input type="password" class="form-control" id="sifre" placeholder="Şifre">
-                </div>
-                <div class="form-group">
-                    <label for="telefonnumarasi">Telefon Numarası:</label>
-                    <input type="text" class="form-control bfh-phone" data-format="+1 (ddd) ddd-dddd" placeholder="Telefon Numarası">
-                </div>
-
-                <div class="form-group">
-                    <label for="unvan">Ünvan:</label>
-                    <select class="form-control" id="unvan">
-                        <option>Teknisyen</option>
-                        <option>Uzman</option>
-                        <option>Öğretim Planlamacısı</option>
-                        <option>Çevirmen</option>
-                        <option>Okutman</option>
-                        <option>Öğretim Görevlisi </option>
-                        <option>Öğretim Üyesi </option>
-                        <option>Araştırma Görevlisi</option>
-                        <option>Araştırma Görevlisi Doktor</option>
-                        <option>Yardımcı Doçent</option>
-                        <option>Yardımcı Doçent Doktor</option>
-                        <option>Doçent</option>
-                        <option>Doçent Doktor</option>
-                        <option>Profesör</option>
-                        <option>Profesör Doktor</option>
-                        <option>Ordinaryüs Profesör</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="adres">Adres</label>
-                    <input type="text" class="form-control" id="adres" name="adres" placeholder="Adres">
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-sm-4">
-                        <label for="il">İl</label>
-                        <input type="text" class="form-control" id="il" name="il" placeholder="İl">
-                    </div>
-
-                    <div class="form-group col-sm-4">
-                        <label for="ilce">İlçe</label>
-                        <input type="text" class="form-control" id="ilce" name="ilce" placeholder="İlçe">
-                    </div>
-
-                    <div class="form-group col-sm-4">
-                        <label for="sokak">Sokak</label>
-                        <input type="text" class="form-control" id="sokak" name="sokak" placeholder="Sokak">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Fotoğraf</label>
-                    <input type="file" name="img[]" class="file-upload-default">
-                    <div class="input-group col-xs-12">
-                        <input type="text" class="form-control file-upload-info" disabled placeholder="Fotoğraf Yükle">
-                        <span class="input-group-append">
-                            <button class="file-upload-browse btn btn-success" type="button">Yükle</button>
-                        </span>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-success mr-2">Kaydet</button>
-                <button class="btn btn-primary">İptal</button>
-
-            </form>
+            </div>
         </div>
     </div>
-</div>

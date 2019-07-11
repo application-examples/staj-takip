@@ -18,6 +18,7 @@ namespace StajyerTakip
         public DbSet<Gunluk> Gunluk { get; set; }
         public DbSet<BirimKoordinatoru> BirimKoordinatorleri { get; set; }
         public DbSet<Profil> Hesaplar { get; set; }
+        public DbSet<Moderator> Moderatorler { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 
@@ -45,9 +46,10 @@ namespace StajyerTakip
             modelBuilder.Entity<StajyerBirimK>().HasKey(bc => new { bc.StajyerID, bc.BirimKID });
             modelBuilder.Entity<StajyerBirimK>().HasOne(bc => bc.Stajyer).WithMany(b => b.BirimKoordinatorleri).HasForeignKey(bc => bc.StajyerID).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<StajyerBirimK>().HasOne(bc => bc.BirimK).WithMany(b => b.Stajyerler).HasForeignKey(bc => bc.BirimKID).OnDelete(DeleteBehavior.Restrict);
-            
-            
+
+
             //End
+          
         }
     }
 }
