@@ -15,10 +15,13 @@ namespace StajyerTakip
         }
 
         public DbSet<Stajyer> Stajyerler { get; set; }
-        public DbSet<Gunluk> Gunluk { get; set; }
-        public DbSet<BirimKoordinatoru> BirimKoordinatorleri { get; set; }
+        public DbSet<Gunluk> Gunlukler { get; set; }
+        public DbSet<BirimKoordinatoru> Birim { get; set; }
         public DbSet<Profil> Hesaplar { get; set; }
         public DbSet<Moderator> Moderatorler { get; set; }
+        public DbSet<Birim> Birimler { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 
