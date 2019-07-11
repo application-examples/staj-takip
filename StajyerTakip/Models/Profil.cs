@@ -14,9 +14,12 @@ namespace StajyerTakip.Models
         public string Email { get; set; }
         public string Sifre { get; set; }
         public string KullaniciAdi { get; set; }
-        public string Resim { get; set; }
+        public string Fotograf { get; set; }
         public string Telefon { get; set; }
         public string Adres { get; set; }
+        public string Il { get; set; }
+        public string Ilce { get; set; }
+        public string Sokak { get; set; }
         public int Rol { get; set; }
     }
 }
