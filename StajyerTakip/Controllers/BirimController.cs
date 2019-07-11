@@ -22,7 +22,7 @@ namespace StajyerTakip.Controllers
         }
         public IActionResult Ekle(Birim birim)
         {
-           
+           //Yorum satırı bura düzeltilecek.
             db.SaveChanges();
             return RedirectToAction("Ekle");
 
