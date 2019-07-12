@@ -11,7 +11,7 @@ namespace StajyerTakip.Models
         public int OgrenciID { get; set; }
 
         public string Baslik { get; set; }
-        public string Bilgiler { get; set; }
+        public string Bilgiler { get; set; } //TODO : icerik seklinde degistirilecek ve gunluk ekle ona gore duzenlenecek
         public Boolean OnayDurumu { get; set; }
         public DateTime Tarih { get; set; }
 

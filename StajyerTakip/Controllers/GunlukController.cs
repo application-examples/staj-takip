@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace StajyerTakip.Controllers
 {
-    public class Birim : Controller
+    public class GunlukController : Controller
     {
         private readonly Context db;
-        public Birim (Context db)
+        public GunlukController(Context db)
         {
             this.db = db;
         }
@@ -20,14 +20,14 @@ namespace StajyerTakip.Controllers
         {
             return View();
         }
-
         [HttpPost]
-        public IActionResult Ekle(Models.Birim birim)
+        public IActionResult Ekle(Models.Gunluk gunluk)
         {
-           
-            db.Birimler.Add(birim);
+            gunluk.OgrenciID = 1;
+            db.Gunlukler.Add(gunluk);
             db.SaveChanges();
             return RedirectToAction("Ekle");
+
 
         }
     }
