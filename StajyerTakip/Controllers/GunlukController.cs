@@ -30,5 +30,27 @@ namespace StajyerTakip.Controllers
 
 
         }
+        public IActionResult Duzenle(int id )
+        {
+            Models.Gunluk gunluk = db.Gunlukler.ToList().Find(x => x.ID == id);
+
+
+            return View(gunluk);
+
+        }
+        [HttpPost]
+        public IActionResult Duzenle(Models.Gunluk gunluk, int id)
+        {
+            Models.Gunluk anaveri = db.Gunlukler.Find(id);
+
+            anaveri.Baslik = gunluk.Baslik;
+            anaveri.Bilgiler = gunluk.Bilgiler;
+            anaveri.Tarih = gunluk.Tarih;
+            
+
+
+            db.SaveChanges();
+            return Redirect("~/Home/Index");
+        }
     }
 }

@@ -33,6 +33,47 @@ namespace StajyerTakip.Controllers
             db.SaveChanges();
             return RedirectToAction("Ekle");
         }
+       
+
+         public IActionResult Duzenle(int id)
+        {
+            Moderator moderator = db.Moderatorler.ToList().Find(x => x.ID == id);
+            Profil profil = db.Hesaplar.ToList().Find(x => x.ID == moderator.ProfilID);
+            moderator.Profil = profil;
+            return View(moderator);
+        }
+       
+        [HttpPost]
+         
+        public IActionResult Duzenle(Moderator moderator, int id)
+        {
+            Moderator anaveri = db.Moderatorler.Find(id);
+            Profil profil = db.Hesaplar.ToList().Find(x => x.ID == moderator.ProfilID);
+
+            anaveri.Profil.Ad = moderator.Profil.Ad;
+            anaveri.Profil.Soyad = moderator.Profil.Soyad;
+            anaveri.Profil.KullaniciAdi = moderator.Profil.KullaniciAdi;
+            anaveri.Profil.Sifre = moderator.Profil.Sifre;
+            anaveri.Profil.Email = moderator.Profil.Email;
+            anaveri.Profil.Telefon = moderator.Profil.Telefon;
+            anaveri.Unvan = moderator.Unvan;
+            anaveri.Profil.Adres = moderator.Profil.Adres;
+            anaveri.Profil.Il = moderator.Profil.Il;
+            anaveri.Profil.Ilce = moderator.Profil.Ilce;
+            anaveri.Profil.Sokak = moderator.Profil.Sokak;
+            anaveri.Profil.Rol = moderator.Profil.Rol;
+
+
+            db.SaveChanges();
+
+
+            return View();
+
+
+
+
+
+        }
 
 
     }

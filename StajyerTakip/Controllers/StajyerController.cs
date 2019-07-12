@@ -31,5 +31,41 @@ namespace StajyerTakip.Controllers
             return RedirectToAction("Ekle");
 
         }
+
+        public IActionResult Duzenle(int id)
+        {
+            Stajyer stajyer = db.Stajyerler.ToList().Find(x=>x.ID == id);
+            Profil profil = db.Hesaplar.ToList().Find(x => x.ID == stajyer.ProfilID);
+            stajyer.Profil = profil;
+            return View(stajyer);
+        }
+
+        [HttpPost]
+        public IActionResult Duzenle(Stajyer stajyer,int id)
+        {
+            Stajyer anaveri = db.Stajyerler.Find(id);
+            anaveri.Profil = db.Hesaplar.ToList().Find(x => x.ID == stajyer.ProfilID);
+
+
+            
+           
+            anaveri.Profil.Ad = stajyer.Profil.Ad;
+            anaveri.Profil.Soyad = stajyer.Profil.Soyad;
+            anaveri.Profil.KullaniciAdi = stajyer.Profil.KullaniciAdi;
+            anaveri.Profil.Sifre = stajyer.Profil.Sifre;
+            anaveri.Profil.Email = stajyer.Profil.Email;
+            anaveri.Profil.Telefon = stajyer.Profil.Telefon;
+            anaveri.Okul = stajyer.Okul;
+            anaveri.Bolum = stajyer.Bolum;
+            anaveri.Profil.Adres = stajyer.Profil.Adres;
+            anaveri.Profil.Il = stajyer.Profil.Il;
+            anaveri.Profil.Ilce = stajyer.Profil.Ilce;
+            anaveri.Profil.Sokak = stajyer.Profil.Sokak;
+            anaveri.Profil.Rol = stajyer.Profil.Rol;
+            db.SaveChanges();
+
+            return View();
+
+        }
     }
 }

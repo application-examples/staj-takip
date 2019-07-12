@@ -1,0 +1,87 @@
+﻿@model Stajyer
+@{
+    ViewData["Title"] = "Duzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Öğrenci Bilgileri</h4>
+
+
+
+            <form class="forms-sample" method="post">
+                <div class="form-group">
+                    <label for="ad">Ad</label>
+                    <input type="text" class="form-control" id="ad" name="Profil.Ad" placeholder="Ad" value="@Model.Profil.Ad">
+                </div>
+                <div class="form-group">
+                    <label for="soyad">Soyad</label>
+                    <input type="text" class="form-control" id="soyad" name="Profil.Soyad" placeholder="Soyad" value="@Model.Profil.Soyad">
+                </div>
+                <div class="form-group">
+                    <label for="kullaniciadi">Kullanıcı Adı</label>
+                    <input type="text" class="form-control" id="kullaniciadi" name="Profil.KullaniciAdi " placeholder="Kullancı Adı" value="@Model.Profil.KullaniciAdi">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Adres</label>
+                    <input type="email" class="form-control" id="email" name="Profil.Email" placeholder="Email" value="@Model.Profil.Email">
+                </div>
+                <div class="form-group">
+                    <label for="sifre">Şifre</label>
+                    <input type="password" class="form-control" id="sifre" name="Profil.Sifre" placeholder="Şifre" value="@Model.Profil.Sifre">
+                </div>
+                <div class="form-group">
+                    <label for="telefonnumarasi">Telefon Numarası:</label>
+                    <input type="text" class="form-control bfh-phone" data-format="+1 (ddd) ddd-dddd" name="Profil.Telefon" placeholder="Telefon Numarası" value="@Model.Profil.Telefon">
+                </div>
+                <div class="form-group">
+                    <label for="okul">Okulu:</label>
+                    <input type="text" class="form-control" id="okul" name="Okul" placeholder="Okul" value="@Model.Okul">
+                </div>
+
+                <div class="form-group">
+                    <label for="bolum">Bölümü:</label>
+                    <input type="text" class="form-control" id="bolum" name="Bolum" placeholder="Bölüm" value="@Model.Bolum">
+                </div>
+
+                <div class="form-group">
+                    <label for="adres">Adres</label>
+                    <input type="text" class="form-control" id="adres" name="Profil.Adres" placeholder="Adres" value="@Model.Profil.Adres">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-sm-4">
+                        <label for="il">İl</label>
+                        <input type="text" class="form-control" id="il" name="Profil.Il" placeholder="İl" value="@Model.Profil.Il">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="ilce">İlçe</label>
+                        <input type="text" class="form-control" id="ilce" name="Profil.Ilce" placeholder="İlçe" value="@Model.Profil.Ilce">
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="sokak">Sokak</label>
+                        <input type="text" class="form-control" id="sokak" name="Profil.Sokak" placeholder="Sokak" value="@Model.Profil.Sokak">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Fotoğraf</label>
+                    <input type="file" name="img[]" class="file-upload-default">
+                    <div class="input-group col-xs-12">
+                        <input type="text" class="form-control file-upload-info" name="Profil.Fotograf" disabled placeholder="Fotoğraf Yükle" value="@Model.Profil.Fotograf">
+                        <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-success" type="button">Yükle</button>
+                        </span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success mr-2">Kaydet</button>
+                <button class="btn btn-primary">İptal</button>
+
+            </form>
+        </div>
+    </div>
+</div>

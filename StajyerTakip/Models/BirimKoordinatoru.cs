@@ -12,6 +12,7 @@ namespace StajyerTakip.Models
         public Profil Profil { get; set; }
         public int ProfilID { get; set; }
         public int BirimID { get; set; }
+        public string Unvan { get; set; }
         public Birim Birim { get; set; }
         public Moderator Moderator { get; set; }
       
