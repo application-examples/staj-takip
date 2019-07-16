@@ -1,0 +1,93 @@
+﻿@model Proje
+@{
+    ViewData["Title"] = "Duzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container">
+        <form method="post">
+
+            <div class="form-group">
+                <label for="projeadi">Proje Adı</label>
+                <input type="text" class="form-control" id="projeadi" name="Ad" value="@Model.Ad" placeholder="Proje Adı">
+            </div>
+
+            <div class="form-group">
+                <label for="projeaciklamasi">Proje Açıklaması</label>
+                <textarea class="form-control" id="projeaciklamasi" name="Icerik" value="@Model.Icerik" placeholder="Proje Açıklaması" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="kullanilacakteknolojiler">Kullanılacak Teknolojiler:</label>
+                <select multiple class="form-control" id="kullanilacakteknolojiler" name="KullanilacakTeknolojiler" value="@Model.KullanilanTeknolojiler">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="tarih">Proje Başlangıç: </label>
+                        <div class="form-group">
+                            <div class='input-group date' id='tarih' name="Baslangic" value="@Model.Baslangic" >
+                                <input type='date' class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label for="tarih">Proje Bitiş: </label>
+                        <div class="form-group">
+                            <div class='input-group date' id='tarih' name="Bitis" value="@Model.Bitis">
+                                <input type='date' class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <label for="projetakimi">Proje Takımı:</label>
+                <select class="form-control" id="projetakimi">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="projetakimi2">Proje Takımı Çoklu Seçim:</label>
+                <select multiple class="form-control" id="projetakimi2">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="url">Proje Bağlantısı</label>
+                <input type="url" class="form-control" id="url" placeholder="url">
+            </div>
+
+            <button type="submit" class="btn btn-success">Kaydet</button>
+
+        </form>
+
+    </div>

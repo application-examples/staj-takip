@@ -22,8 +22,8 @@ namespace StajyerTakip
         public DbSet<Profil> Hesaplar { get; set; }
         public DbSet<Moderator> Moderatorler { get; set; }
         public DbSet<Birim> Birimler { get; set; }
-
-
+        public DbSet<Proje> Projeler { get; set; }
+        public DbSet<StajyerProje> StajyerProjeler { get; internal set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

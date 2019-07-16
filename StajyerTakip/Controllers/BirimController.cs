@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace StajyerTakip.Controllers
 {
-    public class Birim : Controller
+    public class BirimController : Controller
     {
         private readonly Context db;
-        public Birim (Context db)
+        public BirimController (Context db)
         {
             this.db = db;
         }
