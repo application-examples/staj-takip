@@ -27,6 +27,7 @@ namespace StajyerTakip.Controllers
         {
             db.Hesaplar.Add(stajyer.Profil);
             db.Stajyerler.Add(stajyer);
+            stajyer.ModeratorID = 1;
             db.SaveChanges();
             return RedirectToAction("Ekle");
 
@@ -66,6 +67,22 @@ namespace StajyerTakip.Controllers
 
             return View();
 
+        }
+
+        public IActionResult Sil(int id)
+        {
+            Stajyer stajyer = db.Stajyerler.Find(id);
+            stajyer.Profil = db.Hesaplar.Find(stajyer.ProfilID);
+            return View(stajyer);
+        }
+
+        [ActionName("Sil"), HttpPost]
+        public IActionResult Silme(int id)
+        {
+            Stajyer stajyer = db.Stajyerler.Find(id);
+            db.Hesaplar.Remove(db.Hesaplar.Find(stajyer.ProfilID));
+            db.SaveChanges();
+            return Redirect("~/Home/Index");
         }
     }
 }

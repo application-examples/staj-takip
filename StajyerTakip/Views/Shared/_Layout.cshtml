@@ -13,6 +13,7 @@
 
     <!-- CSS Importlari Başlangıç-->
     <link rel="stylesheet" href="~/css/style.css" /> <!-- Style Css Özelleştirilmiş Bootstrap CSS-->
+    <link rel="stylesheet" href="~/css/custom.css" />
     <link rel="stylesheet" href="~/css/vendor.bundle.base.css" />
     <link rel="stylesheet" href="~/css/vendor.bundle.addons.css" />
     <link rel="stylesheet" href="~/css/mdi/css/materialdesignicons.css" />
@@ -26,14 +27,14 @@
     <div class="container-scroller">
         <!-- Navbar Render -->
         @{
-            await Html.RenderPartialAsync("_Navbar");
+           // await Html.RenderPartialAsync("_Navbar");
         }
         <!-- Navbar Render Bitiş -->
         <!-- Sayfa Body -->
         <div class="container-fluid page-body-wrapper">
             <!-- Sidebar Render -->
             @{
-                await Html.RenderPartialAsync("_Sidebar");
+                await Html.RenderPartialAsync("_Sidebar1");
             }
             <!-- Sidebar Render Bitiş-->
             <!-- Main Panel -->

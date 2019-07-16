@@ -1,0 +1,44 @@
+﻿@model BirimKoordinatoru
+@{
+    ViewData["Title"] = "Sil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card border-right ">
+    <div class="card-header bg-danger text-white"><h3 class="card-header card-header-pills text-center">Gerçekten silmek istiyor musunuz?</h3></div>
+</div>
+<div class="card-body px-0 py-0 bg-white">
+    <div class="table-responsive">
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <th class="border-right">Ad</th>
+                    <th>@Model.Profil.Ad</th>
+                </tr>
+                <tr>
+                    <th class="border-right">Soyad</th>
+                    <th class="">@Model.Profil.Soyad</th>
+                </tr>
+                <tr>
+                    <th class="border-right">Birim</th>
+                    <th>@Model.Birim.Ad</th>
+                </tr>
+                <tr>
+                    <th class="border-right">Unvan</th>
+                    <th>@Model.Unvan</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div class="text-center mt-1 p-2 bg-white">
+    <form method="post">
+        <div class="btn-group">
+            <button type="submit" class="btn btn-danger text-white">Evet onaylıyorum, sil</button>
+            <a class="btn btn-info text-white">Geri dön</a>
+        </div>
+    </form>
+
+</div>

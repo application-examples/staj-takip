@@ -75,6 +75,14 @@ namespace StajyerTakip.Controllers
 
         }
 
+        public IActionResult Sil(int id)
+        {
+            Moderator moderator = db.Moderatorler.Find(id);
+            moderator.Profil = db.Hesaplar.Find(moderator.ProfilID);
+
+            return View(moderator);
+        }
+
 
     }
 }

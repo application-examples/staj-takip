@@ -69,6 +69,25 @@ namespace StajyerTakip.Controllers
             return Redirect("~/Home/Index");
         }
 
+        public IActionResult Sil(int id)
+        {
+            //Niyazi
+            BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Find(id);
+            koordinator.Profil = db.Hesaplar.Find(koordinator.ProfilID);
+            koordinator.Birim = db.Birimler.Find(koordinator.BirimID);
+            return View(koordinator);
+        }
+
+        [ActionName("Sil"), HttpPost]
+
+        public ActionResult Silme(int id)
+        {
+            BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Find(id);
+            db.Hesaplar.Remove(db.Hesaplar.Find(koordinator.ProfilID));
+            db.SaveChanges();
+            return Redirect("~/Home/Index");
+        }
+
     }
 
 

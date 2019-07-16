@@ -14191,15 +14191,15 @@ html {
   overflow: auto !important; }
 
 .page-body-wrapper {
-  min-height: calc(100vh - 63px);
+  min-height: 100vh;
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
   padding-left: 0;
   padding-right: 0; }
-  .page-body-wrapper:not(.auth-page) {
-    padding-top: 63px; }
+    .page-body-wrapper:not(.auth-page) {
+    }
   .page-body-wrapper.full-page-wrapper {
     width: 100%;
     min-height: 100vh; }
@@ -14207,7 +14207,7 @@ html {
 .main-panel {
   transition: width 0.25s ease, margin 0.25s ease;
   width: calc(100% - 255px);
-  min-height: calc(100vh - 63px);
+  min-height: 100vh;
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: column;
