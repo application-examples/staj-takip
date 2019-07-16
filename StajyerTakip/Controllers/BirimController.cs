@@ -30,5 +30,25 @@ namespace StajyerTakip.Controllers
             return RedirectToAction("Ekle");
 
         }
+
+        public IActionResult Duzenle(int id)
+        {
+            Models.Birim birim = db.Birimler.ToList().Find(x => x.ID == id);
+
+
+            return View(birim);
+        }
+
+        [HttpPost]
+        public IActionResult Duzenle (Models.Birim birim, int id)
+        {
+            Models.Birim anaveri = db.Birimler.Find(id);
+
+            anaveri.Aciklama = birim.Aciklama;
+            anaveri.Ad = birim.Ad;
+
+            db.SaveChanges();
+            return Redirect("~/Home/Index");
+        }
     }
 }

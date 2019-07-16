@@ -30,12 +30,45 @@ namespace StajyerTakip.Controllers
             birimkoordinatoru.BirimID = 1;
             birimkoordinatoru.ModeratorID = 1;
             db.Hesaplar.Add(birimkoordinatoru.Profil);
-            db.Birim.Add(birimkoordinatoru);
+            db.BirimKoordinatorleri.Add(birimkoordinatoru);
             db.SaveChanges();
             return RedirectToAction("Ekle");
 
 
         }
+        public IActionResult Duzenle(int id)
+        {
+            BirimKoordinatoru birimkoordinatoru = db.BirimKoordinatorleri.ToList().Find(x => x.ID == x.ProfilID);
+            Profil profil = db.Hesaplar.ToList().Find(x => x.ID == birimkoordinatoru.ProfilID);
+            birimkoordinatoru.Profil = profil;
+            return View(birimkoordinatoru);
+        }
+         
+        [HttpPost]
+
+        public IActionResult Duzenle(BirimKoordinatoru birimkoordinatoru, int id)
+        {
+            BirimKoordinatoru anaveri = db.BirimKoordinatorleri.Find(id);
+            Profil profil = db.Hesaplar.ToList().Find(x => x.ID == birimkoordinatoru.ProfilID);
+
+
+            anaveri.Profil.Ad = birimkoordinatoru.Profil.Ad;
+            anaveri.Profil.Soyad = birimkoordinatoru.Profil.Soyad;
+            anaveri.Profil.KullaniciAdi = birimkoordinatoru.Profil.KullaniciAdi;
+            anaveri.Profil.Sifre = birimkoordinatoru.Profil.Sifre;
+            anaveri.Profil.Email = birimkoordinatoru.Profil.Email;
+            anaveri.Profil.Telefon = birimkoordinatoru.Profil.Telefon;
+            anaveri.Unvan = birimkoordinatoru.Unvan;
+            anaveri.Profil.Adres = birimkoordinatoru.Profil.Adres;
+            anaveri.Profil.Il = birimkoordinatoru.Profil.Il;
+            anaveri.Profil.Ilce = birimkoordinatoru.Profil.Ilce;
+            anaveri.Profil.Sokak = birimkoordinatoru.Profil.Sokak;
+            anaveri.Profil.Rol = birimkoordinatoru.Profil.Rol;
+
+            db.SaveChanges();
+            return Redirect("~/Home/Index");
+        }
+
     }
 
 
