@@ -71,9 +71,8 @@ namespace StajyerTakip.Controllers
 
 
 
-
-
         }
+        
 
         public IActionResult Sil(int id)
         {
