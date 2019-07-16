@@ -1,0 +1,81 @@
+﻿@model  List<Stajyer>
+@{
+    ViewData["Title"] = "Listele";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Stajyer Bilgileri</h4>
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Fotoğraf
+                                </th>
+                                <th>
+                                    Adı Soyadı
+                                </th>
+                                <th>
+                                    Projeler
+                                </th>
+                                <th>
+                                    Günlükler
+                                </th>
+                                <th>
+                                    Devamsızlık
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var i in Model)
+                                {
+                                    <tr>
+                                        <td class="py-1">
+                                            <img src="../../images/faces-clipart/pic-1.png" alt="image" />
+                                        </td>
+                                        <td>
+                                            @i.Profil.Ad @i.Profil.Soyad
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+
+                                                <select class="form-control" id="projetakimi">
+                                                   <option>1</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="~/Gunluk/Listele/@i.ID" class="btn btn-sm btn-success">Görüntüle</a>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="~/" class="btn btn-success">Görüntüle</a>
+                                                <a href="~/Stajyer/Duzenle/@i.ID" class="btn btn-primary">Düzenle</a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-success">Kaydet</button>
+                                                <button type="button" class="btn btn-danger">Sil</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+

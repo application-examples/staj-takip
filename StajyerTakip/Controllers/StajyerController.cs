@@ -34,21 +34,21 @@ namespace StajyerTakip.Controllers
 
         public IActionResult Duzenle(int id)
         {
-            Stajyer stajyer = db.Stajyerler.ToList().Find(x=>x.ID == id);
+            Stajyer stajyer = db.Stajyerler.ToList().Find(x => x.ID == id);
             Profil profil = db.Hesaplar.ToList().Find(x => x.ID == stajyer.ProfilID);
             stajyer.Profil = profil;
             return View(stajyer);
         }
 
         [HttpPost]
-        public IActionResult Duzenle(Stajyer stajyer,int id)
+        public IActionResult Duzenle(Stajyer stajyer, int id)
         {
             Stajyer anaveri = db.Stajyerler.Find(id);
             anaveri.Profil = db.Hesaplar.ToList().Find(x => x.ID == stajyer.ProfilID);
 
 
-            
-           
+
+
             anaveri.Profil.Ad = stajyer.Profil.Ad;
             anaveri.Profil.Soyad = stajyer.Profil.Soyad;
             anaveri.Profil.KullaniciAdi = stajyer.Profil.KullaniciAdi;
@@ -66,6 +66,18 @@ namespace StajyerTakip.Controllers
 
             return View();
 
+        }
+
+        public ActionResult Listele()
+        {
+            List<Stajyer> stajyerler = db.Stajyerler.ToList();
+            List<Profil> hesaplar = db.Hesaplar.ToList();
+
+            foreach (var i in stajyerler)
+            {
+                i.Profil = hesaplar.Find(x => x.ID == i.ProfilID);
+            }
+            return View(stajyerler);
         }
     }
 }
