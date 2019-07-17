@@ -19,6 +19,6 @@ namespace StajyerTakip.Models
         public List<StajyerBirimK> Stajyerler { get; set; }
         public List<Gunluk> Gunlukler { get; set; }
         public List<ProjeBirim> Projeler { get; set; }
-        public List<Devamsizlik> Devamsizliklar { get; set; }
+        
     }
 }
