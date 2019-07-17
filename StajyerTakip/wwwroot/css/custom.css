@@ -2,10 +2,12 @@
     background-color: #303442 !important;
 }
 
-    .bg-dark-custom .nav-link {
+ .bg-dark-custom .nav-link {
         color: #fff !important;
+        display: block;
+        padding: 0.5rem 1rem;
     }
 
-        .bg-dark-custom .nav-link:hover {
+ .bg-dark-custom .nav-link:hover {
             background-color: #808080 !important;
         }

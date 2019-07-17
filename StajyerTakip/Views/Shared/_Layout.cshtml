@@ -26,20 +26,26 @@
     <!-- Ana Container -->
     <div class="container-scroller">
         <!-- Navbar Render -->
-        @{
-           // await Html.RenderPartialAsync("_Navbar");
-        }
         <!-- Navbar Render Bitiş -->
         <!-- Sayfa Body -->
+        
         <div class="container-fluid page-body-wrapper">
+
             <!-- Sidebar Render -->
             @{
                 await Html.RenderPartialAsync("_Sidebar1");
             }
+
+
             <!-- Sidebar Render Bitiş-->
             <!-- Main Panel -->
+            
             <div class="main-panel">
-                <div class="content-wrapper btn-">
+                @{
+                    await Html.RenderPartialAsync("_Navbar1");
+                }
+                <div class="content-wrapper">
+
                     <!-- Controllerdan gelen view -->
                     @RenderBody()
                     <!-- Controllerdan gelen view bitiş-->
