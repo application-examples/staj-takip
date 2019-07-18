@@ -27,8 +27,6 @@ namespace StajyerTakip.Controllers
         [HttpPost]
         public IActionResult Ekle(BirimKoordinatoru birimkoordinatoru)
         {
-            birimkoordinatoru.BirimID = 1;
-            birimkoordinatoru.ModeratorID = 1;
             db.Hesaplar.Add(birimkoordinatoru.Profil);
             db.BirimKoordinatorleri.Add(birimkoordinatoru);
             db.SaveChanges();
@@ -74,7 +72,6 @@ namespace StajyerTakip.Controllers
             //Niyazi
             BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Find(id);
             koordinator.Profil = db.Hesaplar.Find(koordinator.ProfilID);
-            koordinator.Birim = db.Birimler.Find(koordinator.BirimID);
             return View(koordinator);
         }
 

@@ -28,18 +28,15 @@
         <!-- Navbar Render -->
         <!-- Navbar Render Bitiş -->
         <!-- Sayfa Body -->
-        
+        @{
+            await Html.RenderPartialAsync("_Sidebar1");
+        }
         <div class="container-fluid page-body-wrapper">
 
             <!-- Sidebar Render -->
-            @{
-                await Html.RenderPartialAsync("_Sidebar1");
-            }
-
-
             <!-- Sidebar Render Bitiş-->
             <!-- Main Panel -->
-            
+
             <div class="main-panel">
                 @{
                     await Html.RenderPartialAsync("_Navbar1");
@@ -61,6 +58,11 @@
         <!-- Sayfa Body Bitiş -->
     </div>
     <!-- Ana Container Bitiş-->
+    <script src="~/vendors/js/vendor.bundle.base.js"></script>
+    <script src="~/vendors/js/vendor.bundle.addons.js"></script>
+    <script src="~/js/off-canvas.js"></script>
+    <script src="~/js/misc.js"></script>
+    <script src="~/js/dashboard.js"></script>
 </body>
 
 </html>

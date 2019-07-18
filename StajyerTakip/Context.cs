@@ -50,11 +50,13 @@ namespace StajyerTakip
 
             //StajyerBirim
             modelBuilder.Entity<StajyerBirimK>().HasKey(bc => new { bc.StajyerID, bc.BirimKID });
-            modelBuilder.Entity<StajyerBirimK>().HasOne(bc => bc.Stajyer).WithMany(b => b.BirimKoordinatorleri).HasForeignKey(bc => bc.StajyerID).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<StajyerBirimK>().HasOne(bc => bc.BirimK).WithMany(b => b.Stajyerler).HasForeignKey(bc => bc.BirimKID).OnDelete(DeleteBehavior.Restrict);
 
 
             //End
+
+            modelBuilder.Entity<BirimveKoordinator>().HasKey(bc=>new {bc.BirimID, bc.BirimKoordinatoruID });
+            modelBuilder.Entity<BirimveKoordinator>().HasOne(bc=>bc.BirimKoordinatoru).WithMany(b=>b.Birimler).HasForeignKey(bc=>bc.BirimKoordinatoruID);
 
         }
     }
