@@ -27,7 +27,6 @@ namespace StajyerTakip.Controllers
         {
             db.Hesaplar.Add(stajyer.Profil);
             db.Stajyerler.Add(stajyer);
-            stajyer.ModeratorID = 1;
             db.SaveChanges();
             return RedirectToAction("Ekle");
 

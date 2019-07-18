@@ -12,7 +12,5 @@ namespace StajyerTakip.Models
         public int ProfilID { get; set; }
         public string Unvan { get; set; }
 
-        public List<Stajyer> Stajyerler { get; set; }
-        public List<BirimKoordinatoru> BirimKoordinatorleri { get; set; }
     }
 }

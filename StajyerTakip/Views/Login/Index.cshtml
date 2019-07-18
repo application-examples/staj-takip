@@ -25,32 +25,26 @@
     </style>
 </head>
 
+}
 <body class="text-center">
-    <form class="form-signin" method="post">
-        <div class="text-center ">
-            <img class="card-img-top" src="~/images/akdeniz-logo.png" alt="">
-        </div>
-        <h1 class="h3 mb-3 font-weight-normal text-muted">Lütfen Giriş Yapın</h1>
-        <label for="inputEmail" class="sr-only">Mail Adresi</label>
-        <input type="email" id="inputEmail" class="form-control" name="KullaniciAdi" placeholder="Mail Adresi veya Kullanıcı Adı" required autofocus>
-        <label for="inputPassword" class="sr-only">Şifre</label>
-        <input type="password" id="inputPassword" class="form-control" name="Sifre" placeholder="Şifre" required>
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me"> Beni Hatırla
-            </label>
-            @{
-                if (ViewData["Mesaj"].ToString() != "")
-                {
-                    
-                    <div class="alert alert-danger">@ViewData["Mesaj"].ToString()</div>
-                }
+        <form class="form-signin" method="post">
+            <div class="text-center ">
+                <img class="card-img-top" src="~/images/akdeniz-logo.png" alt="">
+            </div>
+            <h1 class="h3 mb-3 font-weight-normal text-muted">Lütfen Giriş Yapın</h1>
+            <label for="inputEmail" class="sr-only">Mail Adresi</label>
+            <input type="text" id="inputEmail" class="form-control" name="KullaniciAdi" placeholder="Mail Adresi veya Kullanıcı Adı" required autofocus>
+            <label for="inputPassword" class="sr-only">Şifre</label>
+            <input type="password" id="inputPassword" class="form-control" name="Sifre" placeholder="Şifre" required>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Beni Hatırla
+                </label>
 
-            }
-        </div>
-        <button class="btn btn-lg btn-block text-white btn-orange" style="" type="submit">Giriş yap</button>
-      
-        <p class="mt-5 mb-3 text-muted">Bilgisayar Bilimleri Araştırma ve Uygulama Merkezi&copy; 2019</p>
-    </form>
-</body>
+            </div>
+            <button class="btn btn-lg btn-block text-white btn-orange" style="" type="submit">Giriş yap</button>
+
+            <p class="mt-5 mb-3 text-muted">Bilgisayar Bilimleri Araştırma ve Uygulama Merkezi&copy; 2019</p>
+        </form>
+    </body>
 </html>

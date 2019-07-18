@@ -9,6 +9,14 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190711142819_s.cs" />
     <Compile Remove="Migrations\20190711142819_s.Designer.cs" />
+    <Compile Remove="Migrations\20190711143844_s.cs" />
+    <Compile Remove="Migrations\20190711143844_s.Designer.cs" />
+    <Compile Remove="Migrations\20190718104811_init.cs" />
+    <Compile Remove="Migrations\20190718104811_init.Designer.cs" />
+    <Compile Remove="Migrations\20190718112304_init.cs" />
+    <Compile Remove="Migrations\20190718112304_init.Designer.cs" />
+    <Compile Remove="Migrations\20190718112712_init.cs" />
+    <Compile Remove="Migrations\20190718112712_init.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

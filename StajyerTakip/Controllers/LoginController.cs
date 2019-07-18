@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StajyerTakip.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace StajyerTakip.Controllers
 {
@@ -15,28 +17,28 @@ namespace StajyerTakip.Controllers
         {
             this.db = db;
         }
-        private bool durum = false;
         public IActionResult Index()
         {
-            //Login indexe yönlendir.
-            if(!durum)
-                ViewData["Mesaj"] = "";
-
-            return View();
+            if (HttpContext.Session.GetString("kadi") != null)
+            {
+                return Redirect("~/Home/Index");
+            }
+                return View();
         }
 
         [HttpPost]
-
         public IActionResult Index(Profil hesap)
         {
-            if (db.Hesaplar.ToList().Find(x => (x.Email == hesap.KullaniciAdi || x.KullaniciAdi == hesap.KullaniciAdi) && x.Sifre == hesap.Sifre) == null)
+            var hesap1 = db.Hesaplar.ToList().Find(x => (x.Email == hesap.KullaniciAdi || x.KullaniciAdi == hesap.KullaniciAdi) && x.Sifre == hesap.Sifre);
+            if (hesap1 == null)
             {
-                durum = true;
                 ViewData["Mesaj"] = "Kullanıcı adı ve/veya şifre hatalı.";
                 return RedirectToAction("Index");
 
             }
-
+            HttpContext.Session.SetString("kadi", hesap1.KullaniciAdi);
+            HttpContext.Session.SetInt32("profilid", hesap1.ID);
+            HttpContext.Session.SetInt32("yetki", hesap1.Rol);
             return Redirect("~/Home/Index");
 
         }
