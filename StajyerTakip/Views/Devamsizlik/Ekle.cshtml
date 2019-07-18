@@ -1,0 +1,71 @@
+﻿@model Stajyer
+@{
+    ViewData["Title"] = "Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <form method="post">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="container">
+
+
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Fotoğraf
+                                        </th>
+                                        <th>
+                                            Ad Soyad
+                                        </th>
+                                        <th>
+                                            Tarih
+                                        </th>
+                                        <th>
+
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="py-1">
+                                            <img src="../../images/faces-clipart/pic-3.png" alt="image" />
+                                        </td>
+                                        <td name="">
+                                            @Model.Profil.Ad
+                                        </td>
+                                        <td>
+                                            <div class='form-group col-sm-6 '>
+
+
+                                                <div class='input-group date' id='datetimepicker5'>
+                                                    <input type='date' class="form-control" name="Tarih" />
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn btn-sm btn-success">Kaydet</button>
+
+                                        </td>
+
+                                    </tr>
+                                    <tr></tr>
+                                    <tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+

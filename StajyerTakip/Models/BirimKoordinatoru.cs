@@ -14,6 +14,10 @@ namespace StajyerTakip.Models
       
         public List<StajyerBirimK> Stajyerler { get; set; }
         public List<ProjeBirim> Projeler { get; set; }
+<<<<<<< HEAD
         public List<BirimveKoordinator> Birimler { get; set; }
+=======
+        
+>>>>>>> 1d209fbdfc46243f40f5f1396d313f24570ef17a
     }
 }
