@@ -1,0 +1,51 @@
+﻿@model List<Gunluk>
+@{
+    ViewData["Title"] = "Goruntule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+
+    <form>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="form-group col-sm-8">
+                    <label for="baslik">Başlık: </label>
+                    <input type="text" class="form-control" id="baslik" name="baslik" disabled>
+                    
+                </div>
+
+
+                <div class="form-group col-sm-4">
+                    <label for="tarih">Tarih: </label>
+                    <div class="form-group">
+                        <div class='input-group date' id='tarih'>
+                            <input type='date' class="form-control" disabled />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="icerik">İçerik: </label>
+            <textarea class="form-control" id="icerik" disabled></textarea>
+        </div>
+
+
+        <button type="submit" class="btn btn-success mr-2">Onayla</button>
+        <button class="btn btn-danger">Reddet</button>
+
+        <a class="nav-link" href="#">Link</a>
+
+
+    </form>
+
+</div>

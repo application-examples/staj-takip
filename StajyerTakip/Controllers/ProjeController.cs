@@ -80,6 +80,16 @@ namespace StajyerTakip.Controllers
 
         }
 
+        public IActionResult Goruntule(int id)
+        {
+            List<Proje> projeler = db.Projeler.ToList().FindAll(x => x.ID == id);
+            
+
+            return View(projeler);
+        }
+
+      
+
     }
 
 
