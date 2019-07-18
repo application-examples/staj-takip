@@ -18,7 +18,6 @@ namespace StajyerTakip.Controllers
         }
         public IActionResult Index()
         {
-
             if (HttpContext.Session.GetString("kadi") == null)
                 return Redirect("~/Login/Index");
             List<Profil> hesaplar = db.Hesaplar.ToList();

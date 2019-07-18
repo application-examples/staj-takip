@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StajyerTakip.Models;
 
@@ -18,6 +19,8 @@ namespace StajyerTakip.Controllers
         }
         public IActionResult Ekle()
         {
+            if (HttpContext.Session.GetString("kadi") == null)
+                return Redirect("~/Login/Index");
             return View();
         }
 
