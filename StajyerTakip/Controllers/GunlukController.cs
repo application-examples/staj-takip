@@ -61,5 +61,11 @@ namespace StajyerTakip.Controllers
             
             return View(gunlukler);
         }
+        public IActionResult Goruntule(int id)
+        {
+            List<Gunluk> gunlukler = db.Gunlukler.ToList().FindAll(x => x.OgrenciID == id);
+            
+            return View(gunlukler);
+        }
     }
 }

@@ -96,5 +96,7 @@ namespace StajyerTakip.Controllers
             return View(stajyerler);
 
         }
+
+       
     }
 }
