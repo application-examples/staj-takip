@@ -1,16 +1,19 @@
-﻿
-
+﻿@using Microsoft.AspNetCore.Http
 <style>
-    .sidebar1{
-        width:255px;
-        border-right:1px dotted #808080;
-        
-        height:calc(100vh);
-        padding:0;
+    .sidebar1 {
+        width: 255px;
+        border-right: 1px dotted #808080;
+        height: calc(100vh);
+        padding: 0;
     }
 </style>
-
-<nav class="sidebar bg-dark-custom navbar-dark text-white" style="position:fixed;">
+@{
+    var yetki = Context.Session.GetInt32("yetki");
+    var profilid = Context.Session.GetInt32("profilid");
+    var kadi = Context.Session.GetString("kadi");
+    var id = Context.Session.GetInt32("id");
+}
+<nav class="sidebar sidebar-offcanvas bg-dark-custom navbar-dark text-white" style="position:fixed;" data-toggle="collapse" id="sidebar">
     <ul class="nav">
         <li class="nav-item nav-profile mx-auto">
             <img class="mt-3" src="~/images/akdeniz-logo.png" width="200em;" />
@@ -23,12 +26,24 @@
             </a>
             <div class="collapse" id="stajyermenu" style="">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Stajyer Ekle</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">Stajyerleri Yönet</a>
-                    </li>
+                    @if (yetki != 4)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Stajyer/Ekle">Ekle</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Stajyer/Listele">Yönet</a>
+                        </li>
+                    }
+                    @if (yetki == 4)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Bilgilerimi Görüntüle</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Stajyer/Duzenle/@id">Bilgilerimi Düzenle</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </li>
@@ -40,31 +55,81 @@
             </a>
             <div class="collapse" id="gunlukmenu">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Ekle</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Yönet</a>
-                    </li>
+                    @if (yetki == 4)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Gunluk/Ekle/@id">Ekle</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Gunluk/Listele/@id">Görüntüle</a>
+                        </li>
+                    }
+                    @if (yetki != 4)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Yönet</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#gunlukmenu" aria-expanded="false" aria-controls="gunlukmenu">
+            <a class="nav-link" data-toggle="collapse" href="#devamsizlikmenu" aria-expanded="false" aria-controls="devamsizlikmenu">
                 <i class="menu-icon mdi mdi-book"></i>
-                <span class="menu-title">Günlük</span>
+                <span class="menu-title">Devamsızlık</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="gunlukmenu">
+            <div class="collapse" id="devamsizlikmenu">
                 <ul class="nav flex-column sub-menu">
+                @if (yetki != 4)
+                {
                     <li class="nav-item">
                         <a class="nav-link" href="#">Ekle</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Yönet</a>
                     </li>
+                }
+                @if(yetki == 4)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Devamsizlik/Goruntule/@id">Görüntüle</a>
+                    </li>
+                }
+                </ul>
+                
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#projemenu" aria-expanded="false" aria-controls="projemenu">
+                <i class="menu-icon mdi mdi-book"></i>
+                <span class="menu-title">Proje</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="projemenu">
+                <ul class="nav flex-column sub-menu">
+                    @if (yetki != 4)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Proje/Ekle">Ekle</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Yönet</a>
+                        </li>
+                    }
+                    @if (yetki == 4)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Görüntüle</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Proje Durumu Ekle</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </li>
+        
     </ul>
 </nav>
