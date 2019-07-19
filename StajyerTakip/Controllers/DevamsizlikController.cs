@@ -12,7 +12,7 @@ namespace StajyerTakip.Controllers
     public class DevamsizlikController : Controller
     {
         private readonly Context db;
-        public DevamsizlikController (Context db)
+        public DevamsizlikController(Context db)
         {
             this.db = db;
         }
@@ -25,7 +25,7 @@ namespace StajyerTakip.Controllers
         }
 
         [HttpPost]
-        public IActionResult Ekle(int id,Models.Devamsizlik devamsizlik)
+        public IActionResult Ekle(int id, Models.Devamsizlik devamsizlik)
         {
             devamsizlik.StajyerID = id;
             devamsizlik.ID = 0;
@@ -38,13 +38,30 @@ namespace StajyerTakip.Controllers
         {
             List<Devamsizlik> veriler = db.Devamsizlik.ToList().FindAll(x => x.StajyerID == id);
             Models.Stajyer stajyer = db.Stajyerler.Find(id);
-            Models.Profil profil = db.Hesaplar.ToList().Find(x => x.ID==stajyer.ProfilID);
+            Models.Profil profil = db.Hesaplar.ToList().Find(x => x.ID == stajyer.ProfilID);
             stajyer.Profil = profil;
 
             StajyerDevamsizlik d = new StajyerDevamsizlik();
             d.Veriler = veriler;
             d.Stajyer = stajyer;
             return View(d);
+        }
+        public IActionResult Sil(int id)
+        {
+            Devamsizlik devamsizlik = db.Devamsizlik.Find(id);
+            devamsizlik.Stajyer = db.Stajyerler.Find(devamsizlik.StajyerID);
+            devamsizlik.Stajyer.Profil = db.Hesaplar.Find(devamsizlik.Stajyer.ID);
+            return View(devamsizlik);
+        }
+        [ActionName("Sil"), HttpPost]
+        public IActionResult Silme(int id)
+        {
+            Devamsizlik devamsizlik = db.Devamsizlik.Find(id);
+            db.Devamsizlik.Remove(devamsizlik);
+            db.SaveChanges();
+            return Redirect("~/Home/Index");
+
+            
         }
     }
 }

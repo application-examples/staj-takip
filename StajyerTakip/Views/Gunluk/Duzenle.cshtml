@@ -20,7 +20,7 @@
                 <label for="tarih">Tarih: </label>
                 <div class="form-group">
                     <div class='input-group date' id='tarih' name="Tarih" >
-                        <input type='date' class="form-control" disabled value="@Model.Tarih"/>
+                        <input type='date' class="form-control" disabled value="@Model.Tarih.ToString("yyyy-MM-dd")"/>
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -34,7 +34,7 @@
 
     <div class="form-group">
         <label for="icerik">İçerik: </label>
-        <textarea class="form-control" id="icerik" name="Bilgiler" placeholder="Gün içerisinde yaptıklarınızı özet olarak yazınız..."   value="@Model.Bilgiler"></textarea>
+        <textarea class="form-control" id="icerik" name="Bilgiler" placeholder="Gün içerisinde yaptıklarınızı özet olarak yazınız..." >@Model.Bilgiler</textarea>
     </div>
 
 

@@ -1,4 +1,4 @@
-﻿@model List<Gunluk>
+﻿@model Gunluk
 @{
     ViewData["Title"] = "Goruntule";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="form-group col-sm-8">
                     <label for="baslik">Başlık: </label>
-                    <input type="text" class="form-control" id="baslik" name="baslik" disabled>
+                    <input type="text" class="form-control" id="baslik" name="baslik" disabled  value="@Model.Baslik">
                     
                 </div>
 
@@ -22,7 +22,7 @@
                     <label for="tarih">Tarih: </label>
                     <div class="form-group">
                         <div class='input-group date' id='tarih'>
-                            <input type='date' class="form-control" disabled />
+                            <input type='date' class="form-control" disabled value="@Model.Tarih.ToString("yyyy-MM-dd")"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -36,7 +36,7 @@
 
         <div class="form-group">
             <label for="icerik">İçerik: </label>
-            <textarea class="form-control" id="icerik" disabled></textarea>
+            <textarea class="form-control" id="icerik" disabled>@Model.Bilgiler</textarea>
         </div>
 
 

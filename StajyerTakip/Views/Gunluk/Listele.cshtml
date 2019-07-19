@@ -26,32 +26,39 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            @{
+                                foreach (var i in Model)
+                                {
 
-                                <td>
-                                    Herman Beck
-                                </td>
-                                <td>
-                                    <div class='form-group col-sm-8 '>
+                                    <tr>
 
-                                        <div class='input-group date' id='datetimepicker5'>
-                                            <input type='date' class="form-control" />
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
-                                    </div>
+                                         <td>
 
-                                </td>
-                                <td>
-                                    <button type="submit" class="btn btn-sm btn-success">Görüntüle</button>
-                                </td>
+                                          @i.Ogrenci.Profil.Ad @i.Ogrenci.Profil.Soyad
 
-                            </tr>
-                            <tr></tr>
-                            <tr>
+                                         </td>
+                                        <td>
+                                            <div class='form-group col-sm-8 '>
 
-                        </tbody>
+                                                <div class='input-group date' id='datetimepicker5' >
+                                                    <input type='date' class="form-control"  value="@i.Tarih.ToString("yyyy-MM-dd")" />
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <a href="~/Gunluk/Goruntule/@i.ID" class="btn btn-success">Görüntüle</a>
+                                        </td>
+
+                                    </tr>
+
+                                    }
+                                }
+
+                                </tbody>
                     </table>
                 </div>
             </div>

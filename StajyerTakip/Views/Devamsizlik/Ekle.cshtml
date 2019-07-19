@@ -33,17 +33,18 @@
                                 <tbody>
                                     <tr>
                                         <td class="py-1">
-                                            <img src="../../images/faces-clipart/pic-3.png" alt="image" />
+                                            <img src="@Model.Profil.Fotograf" alt="image" />
                                         </td>
                                         <td name="">
-                                            @Model.Profil.Ad
+                                            @Model.Profil.Ad @Model.Profil.Soyad
                                         </td>
                                         <td>
-                                            <div class='form-group col-sm-6 '>
+                                            <div class='form-group col-sm-8 '>
 
 
-                                                <div class='input-group date' id='datetimepicker5'>
-                                                    <input type='date' class="form-control" name="Tarih" />
+                                                <div class="input-group date" id="datetimepicker5">
+                                                    <input type="date" class="form-control" name="Tarih" />
+                                                   
                                                     <span class="input-group-addon">
                                                         <span class="glyphicon glyphicon-calendar"></span>
                                                     </span>
@@ -52,7 +53,10 @@
 
                                         </td>
                                         <td>
-                                            <button type="submit" class="btn btn-sm btn-success">Kaydet</button>
+                                            <div class="btn-group">
+                                                <button type="submit" class="btn btn-success">Kaydet</button>
+                                                <button type="button" class="btn btn-danger">Sil</button>
+                                            </div>
 
                                         </td>
 

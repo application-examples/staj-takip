@@ -59,11 +59,16 @@ namespace StajyerTakip.Controllers
             
             List<Models.Gunluk> gunlukler = db.Gunlukler.ToList().FindAll(x=>x.OgrenciID == id);
             
+            foreach(var i in gunlukler)
+            {
+                i.Ogrenci = db.Stajyerler.Find(i.OgrenciID);
+                i.Ogrenci.Profil = db.Hesaplar.Find(i.Ogrenci.ProfilID);
+            }
             return View(gunlukler);
         }
         public IActionResult Goruntule(int id)
         {
-            List<Gunluk> gunlukler = db.Gunlukler.ToList().FindAll(x => x.OgrenciID == id);
+            Gunluk gunlukler = db.Gunlukler.Find(id);
             
             return View(gunlukler);
         }

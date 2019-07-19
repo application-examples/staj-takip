@@ -36,7 +36,7 @@ namespace StajyerTakip.Controllers
         }
         public IActionResult Duzenle(int id)
         {
-            BirimKoordinatoru birimkoordinatoru = db.BirimKoordinatorleri.ToList().Find(x => x.ID == x.ProfilID);
+            BirimKoordinatoru birimkoordinatoru = db.BirimKoordinatorleri.ToList().Find(x => x.ID == id);
             Profil profil = db.Hesaplar.ToList().Find(x => x.ID == birimkoordinatoru.ProfilID);
             birimkoordinatoru.Profil = profil;
             return View(birimkoordinatoru);
