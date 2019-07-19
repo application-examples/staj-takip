@@ -13728,8 +13728,9 @@ input:focus {
           font-style: normal;
           vertical-align: middle;
           color: rgba(74, 74, 74, 0.5); }
-      .sidebar .nav .nav-item .nav-link[aria-expanded="true"] {
-        background: #fafbfc; }
+        .sidebar .nav .nav-item .nav-link[aria-expanded="true"] {
+            background: #373b48;
+        }
         .sidebar .nav .nav-item .nav-link[aria-expanded="true"] i.menu-arrow {
           -moz-transform: rotate(90deg);
           -o-transform: rotate(90deg);
@@ -13786,9 +13787,10 @@ input:focus {
             margin-bottom: 8px; }
           .sidebar .nav .nav-item.nav-profile .nav-link .user-wrapper .text-wrapper .designation {
             margin-right: 3px; }
-    .sidebar .nav:not(.sub-menu) > .nav-item:hover:not(.nav-profile) > .nav-link {
-      background: #fafbfc;
-      color: #4a4a4a; }
+.sidebar .nav:not(.sub-menu) > .nav-item:hover:not(.nav-profile) > .nav-link {
+    background: #373b48;
+    color: #4a4a4a;
+}
     .sidebar .nav.sub-menu {
       margin-bottom: 0;
       padding: 0 0 0 4rem; }

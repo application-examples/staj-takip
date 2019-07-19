@@ -21,6 +21,8 @@ namespace StajyerTakip.Controllers
         {
             if (HttpContext.Session.GetString("kadi") == null)
                 return Redirect("~/Login/Index");
+            if (HttpContext.Session.GetInt32("yetki") == 4)
+                return Redirect("~/Error/AuthProblem");
             return View();
         }
 

@@ -17,17 +17,17 @@ namespace StajyerTakip.Controllers
             this.db = db;
         }
         // GET: /<controller>/
-        public IActionResult Ekle()
+        public IActionResult Ekle(int id)
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Ekle(Models.Gunluk gunluk)
+        public IActionResult Ekle(int id,Models.Gunluk gunluk)
         {
-            gunluk.OgrenciID = 1;
+            gunluk.OgrenciID = id;
             db.Gunlukler.Add(gunluk);
             db.SaveChanges();
-            return RedirectToAction("Ekle");
+            return Redirect("~/Gunluk/Ekle/"+id);
 
 
         }
