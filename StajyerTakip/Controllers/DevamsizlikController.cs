@@ -21,6 +21,7 @@ namespace StajyerTakip.Controllers
         }
         
         [StajyerUstYetki]
+        [HttpGet]
         public IActionResult Ekle(int id)
         {
             Models.Stajyer stajyer = db.Stajyerler.Find(id);
