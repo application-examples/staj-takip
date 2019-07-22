@@ -39,6 +39,7 @@ namespace StajyerTakip.Controllers
 
         }
 
+        [StajyerID]
         public IActionResult Duzenle(int id)
         {
             Stajyer stajyer = db.Stajyerler.ToList().Find(x => x.ID == id);

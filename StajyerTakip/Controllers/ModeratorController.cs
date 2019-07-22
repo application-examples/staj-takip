@@ -15,7 +15,7 @@ namespace StajyerTakip.Controllers
     {
         private readonly Context db;
 
-        public ModeratorController (Context db)
+        public ModeratorController(Context db)
         {
             this.db = db;
         }
@@ -27,25 +27,25 @@ namespace StajyerTakip.Controllers
         }
 
         [HttpPost]
-        public IActionResult Ekle (Moderator moderator)
+        public IActionResult Ekle(Moderator moderator)
         {
             db.Hesaplar.Add(moderator.Profil);
             db.Moderatorler.Add(moderator);
             db.SaveChanges();
             return RedirectToAction("Ekle");
         }
-       
 
-         public IActionResult Duzenle(int id)
+        [ModeratorID]
+        public IActionResult Duzenle(int id)
         {
             Moderator moderator = db.Moderatorler.ToList().Find(x => x.ID == id);
             Profil profil = db.Hesaplar.ToList().Find(x => x.ID == moderator.ProfilID);
             moderator.Profil = profil;
             return View(moderator);
         }
-       
+
         [HttpPost]
-         
+        [ModeratorID]
         public IActionResult Duzenle(Moderator moderator, int id)
         {
             Moderator anaveri = db.Moderatorler.Find(id);

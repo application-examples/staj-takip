@@ -59,6 +59,7 @@ namespace StajyerTakip.Controllers
             return Redirect("~/Home/Index");
         }
 
+        [Attributes.StajyerID]
         public ActionResult Listele(int id)
         {
             
@@ -71,8 +72,11 @@ namespace StajyerTakip.Controllers
             }
             return View(gunlukler);
         }
+
+        //TODO buraya başka günlükleri görüntülememesi için attribute yazılacak.
         public IActionResult Goruntule(int id)
         {
+
             Gunluk gunlukler = db.Gunlukler.Find(id);
             
             return View(gunlukler);

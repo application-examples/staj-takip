@@ -38,6 +38,7 @@ namespace StajyerTakip.Controllers
 
         }
 
+        [BirimKoordinatoruID]
         public IActionResult Duzenle(int id)
         {
             BirimKoordinatoru birimkoordinatoru = db.BirimKoordinatorleri.ToList().Find(x => x.ID == id);
@@ -47,7 +48,7 @@ namespace StajyerTakip.Controllers
         }
          
         [HttpPost]
-
+        [BirimKoordinatoruID]
         public IActionResult Duzenle(BirimKoordinatoru birimkoordinatoru, int id)
         {
             BirimKoordinatoru anaveri = db.BirimKoordinatorleri.Find(id);
@@ -80,7 +81,7 @@ namespace StajyerTakip.Controllers
         }
 
         [ActionName("Sil"), HttpPost]
-
+        [BirimKoordinatoruID]
         public ActionResult Silme(int id)
         {
             BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Find(id);
