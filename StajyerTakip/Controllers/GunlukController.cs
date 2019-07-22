@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StajyerTakip.Attributes;
 using StajyerTakip.Models;
@@ -19,13 +20,14 @@ namespace StajyerTakip.Controllers
             this.db = db;
         }
         [GunlukEkleme]
-        public IActionResult Ekle(int id)
+        public IActionResult Ekle()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Ekle(int id,Models.Gunluk gunluk)
+        public IActionResult Ekle(Models.Gunluk gunluk)
         {
+            var id = (int ) HttpContext.Session.GetInt32("id");
             gunluk.OgrenciID = id;
             db.Gunlukler.Add(gunluk);
             db.SaveChanges();
