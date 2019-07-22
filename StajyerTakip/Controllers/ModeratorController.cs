@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using StajyerTakip.Attributes;
 using StajyerTakip.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace StajyerTakip.Controllers
 {
+    [GirisKontrol]
     public class ModeratorController : Controller
     {
         private readonly Context db;
@@ -18,8 +20,7 @@ namespace StajyerTakip.Controllers
             this.db = db;
         }
 
-
-        // GET: /<controller>/
+        [ModeratorUstYetki]
         public IActionResult Ekle()
         {
             return View();
@@ -72,8 +73,8 @@ namespace StajyerTakip.Controllers
 
 
         }
-        
 
+        [ModeratorUstYetki]
         public IActionResult Sil(int id)
         {
             Moderator moderator = db.Moderatorler.Find(id);

@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using StajyerTakip.Models;
+using StajyerTakip.Attributes;
 
 namespace StajyerTakip.Controllers
 {
+    [GirisKontrol]
     public class HomeController : Controller
     {
         private readonly Context db;
@@ -18,8 +20,6 @@ namespace StajyerTakip.Controllers
         }
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("kadi") == null)
-                return Redirect("~/Login/Index");
             List<Profil> hesaplar = db.Hesaplar.ToList();
             return View(hesaplar);
         }

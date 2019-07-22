@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using StajyerTakip.Attributes;
 using StajyerTakip.Models;
 
 namespace StajyerTakip.Controllers
 {
+    [GirisKontrol]
     public class StajyerController : Controller
     {
 
@@ -19,10 +21,7 @@ namespace StajyerTakip.Controllers
         }
         public IActionResult Ekle()
         {
-            if (HttpContext.Session.GetString("kadi") == null)
-                return Redirect("~/Login/Index");
-            if (HttpContext.Session.GetInt32("yetki") == 4)
-                return Redirect("~/Error/AuthProblem");
+            
             return View();
         }
 
@@ -30,6 +29,9 @@ namespace StajyerTakip.Controllers
 
         public IActionResult Ekle(Stajyer stajyer)
         {
+
+
+
             db.Hesaplar.Add(stajyer.Profil);
             db.Stajyerler.Add(stajyer);
             db.SaveChanges();
@@ -49,7 +51,7 @@ namespace StajyerTakip.Controllers
         public IActionResult Duzenle(Stajyer stajyer, int id)
         {
             Stajyer anaveri = db.Stajyerler.Find(id);
-            anaveri.Profil = db.Hesaplar.ToList().Find(x => x.ID == stajyer.ProfilID);
+            anaveri.Profil = db.Hesaplar.ToList().Find(x => x.ID == anaveri.ProfilID);
 
 
 

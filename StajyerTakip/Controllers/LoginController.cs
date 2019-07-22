@@ -34,7 +34,6 @@ namespace StajyerTakip.Controllers
             {
                 ViewData["Mesaj"] = "Kullanıcı adı ve/veya şifre hatalı.";
                 return RedirectToAction("Index");
-
             }
             HttpContext.Session.SetString("kadi", hesap1.KullaniciAdi);
             HttpContext.Session.SetInt32("profilid", hesap1.ID);

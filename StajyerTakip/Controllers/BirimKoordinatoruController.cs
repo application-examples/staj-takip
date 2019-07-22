@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using StajyerTakip.Attributes;
 using StajyerTakip.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace StajyerTakip.Controllers
 {
+    [GirisKontrol]
     public class BirimKoordinatoruController : Controller
     {
 
@@ -18,13 +20,14 @@ namespace StajyerTakip.Controllers
             this.db = db;
         }
 
-        // GET: /<controller>/
+        [BirimKoordinatoruUstYetki]
         public IActionResult Ekle()
         {
             return View();
         }
 
         [HttpPost]
+        [BirimKoordinatoruUstYetki]
         public IActionResult Ekle(BirimKoordinatoru birimkoordinatoru)
         {
             db.Hesaplar.Add(birimkoordinatoru.Profil);
@@ -34,6 +37,7 @@ namespace StajyerTakip.Controllers
 
 
         }
+
         public IActionResult Duzenle(int id)
         {
             BirimKoordinatoru birimkoordinatoru = db.BirimKoordinatorleri.ToList().Find(x => x.ID == id);
@@ -67,6 +71,7 @@ namespace StajyerTakip.Controllers
             return Redirect("~/Home/Index");
         }
 
+        [BirimKoordinatoruUstYetki]
         public IActionResult Sil(int id)
         {
             //Niyazi
