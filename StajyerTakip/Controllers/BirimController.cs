@@ -10,6 +10,7 @@ using StajyerTakip.Attributes;
 namespace StajyerTakip.Controllers
 {
     [GirisKontrol]
+    [BirimYetki]
     public class BirimController : Controller
     {
         private readonly Context db;
@@ -17,7 +18,7 @@ namespace StajyerTakip.Controllers
         {
             this.db = db;
         }
-        // GET: /<controller>/
+
         public IActionResult Ekle()
         {
             return View();

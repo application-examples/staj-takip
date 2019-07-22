@@ -19,7 +19,8 @@ namespace StajyerTakip.Controllers
         {
             this.db = db;
         }
-        // GET: /<controller>/
+        
+        [StajyerUstYetki]
         public IActionResult Ekle(int id)
         {
             Models.Stajyer stajyer = db.Stajyerler.Find(id);
@@ -49,6 +50,7 @@ namespace StajyerTakip.Controllers
             d.Stajyer = stajyer;
             return View(d);
         }
+        [StajyerUstYetki]
         public IActionResult Sil(int id)
         {
             Devamsizlik devamsizlik = db.Devamsizlik.Find(id);

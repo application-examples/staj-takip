@@ -18,7 +18,7 @@ namespace StajyerTakip.Controllers
         {
             this.db = db;
         }
-        // GET: /<controller>/
+        [GunlukEkleme]
         public IActionResult Ekle(int id)
         {
             return View();
@@ -33,6 +33,7 @@ namespace StajyerTakip.Controllers
 
 
         }
+        [GunlukEkleme]
         public IActionResult Duzenle(int id )
         {
             Models.Gunluk gunluk = db.Gunlukler.ToList().Find(x => x.ID == id);

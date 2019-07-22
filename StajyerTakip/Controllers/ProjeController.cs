@@ -22,6 +22,7 @@ namespace StajyerTakip.Controllers
         }
 
         // GET: /<controller>/
+        [StajyerUstYetki]
         public IActionResult Ekle()
         {
             return View();
@@ -35,7 +36,7 @@ namespace StajyerTakip.Controllers
             db.SaveChanges();
             return RedirectToAction("Ekle");
         }
-
+        [StajyerUstYetki]
         public IActionResult Duzenle(int id)
         {
             Models.Proje proje = db.Projeler.ToList().Find(x => x.ID ==id);
@@ -62,7 +63,7 @@ namespace StajyerTakip.Controllers
             List<Models.Proje> projeler = db.Projeler.ToList().FindAll(x => x.ID == id);
             return View(projeler);
         }
-        
+        //TODO sadece stajyer yetkisi verilecek.
         public IActionResult Puanla()
         {
             List<Proje> projeler = db.Projeler.ToList();

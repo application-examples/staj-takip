@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StajyerTakip.Models
 {
-    public class Stajyer 
+    public class Stajyer
     {
         public int ID { get; set; }
         public int ProfilID { get; set; }
@@ -15,6 +15,7 @@ namespace StajyerTakip.Models
         public Profil Profil { get; set; }
 
         public List<Gunluk> Gunlukler { get; set; }
+        public List<BirimveStajyer> Birimler { get; set; }
         public List<Devamsizlik> Devamsizliklar { get; set; }
         public List<StajyerProje> Projeler { get; set; }
 

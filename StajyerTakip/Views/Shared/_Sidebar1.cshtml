@@ -18,6 +18,95 @@
         <li class="nav-item nav-profile mx-auto">
             <img class="mt-3" src="~/images/akdeniz-logo.png" width="200em;" />
         </li>
+
+        @if (yetki == 1)
+        {
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#sistemyoneticisimenu" aria-expanded="false" aria-controls="sistemyoneticisimenu">
+                    <i class="menu-icon mdi mdi-book"></i>
+                    <span class="menu-title">Sistem Yöneticisi</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="sistemyoneticisimenu">
+                    <ul class="nav flex-column sub-menu">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Bilgilerimi Görüntüle</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Bilgilerimi Düzenle</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </li>
+        }
+        @if (yetki == 2 || yetki == 1)
+        {
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#moderatormenu" aria-expanded="false" aria-controls="moderatormenu">
+                    <i class="menu-icon mdi mdi-book"></i>
+                    <span class="menu-title">Moderator</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="moderatormenu">
+                    <ul class="nav flex-column sub-menu">
+                        @if (yetki == 1)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/Moderator/Ekle">Ekle</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Yönet</a>
+                            </li>
+                        }
+                        @if (yetki == 2)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Bilgilerimi Görüntüle</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/Moderator/Duzenle/@id">Bilgilerimi Düzenle</a>
+                            </li>
+                        }
+                    </ul>
+
+                </div>
+            </li>
+        }
+        @if (yetki == 3 || yetki == 2 || yetki == 2)
+        {
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#birimkoordinatorumenu" aria-expanded="false" aria-controls="birimkoordinatorumenu">
+                    <i class="menu-icon mdi mdi-book"></i>
+                    <span class="menu-title">Birim Koordinatoru</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="birimkoordinatorumenu">
+                    <ul class="nav flex-column sub-menu">
+                        @if (yetki != 3)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/BirimKoordinatoru/Ekle">Ekle</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Yönet</a>
+                            </li>
+                        }
+                        @if (yetki == 3)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Bilgilerimi Görüntüle</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/BirimKoordinatoru/Duzenle/@id">Bilgilerimi Düzenle</a>
+                            </li>
+                        }
+                    </ul>
+
+                </div>
+            </li>
+        }
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#stajyermenu" aria-expanded="false" aria-controls="stajyermenu">
                 <i class="menu-icon mdi mdi-account"></i>
@@ -82,23 +171,23 @@
             </a>
             <div class="collapse" id="devamsizlikmenu">
                 <ul class="nav flex-column sub-menu">
-                @if (yetki != 4)
-                {
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Ekle</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Yönet</a>
-                    </li>
-                }
-                @if(yetki == 4)
-                {
-                    <li class="nav-item">
-                        <a class="nav-link" href="~/Devamsizlik/Goruntule/@id">Görüntüle</a>
-                    </li>
-                }
+                    @if (yetki != 4)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Ekle</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Yönet</a>
+                        </li>
+                    }
+                    @if (yetki == 4)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Devamsizlik/Goruntule/@id">Görüntüle</a>
+                        </li>
+                    }
                 </ul>
-                
+
             </div>
         </li>
         <li class="nav-item">
@@ -130,6 +219,28 @@
                 </ul>
             </div>
         </li>
-        
+
+        @if (yetki != 4)
+        {
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#birimmenu" aria-expanded="false" aria-controls="birimmenu">
+                    <i class="menu-icon mdi mdi-book"></i>
+                    <span class="menu-title">Birim</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="birimmenu">
+                    <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/Birim/Ekle">Ekle</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Yönet</a>
+                            </li>
+                      
+                    </ul>
+
+                </div>
+            </li>
+        }
     </ul>
 </nav>

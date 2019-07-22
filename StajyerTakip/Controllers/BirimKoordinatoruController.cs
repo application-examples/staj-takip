@@ -65,7 +65,6 @@ namespace StajyerTakip.Controllers
             anaveri.Profil.Il = birimkoordinatoru.Profil.Il;
             anaveri.Profil.Ilce = birimkoordinatoru.Profil.Ilce;
             anaveri.Profil.Sokak = birimkoordinatoru.Profil.Sokak;
-            anaveri.Profil.Rol = birimkoordinatoru.Profil.Rol;
 
             db.SaveChanges();
             return Redirect("~/Home/Index");
