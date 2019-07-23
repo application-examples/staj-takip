@@ -1,0 +1,61 @@
+﻿@model Stajyer
+@{
+    ViewData["Title"] = "Duzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Stajyer Bilgileri</h4>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Fotoğraf
+                            </th>
+                            <th>
+                                Adı Soyadı
+                            </th>
+                            <th>
+                                Devamsızlık Tarihi
+                            </th>
+                            <th>
+                                Düzenle
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var i in Model.Devamsizliklar)
+                            {
+                                <tr>
+                                    <td class="py-1">
+                                        <img src="~/images/man.png" alt="image" />
+                                    </td>
+                                    <td>
+                                        @Model.Profil.Ad @Model.Profil.Soyad
+                                    </td>
+                                    <td>
+                                        @i.Tarih.ToString("dd MMMM yyyy")
+                                    </td>
+                                    <td>
+                                        <a href="~/Devamsizlik/Sil/@i.ID" name="Sil" class="btn btn-danger">Sil</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

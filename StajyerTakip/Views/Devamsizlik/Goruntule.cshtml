@@ -9,11 +9,6 @@
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-
-
-            <div class="container">
-
-
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -36,7 +31,7 @@
                         <tbody>
                             <tr>
                                 <td class="py-1">
-                                    <img src="@Model.Stajyer.Profil.Fotograf" alt="image" />
+                                    <img src="~/images/man.png" alt="image" />
                                 </td>
                                 <td>
                                     @Model.Stajyer.Profil.Ad @Model.Stajyer.Profil.Soyad
@@ -48,7 +43,7 @@
                                             @{ 
                                                 foreach (var i in Model.Veriler)
                                                 {
-                                                    <option>@i.Tarih</option>
+                                                    <option>@i.Tarih.ToString("dd/MMM/yyyy")</option>
                                                 }
                                             }
                                         </select>
@@ -70,4 +65,3 @@
             </div>
         </div>
     </div>
-</div>
