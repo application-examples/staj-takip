@@ -36,7 +36,6 @@ namespace StajyerTakip.Controllers
         }
 
         [ModeratorID]
-        [ModeratorUstYetki]
         public IActionResult Duzenle(int id)
         {
             Moderator moderator = db.Moderatorler.ToList().Find(x => x.ID == id);
