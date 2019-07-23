@@ -29,6 +29,7 @@ namespace StajyerTakip.Controllers
         {
             var id = (int ) HttpContext.Session.GetInt32("id");
             gunluk.OgrenciID = id;
+            gunluk.Tarih = DateTime.UtcNow;
             db.Gunlukler.Add(gunluk);
             db.SaveChanges();
             return Redirect("~/Gunluk/Ekle/"+id);
