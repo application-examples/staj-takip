@@ -25,7 +25,8 @@ namespace StajyerTakip
         public DbSet<Proje> Projeler { get; set; }
         public DbSet<StajyerProje> StajyerProjeler { get; internal set; }
         public DbSet<Devamsizlik> Devamsizlik { get; internal set; }
-
+        public DbSet<BirimveStajyer> BirimveStajyer { get; internal set; }
+        public DbSet<BirimveKoordinator> BirimveKoordinator { get; internal set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //StajyerProje

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StajyerTakip.Attributes;
 using StajyerTakip.Models;
@@ -19,11 +20,39 @@ namespace StajyerTakip.Controllers
         {
             this.db = db;
         }
-        
+
         [StajyerUstYetki]
-        [HttpGet]
+        public IActionResult Listele()
+        {
+            var yetki = HttpContext.Session.GetInt32("yetki");
+            List<Stajyer> stajyerler = new List<Stajyer>();
+            if (yetki == 3)
+            {
+                BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Find(HttpContext.Session.GetInt32("id"));
+                koordinator.Birimler = db.BirimveKoordinator.ToList().FindAll(x=>x.BirimKoordinatoruID == koordinator.ID);
+                foreach(var i in koordinator.Birimler)
+                {
+
+                }
+            }
+            if (yetki == 2 || yetki == 1)
+            {
+                stajyerler = db.Stajyerler.ToList();
+                foreach (var i in stajyerler)
+                {
+                    i.Profil = db.Hesaplar.Find(i.ProfilID);
+                    i.Devamsizliklar = db.Devamsizlik.ToList().FindAll(x => x.StajyerID == i.ID);
+                }
+            }
+
+            return View(stajyerler);
+        }
+
+        [StajyerUstYetki]
         public IActionResult Ekle(int id)
         {
+            if (id == 0)
+                return RedirectToAction("Listele");
             Models.Stajyer stajyer = db.Stajyerler.Find(id);
             stajyer.Profil = db.Hesaplar.Find(stajyer.ProfilID);
             return View(stajyer);
@@ -39,6 +68,7 @@ namespace StajyerTakip.Controllers
             return RedirectToAction("Ekle");
         }
 
+        [StajyerID]
         public IActionResult Goruntule(int id)
         {
             List<Devamsizlik> veriler = db.Devamsizlik.ToList().FindAll(x => x.StajyerID == id);
@@ -67,7 +97,7 @@ namespace StajyerTakip.Controllers
             db.SaveChanges();
             return Redirect("~/Home/Index");
 
-            
+
         }
     }
 }
