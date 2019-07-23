@@ -23,6 +23,7 @@ namespace StajyerTakip.Controllers
         }
 
         [StajyerUstYetki]
+<<<<<<< HEAD
         public IActionResult Duzenle(int id)
         {
             Stajyer stajyer = db.Stajyerler.Find(id);
@@ -33,11 +34,15 @@ namespace StajyerTakip.Controllers
 
         [StajyerUstYetki]
         public IActionResult Yonet()
+=======
+        public IActionResult Listele()
+>>>>>>> 44a598ca46f0e7de71ff0499533f5568f8b4af83
         {
             var yetki = HttpContext.Session.GetInt32("yetki");
             List<Stajyer> stajyerler = new List<Stajyer>();
             if (yetki == 3)
             {
+<<<<<<< HEAD
 
             }
             if (yetki == 2 || yetki == 1)
@@ -61,6 +66,14 @@ namespace StajyerTakip.Controllers
             if (yetki == 3)
             {
               
+=======
+                BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Find(HttpContext.Session.GetInt32("id"));
+                koordinator.Birimler = db.BirimveKoordinator.ToList().FindAll(x=>x.BirimKoordinatoruID == koordinator.ID);
+                foreach(var i in koordinator.Birimler)
+                {
+
+                }
+>>>>>>> 44a598ca46f0e7de71ff0499533f5568f8b4af83
             }
             if (yetki == 2 || yetki == 1)
             {
