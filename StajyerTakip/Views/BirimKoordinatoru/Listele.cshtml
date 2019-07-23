@@ -1,0 +1,60 @@
+﻿@model List<BirimKoordinatoru>
+@{
+    ViewData["Title"] = "Listele";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Birim Koordinatörleri</h4>
+
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                Ad Soyad
+                            </th>
+                            <th>
+                                Bilgileri
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var i in Model)
+                            {
+                                <tr>
+
+
+                                    <td>
+                                        @i.Profil.Ad @i.Profil.Soyad
+                                    </td>
+                                    <td>
+
+                                        <a href="~/BirimKoordinatoru/Goruntule"class="btn btn-sm btn-success">Görüntüle</a>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="~/BirimKoordinatoru/Duzenle" class="btn btn-primary">Duzenle</a>
+                                            <a href="~/BirimKoordinatoru/Sil" class="btn btn-danger">Sil</a>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                }
+                            }
+
+                            </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

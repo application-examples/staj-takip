@@ -30,7 +30,7 @@ namespace StajyerTakip.Controllers
            
             db.Birimler.Add(birim);
             db.SaveChanges();
-            return RedirectToAction("Ekle");
+            return Redirect("~/Birim/Listele");
 
         }
 
@@ -51,7 +51,31 @@ namespace StajyerTakip.Controllers
             anaveri.Ad = birim.Ad;
 
             db.SaveChanges();
-            return Redirect("~/Home/Index");
+            return Redirect("~/Birim/Listele");
+        }
+        public IActionResult Listele()
+        {
+            List<Models.Birim> birimler = db.Birimler.ToList();
+
+
+            return View(birimler);
+        }
+        public IActionResult Goruntule(int id)
+        {
+            Models.Birim birim = db.Birimler.Find(id);
+            return View(birim);
+        }
+
+        [StajyerUstYetki]
+        public IActionResult Sil(int id)
+        {
+            Models.Birim birim = db.Birimler.Find(id);
+
+            db.Birimler.Remove(birim);
+            db.SaveChanges();
+            return Redirect("~/Birim/Listele");
+
         }
     }
+   
 }

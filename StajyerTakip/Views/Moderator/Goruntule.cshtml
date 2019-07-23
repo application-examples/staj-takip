@@ -1,9 +1,8 @@
-﻿@model BirimKoordinatoru
+﻿@model Moderator
 @{
-    ViewData["Title"] = "Duzenle";
+    ViewData["Title"] = "Goruntule";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
     <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
@@ -16,33 +15,33 @@
 
                     <div class="form-group">
                         <label for="ad">Ad</label>
-                        <input type="text" class="form-control" id="ad" name="Profil.Ad" placeholder="Ad" value="@Model.Profil.Ad">
+                        <input type="text" class="form-control" id="ad" name="Profil.Ad" placeholder="Ad" disabled value="@Model.Profil.Ad">
                     </div>
                     <div class="form-group">
                         <label for="soyad">Soyad</label>
-                        <input type="text" class="form-control" id="soyad" name="Profil.Soyad" placeholder="Soyad" value="@Model.Profil.Soyad">
+                        <input type="text" class="form-control" id="soyad" name="Profil.Soyad" placeholder="Soyad" disabled value="@Model.Profil.Soyad">
                     </div>
                     <div class="form-group">
                         <label for="kullaniciadi">Kullanıcı Adı</label>
-                        <input type="text" class="form-control" id="kullaniciadi" name="Profil.KullaniciAdi" placeholder="Kullancı Adı" value="@Model.Profil.KullaniciAdi">
+                        <input type="text" class="form-control" id="kullaniciadi" name="Profil.KullaniciAdi" placeholder="Kullancı Adı" disabled value="@Model.Profil.KullaniciAdi">
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email Adres</label>
-                        <input type="email" class="form-control" id="email" name="Profil.Email" placeholder="Email" value="@Model.Profil.Email">
+                        <input type="email" class="form-control" id="email" name="Profil.Email" placeholder="Email" disabled value="@Model.Profil.Email">
                     </div>
                     <div class="form-group">
                         <label for="sifre">Şifre</label>
-                        <input type="password" class="form-control" id="sifre" name="Profil.Sifre" placeholder="Şifre" value="@Model.Profil.Sifre">
+                        <input type="password" class="form-control" id="sifre" name="Profil.Sifre" placeholder="Şifre" disabled value="@Model.Profil.Sifre">
                     </div>
                     <div class="form-group">
                         <label for="telefonnumarasi">Telefon Numarası:</label>
-                        <input type="text" class="form-control bfh-phone" data-format="+1 (ddd) ddd-dddd" name="Profil.Telefon" placeholder="Telefon Numarası" value="@Model.Profil.Telefon">
+                        <input type="text" class="form-control bfh-phone" data-format="+1 (ddd) ddd-dddd" name="Profil.Telefon" placeholder="Telefon Numarası" disabled value="@Model.Profil.Telefon">
                     </div>
 
                     <div class="form-group">
                         <label for="unvan">Ünvan:</label>
-                        <select class="form-control" id="unvan" name="Unvan" value="@Model.Unvan">
+                        <select class="form-control" id="unvan" name="Unvan" disabled value="@Model.Unvan">
                             <option>Teknisyen</option>
                             <option>Uzman</option>
                             <option>Öğretim Planlamacısı</option>
@@ -64,23 +63,23 @@
 
                     <div class="form-group">
                         <label for="adres">Adres</label>
-                        <input type="text" class="form-control" id="adres" name="Profil.Adres" placeholder="Adres" value="@Model.Profil.Adres">
+                        <input type="text" class="form-control" id="adres" name="Profil.Adres" placeholder="Adres" disabled value="@Model.Profil.Adres">
                     </div>
 
                     <div class="form-row">
                         <div class="form-group col-sm-4">
                             <label for="il">İl</label>
-                            <input type="text" class="form-control" id="il" name="Profil.Il" placeholder="İl" value="@Model.Profil.Il">
+                            <input type="text" class="form-control" id="il" name="Profil.Il" placeholder="İl" disabled value="@Model.Profil.Il">
                         </div>
 
                         <div class="form-group col-sm-4">
                             <label for="ilce">İlçe</label>
-                            <input type="text" class="form-control" id="ilce" name="Profil.Ilce" placeholder="İlçe" value="@Model.Profil.Ilce">
+                            <input type="text" class="form-control" id="ilce" name="Profil.Ilce" placeholder="İlçe" disabled value="@Model.Profil.Ilce">
                         </div>
 
                         <div class="form-group col-sm-4">
                             <label for="sokak">Sokak</label>
-                            <input type="text" class="form-control" id="sokak" name="Profil.Sokak" placeholder="Sokak" value="@Model.Profil.Sokak">
+                            <input type="text" class="form-control" id="sokak" name="Profil.Sokak" placeholder="Sokak" disabled value="@Model.Profil.Sokak">
                         </div>
                     </div>
                     <div class="form-group">
@@ -88,15 +87,13 @@
                         <input type="file" name="img[]" class="file-upload-default">
                         <div class="input-group col-xs-12">
                             <input type="text" class="form-control file-upload-info" name="Profil.Fotograf" disabled placeholder="Fotoğraf Yükle" value="@Model.Profil.Fotograf">
-                            <span class="input-group-append">
-                                <button class="file-upload-browse btn btn-success" type="button">Yükle</button>
-                            </span>
+
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success mr-2">Kaydet</button>
-                    <button class="btn btn-primary">İptal</button>
+
 
                 </form>
             </div>
         </div>
     </div>
+

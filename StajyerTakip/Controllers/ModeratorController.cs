@@ -36,6 +36,7 @@ namespace StajyerTakip.Controllers
         }
 
         [ModeratorID]
+        [ModeratorUstYetki]
         public IActionResult Duzenle(int id)
         {
             Moderator moderator = db.Moderatorler.ToList().Find(x => x.ID == id);
@@ -83,6 +84,24 @@ namespace StajyerTakip.Controllers
             return View(moderator);
         }
 
+        [ModeratorUstYetki]
+        public IActionResult Listele()
+        {
+            List<Models.Moderator> moderatorler = db.Moderatorler.ToList();
+            List<Models.Profil> profiller = db.Hesaplar.ToList();
+            foreach (var i in moderatorler)
+            {
+                i.Profil = profiller.Find(x => x.ID == i.ProfilID);
+            }
+            return View(moderatorler);
 
+            
+        }
+        public IActionResult Goruntule(int id)
+        {
+            Models.Moderator moderator = db.Moderatorler.Find(id);
+            Models.Profil profil = db.Hesaplar.Find(moderator.ProfilID);
+            return View(moderator);
+        }
     }
 }
