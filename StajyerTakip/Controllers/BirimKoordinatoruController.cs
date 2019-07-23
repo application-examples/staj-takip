@@ -33,7 +33,7 @@ namespace StajyerTakip.Controllers
             db.Hesaplar.Add(birimkoordinatoru.Profil);
             db.BirimKoordinatorleri.Add(birimkoordinatoru);
             db.SaveChanges();
-            return RedirectToAction("Ekle");
+            return Redirect("~/BirimKoordinatoru/Listele");
 
 
         }
@@ -68,7 +68,7 @@ namespace StajyerTakip.Controllers
             anaveri.Profil.Sokak = birimkoordinatoru.Profil.Sokak;
 
             db.SaveChanges();
-            return Redirect("~/Home/Index");
+            return Redirect("~/BirimKoordinatoru/Listele");
         }
 
         [BirimKoordinatoruUstYetki]
@@ -87,9 +87,26 @@ namespace StajyerTakip.Controllers
             BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Find(id);
             db.Hesaplar.Remove(db.Hesaplar.Find(koordinator.ProfilID));
             db.SaveChanges();
-            return Redirect("~/Home/Index");
+            return Redirect("~/BirimKoordinatoru/Listele");
         }
+        public IActionResult Listele()
+        {
+            List<Models.BirimKoordinatoru> birimkoordinatorleri = db.BirimKoordinatorleri.ToList();
+            List<Models.Profil> profiller = db.Hesaplar.ToList();
+            foreach (var i in birimkoordinatorleri)
+            {
+                i.Profil = profiller.Find(x => x.ID == i.ProfilID);
+            }
+            return View(birimkoordinatorleri);
 
+            
+        }
+        public IActionResult Goruntule(int id)
+        {
+            Models.BirimKoordinatoru birimkoordinatoru = db.BirimKoordinatorleri.Find(id);
+            birimkoordinatoru.Profil = db.Hesaplar.Find(birimkoordinatoru.ProfilID);
+            return View(birimkoordinatoru);
+        }
     }
 
 

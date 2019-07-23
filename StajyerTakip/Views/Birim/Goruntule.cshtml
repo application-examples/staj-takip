@@ -1,0 +1,22 @@
+﻿@model  Birim
+@{
+    ViewData["Title"] = "Goruntule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container">
+
+        <form>
+
+
+            <div class="form-group">
+                <div class="form-group ">
+                    <label for="acıklama">Açıklama: </label>
+                    <textarea class="form-control" id="acıklama" placeholder="Açıklama" disabled>@Model.Aciklama</textarea>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+

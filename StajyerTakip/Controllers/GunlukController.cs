@@ -56,7 +56,7 @@ namespace StajyerTakip.Controllers
 
 
             db.SaveChanges();
-            return Redirect("~/Home/Index");
+            return Redirect("~/Gunluk/Listele");
         }
 
         [Attributes.StajyerID]
