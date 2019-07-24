@@ -89,7 +89,7 @@ namespace StajyerTakip.Controllers
             Stajyer stajyer = db.Stajyerler.Find(id);
             db.Hesaplar.Remove(db.Hesaplar.Find(stajyer.ProfilID));
             db.SaveChanges();
-            return Redirect("~/Home/Index");
+            return Redirect("~/Stajyer/Listele");
         }
 
         public ActionResult Listele()
