@@ -1,0 +1,87 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    var yetki = Context.Session.GetInt32("yetki");
+    var profilid = Context.Session.GetInt32("profilid");
+    var kadi = Context.Session.GetString("kadi");
+    var id = Context.Session.GetInt32("id");
+}
+
+
+<aside class="left-sidebar" data-sidebarbg="skin5">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav" class="p-t-30">
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Home/Index" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+                @* Moderatör *@
+
+                @if (yetki == 2 || yetki == 1)
+                {
+                    @if (yetki == 1)
+                    {
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Moderator/Listele" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Moderator</span></a></li>
+                    }
+                    @if (yetki == 2)
+                    {
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Moderator/Duzenle" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Moderator</span></a></li>
+                    }
+                }
+
+                @* Birim Koordinatörü*@
+                @if (yetki == 3 || yetki == 2 || yetki == 1)
+                {
+                    if (yetki != 3)
+                    {
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/BirimKoordinatoru/Listele" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Birim Koordinatörü</span></a></li>
+                    }
+                    else
+                    {
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/BirimKoordinatoru/Duzenle" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Birim Koordinatörü</span></a></li>
+                    }
+                }
+
+                @if (yetki == 4)
+                {
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Stajyer/Duzenle" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Stajyer</span></a></li>
+                }
+                @if (yetki == 3 || yetki == 2 || yetki == 1)
+                {
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Stajyer/Listele" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Stajyer</span></a></li>
+
+                }
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Gunluk/Listele" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Günlük</span></a></li>
+
+                @if (yetki == 4)
+                {
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Devamsizlik/Goruntule" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Devamsızlık</span></a></li>
+                }
+                @if (yetki == 3 || yetki == 2 || yetki == 1)
+                {
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Devamsizlik/Listele" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Devamsızlık</span></a></li>
+                }
+
+                @if (yetki == 3 || yetki == 2 || yetki == 1)
+                {
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Birim/Listele" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Birim</span></a></li>
+
+                }
+
+
+
+
+                @*<li class="sidebar-item">
+            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Forms </span></a>
+            <ul aria-expanded="false" class="collapse  first-level">
+                <li class="sidebar-item"><a href="form-basic.html" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Form Basic </span></a></li>
+                <li class="sidebar-item"><a href="form-wizard.html" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Form Wizard </span></a></li>
+            </ul>
+        </li>*@
+
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>

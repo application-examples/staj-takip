@@ -14,6 +14,7 @@ namespace StajyerTakip.Attributes
         {
             var user = context.HttpContext.Session.GetString("kadi");
             var yetki = context.HttpContext.Session.GetInt32("yetki");
+            
             if(user == null)
             {
                 context.Result = new RedirectResult("~/Login/Index");

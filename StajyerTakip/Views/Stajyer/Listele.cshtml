@@ -1,6 +1,6 @@
 ﻿@model  List<Stajyer>
 @{
-    ViewData["Title"] = "Listele";
+    ViewData["Title"] = "Stajyerler";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -38,8 +38,8 @@
                                 foreach (var i in Model)
                                 {
                                     <tr>
-                                        <td class="py-1">
-                                            <img src="~/images/man.png" alt="image" />
+                                        <td class="py-1 px-4">
+                                            <img src="~/images/man.png" alt="image" class="img-rounded img-profile" width="32"/>
                                         </td>
                                         <td>
                                             @i.Profil.Ad @i.Profil.Soyad
