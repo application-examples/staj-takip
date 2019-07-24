@@ -79,7 +79,7 @@ namespace StajyerTakip.Controllers
             Moderator moderator = db.Moderatorler.Find(id);
             moderator.Profil = db.Hesaplar.Find(moderator.ProfilID);
 
-            return View(moderator);
+            return Redirect("~/Moderator/Listele");
         }
 
         [ModeratorUstYetki]
