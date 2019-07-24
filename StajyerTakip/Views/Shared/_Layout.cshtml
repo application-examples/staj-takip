@@ -1,68 +1,107 @@
-﻿<!DOCTYPE html5>
-<html lang="tr">
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, inital-scale=1, shrink-to-fit=no" />
-    <title>@ViewData["Title"] | Staj Takip Otomasyonu</title>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.6/holder.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-    <!-- CSS Importlari Başlangıç-->
-    <link rel="stylesheet" href="~/css/style.css" /> <!-- Style Css Özelleştirilmiş Bootstrap CSS-->
-    <link rel="stylesheet" href="~/css/custom.css" />
-    <link rel="stylesheet" href="~/css/vendor.bundle.base.css" />
-    <link rel="stylesheet" href="~/css/vendor.bundle.addons.css" />
-    <link rel="stylesheet" href="~/css/mdi/css/materialdesignicons.css" />
-
-    <!-- CSS Importlari Bitiş-->
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewData["Title"] | Stajyer Takip Sistemi</title>
+    <link href="~/res/assets/libs/flot/css/float-chart.css" rel="stylesheet">
+    <link href="~/res/css/style.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Ana Container -->
-    <div class="container-scroller">
-        <!-- Navbar Render -->
-        <!-- Navbar Render Bitiş -->
-        <!-- Sayfa Body -->
-        @{
-            await Html.RenderPartialAsync("_Sidebar1");
-        }
-        <div class="container-fluid page-body-wrapper">
-
-            <!-- Sidebar Render -->
-            <!-- Sidebar Render Bitiş-->
-            <!-- Main Panel -->
-
-            <div class="main-panel">
-                @{
-                    await Html.RenderPartialAsync("_Navbar1");
-                }
-                <div class="content-wrapper">
-
-                    <!-- Controllerdan gelen view -->
-                    @RenderBody()
-                    <!-- Controllerdan gelen view bitiş-->
-                </div>
-                <!--Footer Render-->
-                @{
-                    await Html.RenderPartialAsync("_Footer");
-                }
-                <!-- Footer Render Bitiş-->
-            </div>
-            <!-- Main Panel Bitiş -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
         </div>
-        <!-- Sayfa Body Bitiş -->
     </div>
-    <!-- Ana Container Bitiş-->
-    <script src="~/vendors/js/vendor.bundle.base.js"></script>
-    <script src="~/vendors/js/vendor.bundle.addons.js"></script>
-    <script src="~/js/off-canvas.js"></script>
-    <script src="~/js/misc.js"></script>
-    <script src="~/js/dashboard.js"></script>
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        @{ 
+            await Html.RenderPartialAsync("Topbar");
+        }
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        @{ 
+            await Html.RenderPartialAsync("Sidebar");
+        }
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer text-center">
+                Akdeniz Üniversitesi Bilgisayar Bilimleri Araştırma ve Uygulama Merkezi <a href="baum.akdeniz.edu.tr">Baum Stajyerleri</a>.
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="~/res/assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="~/res/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/res/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/res/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="~/res/assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="~/res/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="~/res/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="~/res/js/custom.js"></script>
+    <!--This page JavaScript -->
+    <!-- <script src="../../dist/js/pages/dashboards/dashboard1.js"></script> -->
+    <!-- Charts js Files -->
+    <script src="~/res/assets/libs/flot/excanvas.js"></script>
+    <script src="~/res/assets/libs/flot/jquery.flot.js"></script>
+    <script src="~/res/assets/libs/flot/jquery.flot.pie.js"></script>
+    <script src="~/res/assets/libs/flot/jquery.flot.time.js"></script>
+    <script src="~/res/assets/libs/flot/jquery.flot.stack.js"></script>
+    <script src="~/res/assets/libs/flot/jquery.flot.crosshair.js"></script>
+    <script src="~/res/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+    <script src="~/res/js/pages/chart/chart-page-init.js"></script>
+
 </body>
 
 </html>
