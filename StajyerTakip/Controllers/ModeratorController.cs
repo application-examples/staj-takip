@@ -62,7 +62,6 @@ namespace StajyerTakip.Controllers
             anaveri.Profil.Il = moderator.Profil.Il;
             anaveri.Profil.Ilce = moderator.Profil.Ilce;
             anaveri.Profil.Sokak = moderator.Profil.Sokak;
-            anaveri.Profil.Rol = moderator.Profil.Rol;
 
 
             db.SaveChanges();
