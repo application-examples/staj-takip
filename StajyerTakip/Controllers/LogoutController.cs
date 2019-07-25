@@ -6,17 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace StajyerTakip.Controllers
 {
-    public class ErrorController : Controller
+    public class LogoutController : Controller
     {
-        public IActionResult AuthProblem()
+        public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View();
+            HttpContext.Session.Clear();
+            return Redirect("~/Login/Index");
         }
     }
-
 }

@@ -25,6 +25,7 @@ namespace StajyerTakip.Controllers
         {
             return View();
         }
+
         [ModeratorUstYetki]
         [HttpPost]
         public IActionResult Ekle(Moderator moderator)
@@ -35,6 +36,7 @@ namespace StajyerTakip.Controllers
             return Redirect("~/Moderator/Listele");
         }
 
+        [BirimKoordinatoruUstYetki]
         [ModeratorID]
         public IActionResult Duzenle(int id)
         {
@@ -46,6 +48,7 @@ namespace StajyerTakip.Controllers
 
         [HttpPost]
         [ModeratorID]
+        [BirimKoordinatoruUstYetki]
         public IActionResult Duzenle(Moderator moderator, int id)
         {
             Moderator anaveri = db.Moderatorler.Find(id);
@@ -97,6 +100,8 @@ namespace StajyerTakip.Controllers
 
 
         }
+        [ModeratorID]
+        [BirimKoordinatoruUstYetki]
         public IActionResult Goruntule(int id)
         {
             Models.Moderator moderator = db.Moderatorler.Find(id);

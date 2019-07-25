@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Internal;
 using StajyerTakip.Attributes;
 using StajyerTakip.Models;
 
@@ -23,17 +25,34 @@ namespace StajyerTakip.Controllers
         [StajyerUstYetki]
         public IActionResult Ekle()
         {
+            var Birimler = new List<SelectListItem>();
 
+            foreach (var item in db.Birimler)
+            {
+                Birimler.Add(new SelectListItem
+                {
+                    Text = item.Ad,
+                    Value = item.ID.ToString()
+
+                });
+
+            }
+            ViewBag.Birimler = Birimler;
             return View();
         }
-        [StajyerUstYetki]
+
         [HttpPost]
-
-        public IActionResult Ekle(Stajyer stajyer)
+        [StajyerUstYetki]
+        public IActionResult Ekle(Stajyer stajyer, string[] Birimler)
         {
+            List<BirimveStajyer> birimler = new List<BirimveStajyer>();
+            for (var i = 0; i < Birimler.Length; i++)
+            {
+                birimler.Add(new BirimveStajyer { BirimID = Int32.Parse(Birimler[i]), Stajyer = stajyer });
+            }
 
 
-
+            stajyer.Birimler = birimler;
             db.Hesaplar.Add(stajyer.Profil);
             db.Stajyerler.Add(stajyer);
             db.SaveChanges();
@@ -44,22 +63,43 @@ namespace StajyerTakip.Controllers
         [StajyerID]
         public IActionResult Duzenle(int id)
         {
+
+            var Birimler = new List<SelectListItem>();
+            List<BirimveStajyer> Selecteds = db.BirimveStajyer.ToList().FindAll(x => x.StajyerID == id);
+            foreach (var item in db.Birimler.ToList())
+            {
+                Birimler.Add(new SelectListItem { Text = item.Ad, Value = item.ID.ToString(), Selected = Selecteds.Any(x => x.BirimID == item.ID) });
+            }
+
+            ViewBag.Birimler = Birimler;
             Stajyer stajyer = db.Stajyerler.ToList().Find(x => x.ID == id);
             Profil profil = db.Hesaplar.ToList().Find(x => x.ID == stajyer.ProfilID);
             stajyer.Profil = profil;
             return View(stajyer);
         }
-        [HttpPost]
-        [StajyerID]
 
-        public IActionResult Duzenle(Stajyer stajyer, int id)
+
+        [StajyerID]
+        [HttpPost]
+        public IActionResult Duzenle(Stajyer stajyer, int id, string[] Birimler)
         {
             Stajyer anaveri = db.Stajyerler.Find(id);
             anaveri.Profil = db.Hesaplar.ToList().Find(x => x.ID == anaveri.ProfilID);
 
+            List<BirimveStajyer> birimler = new List<BirimveStajyer>();
+            for (var i = 0; i < Birimler.Length; i++)
+            {
+                birimler.Add(new BirimveStajyer { BirimID = Int32.Parse(Birimler[i]), Stajyer = anaveri });
+            }
 
+            List<BirimveStajyer> silinecekbirimler = db.BirimveStajyer.ToList().FindAll(x => x.StajyerID == id);
 
+            foreach(var birim in silinecekbirimler)
+            {
+                db.BirimveStajyer.Remove(birim);
+            }
 
+            anaveri.Birimler = birimler;
             anaveri.Profil.Ad = stajyer.Profil.Ad;
             anaveri.Profil.Soyad = stajyer.Profil.Soyad;
             anaveri.Profil.KullaniciAdi = stajyer.Profil.KullaniciAdi;
@@ -75,11 +115,15 @@ namespace StajyerTakip.Controllers
 
             db.SaveChanges();
 
-            return Redirect("~/Home/Index");
+            var yetki = HttpContext.Session.GetInt32("yetki");
 
+            if (yetki == 4)
+                return Redirect("~/Home/Index");
+            else
+                return Redirect("~/Stajyer/Listele");
         }
 
-
+        [StajyerUstYetki]
         public IActionResult Sil(int id)
         {
             Stajyer stajyer = db.Stajyerler.Find(id);
@@ -87,6 +131,7 @@ namespace StajyerTakip.Controllers
             return View(stajyer);
         }
 
+        [StajyerUstYetki]
         [ActionName("Sil"), HttpPost]
         public IActionResult Silme(int id)
         {
@@ -96,6 +141,7 @@ namespace StajyerTakip.Controllers
             return Redirect("~/Stajyer/Listele");
         }
 
+        [StajyerUstYetki]
         public ActionResult Listele()
         {
             List<Stajyer> stajyerler = db.Stajyerler.ToList();

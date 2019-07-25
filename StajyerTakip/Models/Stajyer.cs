@@ -18,6 +18,6 @@ namespace StajyerTakip.Models
         public List<BirimveStajyer> Birimler { get; set; }
         public List<Devamsizlik> Devamsizliklar { get; set; }
         public List<StajyerProje> Projeler { get; set; }
-
+        
     }
 }
