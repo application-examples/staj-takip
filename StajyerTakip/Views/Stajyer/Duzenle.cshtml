@@ -30,6 +30,10 @@
                     <input type="email" class="form-control" id="email" name="Profil.Email" placeholder="Email" value="@Model.Profil.Email">
                 </div>
                 <div class="form-group">
+                    <label for="birim">Birim</label>
+                    <select name="Birimler[]" id="select2" multiple="multiple" class="form-control" data- asp-items="ViewBag.Birimler"></select>
+                </div>
+                <div class="form-group">
                     <label for="sifre">Şifre</label>
                     <input type="password" class="form-control" id="sifre" name="Profil.Sifre" placeholder="Şifre" value="@Model.Profil.Sifre">
                 </div>
@@ -85,3 +89,6 @@
         </div>
     </div>
 </div>
+<script>
+    $('#select2').select2();
+</script>

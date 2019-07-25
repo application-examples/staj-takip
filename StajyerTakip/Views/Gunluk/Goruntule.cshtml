@@ -4,48 +4,63 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using Microsoft.AspNetCore.Http
 
-<div class="container">
-
-    <form>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="form-group col-sm-8">
-                    <label for="baslik">Başlık: </label>
-                    <input type="text" class="form-control" id="baslik" name="baslik" disabled  value="@Model.Baslik">
-                    
-                </div>
+@{
+    var yetki = Context.Session.GetInt32("yetki");
+    var profilid = Context.Session.GetInt32("profilid");
+    var kadi = Context.Session.GetString("kadi");
+    var id = Context.Session.GetInt32("id");
+}
 
 
-                <div class="form-group col-sm-4">
-                    <label for="tarih">Tarih: </label>
-                    <div class="form-group">
-                        <div class='input-group date' id='tarih'>
-                            <input type='date' class="form-control" disabled value="@Model.Tarih.ToString("yyyy-MM-dd")"/>
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
+<div class="col-md-10 offset-1 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Günlük Bilgileri</h4>
+
+            <form>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="form-group col-sm-8">
+                            <label for="baslik">Başlık: </label>
+                            <input type="text" class="form-control" id="baslik" name="baslik" disabled value="@Model.Baslik">
+
+                        </div>
+
+
+                        <div class="form-group col-sm-4">
+                            <label for="tarih">Tarih: </label>
+                            <div class="form-group">
+                                <div class='input-group date' id='tarih'>
+                                    <input type='date' class="form-control" disabled value="@Model.Tarih.ToString("yyyy-MM-dd")" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+
+
+                <div class="form-group">
+                    <label for="icerik">İçerik: </label>
+                    <textarea class="form-control" id="icerik" disabled>@Model.Bilgiler</textarea>
+                </div>
+
+                @if (yetki != 4)
+                {
+                    <button type="submit" class="btn btn-success ">Onayla</button>
+                    <button class="btn btn-danger">Reddet</button>
+                }
+                <a class="nav-link" href="#">Link</a>
+
+
+            </form>
+
         </div>
-
-
-
-        <div class="form-group">
-            <label for="icerik">İçerik: </label>
-            <textarea class="form-control" id="icerik" disabled>@Model.Bilgiler</textarea>
-        </div>
-
-
-        <button type="submit" class="btn btn-success ">Onayla</button>
-        <button class="btn btn-danger">Reddet</button>
-
-        <a class="nav-link" href="#">Link</a>
-
-
-    </form>
-
+    </div>
 </div>

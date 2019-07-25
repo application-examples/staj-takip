@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using StajyerTakip.Attributes;
 using StajyerTakip.Models;
 
@@ -15,7 +16,7 @@ namespace StajyerTakip.Controllers
     {
 
         private readonly Context db;
-        public BirimKoordinatoruController (Context db)
+        public BirimKoordinatoruController(Context db)
         {
             this.db = db;
         }
@@ -23,13 +24,33 @@ namespace StajyerTakip.Controllers
         [BirimKoordinatoruUstYetki]
         public IActionResult Ekle()
         {
+            var Birimler = new List<SelectListItem>();
+
+            foreach (var item in db.Birimler)
+            {
+                Birimler.Add(new SelectListItem
+                {
+                    Text = item.Ad,
+                    Value = item.ID.ToString()
+                });
+            }
+            ViewBag.Birimler = Birimler;
             return View();
         }
 
         [HttpPost]
         [BirimKoordinatoruUstYetki]
-        public IActionResult Ekle(BirimKoordinatoru birimkoordinatoru)
+        public IActionResult Ekle(BirimKoordinatoru birimkoordinatoru, string[] Birimler)
         {
+
+            List<BirimveKoordinator> birimler = new List<BirimveKoordinator>();
+
+            for (var i = 0; i < Birimler.Length; i++)
+            {
+                birimler.Add(new BirimveKoordinator { BirimID = Int32.Parse(Birimler[i]), BirimKoordinatoru = birimkoordinatoru });
+            }
+
+            birimkoordinatoru.Birimler = birimler;
             db.Hesaplar.Add(birimkoordinatoru.Profil);
             db.BirimKoordinatorleri.Add(birimkoordinatoru);
             db.SaveChanges();
@@ -38,23 +59,57 @@ namespace StajyerTakip.Controllers
 
         }
 
+        [StajyerUstYetki]
         [BirimKoordinatoruID]
         public IActionResult Duzenle(int id)
         {
+
+            var Birimler = new List<SelectListItem>();
+            var Selecteds = db.BirimveKoordinator.ToList().FindAll(x => x.BirimKoordinatoruID == id);
+
+            foreach (var item in db.Birimler)
+            {
+                Birimler.Add(new SelectListItem
+                {
+                    Value = item.ID.ToString(),
+                    Text = item.Ad,
+                    Selected = Selecteds.Any(x => x.BirimID == item.ID)
+                });
+            }
+            ViewBag.Birimler = Birimler;
             BirimKoordinatoru birimkoordinatoru = db.BirimKoordinatorleri.ToList().Find(x => x.ID == id);
             Profil profil = db.Hesaplar.ToList().Find(x => x.ID == birimkoordinatoru.ProfilID);
             birimkoordinatoru.Profil = profil;
             return View(birimkoordinatoru);
         }
-         
+
+        [StajyerUstYetki]
         [HttpPost]
         [BirimKoordinatoruID]
-        public IActionResult Duzenle(BirimKoordinatoru birimkoordinatoru, int id)
+        public IActionResult Duzenle(BirimKoordinatoru birimkoordinatoru, int id, string[] Birimler)
         {
             BirimKoordinatoru anaveri = db.BirimKoordinatorleri.Find(id);
             Profil profil = db.Hesaplar.ToList().Find(x => x.ID == birimkoordinatoru.ProfilID);
 
 
+            var silinecekbirimler = db.BirimveKoordinator.ToList().FindAll(x => x.BirimKoordinatoruID == id);
+            foreach (var birim in silinecekbirimler)
+            {
+                db.BirimveKoordinator.Remove(birim);
+            }
+
+            var birimler = new List<BirimveKoordinator>();
+
+            for(var i = 0; i < Birimler.Length; i++ )
+            {
+                birimler.Add(new BirimveKoordinator
+                {
+                    BirimKoordinatoru = anaveri,
+                    BirimID = Int32.Parse(Birimler[i])
+                });
+            }
+
+            anaveri.Birimler = birimler;
             anaveri.Profil.Ad = birimkoordinatoru.Profil.Ad;
             anaveri.Profil.Soyad = birimkoordinatoru.Profil.Soyad;
             anaveri.Profil.KullaniciAdi = birimkoordinatoru.Profil.KullaniciAdi;
@@ -89,6 +144,9 @@ namespace StajyerTakip.Controllers
             db.SaveChanges();
             return Redirect("~/BirimKoordinatoru/Listele");
         }
+
+        [BirimKoordinatoruUstYetki]
+        [StajyerUstYetki]
         public IActionResult Listele()
         {
             List<Models.BirimKoordinatoru> birimkoordinatorleri = db.BirimKoordinatorleri.ToList();
@@ -99,14 +157,20 @@ namespace StajyerTakip.Controllers
             }
             return View(birimkoordinatorleri);
 
-            
+
         }
+
+        [BirimKoordinatoruID]
+        [StajyerUstYetki]
         public IActionResult Goruntule(int id)
         {
             Models.BirimKoordinatoru birimkoordinatoru = db.BirimKoordinatorleri.Find(id);
             birimkoordinatoru.Profil = db.Hesaplar.Find(birimkoordinatoru.ProfilID);
+
             return View(birimkoordinatoru);
         }
+
+
     }
 
 

@@ -35,9 +35,12 @@
                     </div>
                     <div class="form-group">
                         <label for="telefonnumarasi">Telefon Numarası:</label>
-                        <input type="text" class="form-control bfh-phone" data-format="+1 (ddd) ddd-dddd" name="Profil.Telefon" placeholder="Telefon Numarası">
+                        <input type="text" class="form-control bfh-phone" data-format="+90 (ddd) ddd-dddd" name="Profil.Telefon" placeholder="Telefon Numarası">
                     </div>
-
+                    <div class="form-group">
+                        <label for="birim">Birim</label>
+                        <select name="Birimler[]" id="select2" multiple="multiple" class="form-control" asp-items="ViewBag.Birimler"></select>
+                    </div>
                     <div class="form-group">
                         <label for="unvan">Ünvan:</label>
                         <select class="form-control" id="unvan" name="Unvan">
@@ -59,7 +62,7 @@
                             <option>Ordinaryüs Profesör</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="adres">Adres</label>
                         <input type="text" class="form-control" id="adres" name="Profil.Adres" placeholder="Adres">
@@ -99,3 +102,6 @@
         </div>
     </div>
 
+<script>
+    $('#select2').select2();
+</script>
