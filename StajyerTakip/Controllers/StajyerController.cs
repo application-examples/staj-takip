@@ -56,7 +56,7 @@ namespace StajyerTakip.Controllers
             db.Hesaplar.Add(stajyer.Profil);
             db.Stajyerler.Add(stajyer);
             db.SaveChanges();
-            return RedirectToAction("Ekle");
+            return Redirect("~/Stajyer/Listele");
 
         }
 
@@ -77,7 +77,6 @@ namespace StajyerTakip.Controllers
             stajyer.Profil = profil;
             return View(stajyer);
         }
-
 
 
         [StajyerID]
@@ -113,8 +112,8 @@ namespace StajyerTakip.Controllers
             anaveri.Profil.Il = stajyer.Profil.Il;
             anaveri.Profil.Ilce = stajyer.Profil.Ilce;
             anaveri.Profil.Sokak = stajyer.Profil.Sokak;
-            db.SaveChanges();
 
+            db.SaveChanges();
 
             var yetki = HttpContext.Session.GetInt32("yetki");
 

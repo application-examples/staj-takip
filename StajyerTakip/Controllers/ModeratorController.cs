@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StajyerTakip.Attributes;
 using StajyerTakip.Models;
@@ -33,7 +33,7 @@ namespace StajyerTakip.Controllers
             db.Hesaplar.Add(moderator.Profil);
             db.Moderatorler.Add(moderator);
             db.SaveChanges();
-            return RedirectToAction("Ekle");
+            return Redirect("~/Moderator/Listele");
         }
 
         [BirimKoordinatoruUstYetki]
@@ -52,7 +52,7 @@ namespace StajyerTakip.Controllers
         public IActionResult Duzenle(Moderator moderator, int id)
         {
             Moderator anaveri = db.Moderatorler.Find(id);
-            Profil profil = db.Hesaplar.ToList().Find(x => x.ID == moderator.ProfilID);
+            Profil profil = db.Hesaplar.ToList().Find(x => x.ID == anaveri.ProfilID);
 
             anaveri.Profil.Ad = moderator.Profil.Ad;
             anaveri.Profil.Soyad = moderator.Profil.Soyad;
@@ -68,10 +68,12 @@ namespace StajyerTakip.Controllers
 
 
             db.SaveChanges();
+            var yetki = HttpContext.Session.GetInt32("yetki");
 
-
-            return View();
-
+            if(yetki != 2)
+                return Redirect("~/Moderator/Listele");
+            else
+                return Redirect("~/Home/Index");
 
 
         }
@@ -96,7 +98,7 @@ namespace StajyerTakip.Controllers
             }
             return View(moderatorler);
 
-            
+
         }
         [ModeratorID]
         [BirimKoordinatoruUstYetki]
