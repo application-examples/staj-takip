@@ -4,10 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <div class="col-md-10 offset-1 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Moderatör Bilgileri</h4>
+
+            <h4 class="card-title">Birim Koordinatoru Bilgileri</h4>
 
 
 
@@ -86,7 +88,7 @@
                     <label>Fotoğraf</label>
                     <input type="file" name="img[]" class="file-upload-default">
                     <div class="input-group col-xs-12">
-                        <input type="text" class="form-control file-upload-info" name="Profil.Fotograf"  placeholder="Fotoğraf Yükle" value="@Model.Profil.Fotograf">
+                        <input type="text" class="form-control file-upload-info" name="Profil.Fotograf" disabled placeholder="Fotoğraf Yükle" value="@Model.Profil.Fotograf">
                         <span class="input-group-append">
                             <button class="file-upload-browse btn btn-success" type="button">Yükle</button>
                         </span>
@@ -99,5 +101,3 @@
         </div>
     </div>
 </div>
-
-

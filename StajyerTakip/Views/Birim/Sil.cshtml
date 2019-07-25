@@ -1,0 +1,41 @@
+﻿@model Birim
+@{
+    ViewData["Title"] = "Sil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="card border-right ">
+        <div class="card-header bg-danger text-white"><h3 class="card-header card-header-pills text-center">Gerçekten silmek istiyor musunuz?</h3></div>
+    </div>
+<div class="card-body px-0 py-0 bg-white">
+    <div class="table-responsive">
+        <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <th class="border-right">Birim Adı</th>
+                    <th>@Model.Ad</th>
+                </tr>
+                <tr>
+                    <th class="border-right">Açıklama</th>
+                    <th class="">@Model.Aciklama</th>
+                </tr>
+
+
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div class="text-center mt-1 p-2 bg-white">
+    <form method="post">
+
+
+        <button type="submit" class="btn btn-danger text-white">Evet onaylıyorum, sil</button>
+        <a href="~/Birim/Listele/@Model.ID" class="btn btn-info text-white">Geri dön</a>
+
+    </form>
+
+</div>
+
+

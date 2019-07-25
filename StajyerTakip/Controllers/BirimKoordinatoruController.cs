@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StajyerTakip.Attributes;
 using StajyerTakip.Models;
@@ -52,7 +52,7 @@ namespace StajyerTakip.Controllers
         public IActionResult Duzenle(BirimKoordinatoru birimkoordinatoru, int id)
         {
             BirimKoordinatoru anaveri = db.BirimKoordinatorleri.Find(id);
-            Profil profil = db.Hesaplar.ToList().Find(x => x.ID == birimkoordinatoru.ProfilID);
+            Profil profil = db.Hesaplar.ToList().Find(x => x.ID == anaveri.ProfilID);
 
 
             anaveri.Profil.Ad = birimkoordinatoru.Profil.Ad;
@@ -68,7 +68,13 @@ namespace StajyerTakip.Controllers
             anaveri.Profil.Sokak = birimkoordinatoru.Profil.Sokak;
 
             db.SaveChanges();
-            return Redirect("~/BirimKoordinatoru/Listele");
+
+            var yetki = HttpContext.Session.GetInt32("yetki");
+
+            if (yetki != 3)
+                return Redirect("~/BirimKoordinatoru/Listele");
+            else
+                return Redirect("~/Home/Index");
         }
 
         [BirimKoordinatoruUstYetki]

@@ -19,12 +19,14 @@ namespace StajyerTakip.Controllers
         {
             this.db = db;
         }
+
+        [StajyerUstYetki]
         public IActionResult Ekle()
         {
-            
+
             return View();
         }
-
+        [StajyerUstYetki]
         [HttpPost]
 
         public IActionResult Ekle(Stajyer stajyer)
@@ -35,7 +37,7 @@ namespace StajyerTakip.Controllers
             db.Hesaplar.Add(stajyer.Profil);
             db.Stajyerler.Add(stajyer);
             db.SaveChanges();
-            return RedirectToAction("Ekle");
+            return Redirect("~/Stajyer/Listele");
 
         }
 
@@ -47,8 +49,9 @@ namespace StajyerTakip.Controllers
             stajyer.Profil = profil;
             return View(stajyer);
         }
-
         [HttpPost]
+        [StajyerID]
+
         public IActionResult Duzenle(Stajyer stajyer, int id)
         {
             Stajyer anaveri = db.Stajyerler.Find(id);
@@ -69,9 +72,10 @@ namespace StajyerTakip.Controllers
             anaveri.Profil.Il = stajyer.Profil.Il;
             anaveri.Profil.Ilce = stajyer.Profil.Ilce;
             anaveri.Profil.Sokak = stajyer.Profil.Sokak;
+
             db.SaveChanges();
 
-            return View();
+            return Redirect("~/Home/Index");
 
         }
 
@@ -105,6 +109,6 @@ namespace StajyerTakip.Controllers
 
         }
 
-       
+
     }
 }

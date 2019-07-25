@@ -14,7 +14,7 @@ namespace StajyerTakip.Controllers
     public class BirimController : Controller
     {
         private readonly Context db;
-        public BirimController (Context db)
+        public BirimController(Context db)
         {
             this.db = db;
         }
@@ -27,7 +27,7 @@ namespace StajyerTakip.Controllers
         [HttpPost]
         public IActionResult Ekle(Models.Birim birim)
         {
-           
+
             db.Birimler.Add(birim);
             db.SaveChanges();
             return Redirect("~/Birim/Listele");
@@ -43,7 +43,7 @@ namespace StajyerTakip.Controllers
         }
 
         [HttpPost]
-        public IActionResult Duzenle (Models.Birim birim, int id)
+        public IActionResult Duzenle(Models.Birim birim, int id)
         {
             Models.Birim anaveri = db.Birimler.Find(id);
 
@@ -67,13 +67,23 @@ namespace StajyerTakip.Controllers
         }
 
         [StajyerUstYetki]
+
         public IActionResult Sil(int id)
         {
             Models.Birim birim = db.Birimler.Find(id);
+            return View(birim);
+        }
 
-            db.Birimler.Remove(birim);
+
+        [ActionName("Sil"), HttpPost]
+        [StajyerUstYetki]
+        public ActionResult Silme(int id)
+        {
+            Models.Birim birim = db.Birimler.Find(id);
+            db.Birimler.Remove(db.Birimler.Find(birim.ID));
             db.SaveChanges();
             return Redirect("~/Birim/Listele");
+
 
         }
     }
