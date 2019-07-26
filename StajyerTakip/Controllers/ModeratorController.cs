@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StajyerTakip.Attributes;
@@ -28,8 +30,29 @@ namespace StajyerTakip.Controllers
 
         [ModeratorUstYetki]
         [HttpPost]
-        public IActionResult Ekle(Moderator moderator)
+        public async Task<IActionResult> Ekle(Moderator moderator, IFormFile img)
         {
+            var filepath = @"wwwroot/profile_images";
+            if (!Directory.Exists(filepath))
+                Directory.CreateDirectory(filepath);
+            string path = "";
+            if (img != null && img.Length > 0)
+            {
+                string fullpath = Path.Combine(filepath, img.FileName);
+                using (var stream = new FileStream(fullpath, FileMode.Create, FileAccess.ReadWrite))
+                {
+                    try
+                    {
+                        await img.CopyToAsync(stream);
+                        path = fullpath;
+                    }
+                    catch (Exception ex)
+                    {
+                        return Content("Fotoğraf yüklenirken bir sorun oluştu. : " + ex.Message);
+                    }
+                }
+            }
+            moderator.Profil.Fotograf = path;
             db.Hesaplar.Add(moderator.Profil);
             db.Moderatorler.Add(moderator);
             db.SaveChanges();
@@ -49,11 +72,30 @@ namespace StajyerTakip.Controllers
         [HttpPost]
         [ModeratorID]
         [BirimKoordinatoruUstYetki]
-        public IActionResult Duzenle(Moderator moderator, int id)
+        public async Task<IActionResult> Duzenle(Moderator moderator, int id, IFormFile img)
         {
             Moderator anaveri = db.Moderatorler.Find(id);
             Profil profil = db.Hesaplar.ToList().Find(x => x.ID == anaveri.ProfilID);
 
+            var filepath = @"wwwroot/profile_images";
+
+            if (img == null || img.Length <= 0) { }
+            else
+            {
+                string fullpath = Path.Combine(filepath, img.FileName);
+                using (var stream = new FileStream(fullpath, FileMode.Create, FileAccess.ReadWrite))
+                {
+                    try
+                    {
+                        await img.CopyToAsync(stream);
+                        anaveri.Profil.Fotograf = fullpath;
+                    }
+                    catch (Exception ex)
+                    {
+                        return Content("Fotoğraf yüklenirken bir sorun oluştu. : " + ex.Message);
+                    }
+                }
+            }
             anaveri.Profil.Ad = moderator.Profil.Ad;
             anaveri.Profil.Soyad = moderator.Profil.Soyad;
             anaveri.Profil.KullaniciAdi = moderator.Profil.KullaniciAdi;
@@ -70,7 +112,7 @@ namespace StajyerTakip.Controllers
             db.SaveChanges();
             var yetki = HttpContext.Session.GetInt32("yetki");
 
-            if(yetki != 2)
+            if (yetki != 2)
                 return Redirect("~/Moderator/Listele");
             else
                 return Redirect("~/Home/Index");

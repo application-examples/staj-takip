@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -43,8 +44,31 @@ namespace StajyerTakip.Controllers
 
         [HttpPost]
         [StajyerUstYetki]
-        public IActionResult Ekle(Stajyer stajyer, string[] Birimler)
+        public async Task<IActionResult> Ekle(Stajyer stajyer, string[] Birimler, IFormFile img)
         {
+
+
+            var filepath = @"wwwroot/profile_images";
+            if (!Directory.Exists(filepath))
+                Directory.CreateDirectory(filepath);
+            string path = "";
+            if (img != null && img.Length > 0)
+            {
+                string fullpath = Path.Combine(filepath, img.FileName);
+                using (var stream = new FileStream(fullpath, FileMode.Create, FileAccess.ReadWrite))
+                {
+                    try
+                    {
+                        await img.CopyToAsync(stream);
+                        path = fullpath;
+                    }
+                    catch (Exception ex)
+                    {
+                        return Content("Fotoğraf yüklenirken bir sorun oluştu. : " + ex.Message);
+                    }
+                }
+            }
+            stajyer.Profil.Fotograf = path;
             List<BirimveStajyer> birimler = new List<BirimveStajyer>();
             for (var i = 0; i < Birimler.Length; i++)
             {
@@ -81,10 +105,34 @@ namespace StajyerTakip.Controllers
 
         [StajyerID]
         [HttpPost]
-        public IActionResult Duzenle(Stajyer stajyer, int id, string[] Birimler)
+        public async Task<IActionResult> Duzenle(Stajyer stajyer, int id, string[] Birimler, IFormFile img)
         {
             Stajyer anaveri = db.Stajyerler.Find(id);
             anaveri.Profil = db.Hesaplar.ToList().Find(x => x.ID == anaveri.ProfilID);
+
+
+            var filepath = @"wwwroot/profile_images";
+            if (img == null || img.Length <= 0)
+            {
+
+            }
+            else
+            {
+                string fullpath = Path.Combine(filepath, img.FileName);
+                using (var stream = new FileStream(fullpath, FileMode.Create, FileAccess.ReadWrite))
+                {
+                    try
+                    {
+                        await img.CopyToAsync(stream);
+                        anaveri.Profil.Fotograf = fullpath;
+                    }
+                    catch (Exception ex)
+                    {
+                        return Content("Fotoğraf yüklenirken bir sorun oluştu. : " + ex.Message);
+                    }
+                }
+            }
+
 
             List<BirimveStajyer> birimler = new List<BirimveStajyer>();
             for (var i = 0; i < Birimler.Length; i++)
@@ -94,7 +142,7 @@ namespace StajyerTakip.Controllers
 
             List<BirimveStajyer> silinecekbirimler = db.BirimveStajyer.ToList().FindAll(x => x.StajyerID == id);
 
-            foreach(var birim in silinecekbirimler)
+            foreach (var birim in silinecekbirimler)
             {
                 db.BirimveStajyer.Remove(birim);
             }

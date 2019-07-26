@@ -9,11 +9,11 @@
     <div class="card">
         <div class="card-body">
 
-            <h4 class="card-title">Birim Koordinatoru Bilgileri</h4>
+            <h4 class="card-title">Moderator Bilgileri</h4>
 
 
 
-            <form class="forms-sample" method="post">
+            <form class="forms-sample" method="post" enctype="multipart/form-data">
 
                 <div class="form-group">
                     <label for="ad">Ad</label>
@@ -85,13 +85,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Fotoğraf</label>
-                    <input type="file" name="img[]" class="file-upload-default">
-                    <div class="input-group col-xs-12">
-                        <input type="text" class="form-control file-upload-info" name="Profil.Fotograf" disabled placeholder="Fotoğraf Yükle" value="@Model.Profil.Fotograf">
-                        <span class="input-group-append">
-                            <button class="file-upload-browse btn btn-success" type="button">Yükle</button>
-                        </span>
+                    <label class="">Profil Fotoğrafı</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="img" name="img">
+                        <label class="custom-file-label" for="validatedCustomFile">Fotoğraf seçin...</label>
+                        <div class="invalid-feedback">Resim seçilmedi</div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success ">Kaydet</button>
