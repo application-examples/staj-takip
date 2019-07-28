@@ -57,7 +57,7 @@ namespace StajyerTakip.Controllers
                     try
                     {
                         await img.CopyToAsync(stream);
-                        path = fullpath;
+                        path = fullpath.Replace("wwwroot/", "");
                     }
                     catch (Exception ex)
                     {
@@ -125,7 +125,7 @@ namespace StajyerTakip.Controllers
                     try
                     {
                         await img.CopyToAsync(stream);
-                        anaveri.Profil.Fotograf = fullpath;
+                        anaveri.Profil.Fotograf = fullpath.Replace("wwwroot/", "");
                     }
                     catch (Exception ex)
                     {

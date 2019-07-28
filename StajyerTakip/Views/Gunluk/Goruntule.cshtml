@@ -13,7 +13,6 @@
     var id = Context.Session.GetInt32("id");
 }
 
-
 <div class="col-md-10 offset-1 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
@@ -53,8 +52,22 @@
 
                 @if (yetki != 4)
                 {
-                    <button type="submit" class="btn btn-success ">Onayla</button>
-                    <button class="btn btn-danger">Reddet</button>
+                    if (Model.OnayDurumu == -1)
+                    {
+                        <a href="~/Gunluk/Onayla/@Model.ID" class="btn btn-success ">Onayla</a>
+                        <a href="~/Gunluk/Reddet/@Model.ID" class="btn btn-danger">Reddet</a>
+                    }
+
+                }
+                @{
+                    if (Model.OnayDurumu == 1)
+                    {
+                        <div class="card card-header bg-success text-white"><span class="mdi mdi-check-circle"> Onaylandı</span></div>
+                    }
+                    if(Model.OnayDurumu == 0)
+                    {
+                        <div class="card card-header bg-danger text-white"><span class="mdi mdi-close-circle"> Reddedildi.</span></div>
+                    }
                 }
                 <a class="nav-link" href="#">Link</a>
 

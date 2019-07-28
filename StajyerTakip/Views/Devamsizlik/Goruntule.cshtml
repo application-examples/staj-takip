@@ -1,4 +1,4 @@
-﻿@model StajyerDevamsizlik
+﻿@model Stajyer
 @{
     ViewData["Title"] = "Goruntule";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -34,14 +34,14 @@
                                     <img src="~/images/man.png" alt="image" class="img-rounded img-profile" width="36"  />
                                 </td>
                                 <td>
-                                    @Model.Stajyer.Profil.Ad @Model.Stajyer.Profil.Soyad
+                                    @Model.Profil.Ad @Model.Profil.Soyad
                                 </td>
                                 <td>
                                     <div class="form-group">
 
                                         <select class="form-control" id="">
                                             @{ 
-                                                foreach (var i in Model.Veriler)
+                                                foreach (var i in Model.Devamsizliklar)
                                                 {
                                                     <option>@i.Tarih.ToString("dd/MMM/yyyy")</option>
                                                 }
@@ -52,7 +52,7 @@
                                 <td>
                                     <div class="form-group">
 
-                                        @Model.Veriler.Count
+                                        @Model.Devamsizliklar.Count
                                     </div>
                                 </td>
 

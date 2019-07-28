@@ -73,6 +73,10 @@
                                     </td>
                                     <td>
                                         <a href="~/Gunluk/Goruntule/@i.ID" class="btn btn-success">Görüntüle</a>
+                                        @if (yetki == 4)
+                                        {
+                                            <a href="~/Gunluk/Duzenle/@i.ID" class="btn btn-primary">Düzenle</a>
+                                        }
                                     </td>
 
                                 </tr>

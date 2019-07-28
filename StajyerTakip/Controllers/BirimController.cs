@@ -19,11 +19,13 @@ namespace StajyerTakip.Controllers
             this.db = db;
         }
 
+        [BirimKoordinatoruUstYetki]
         public IActionResult Ekle()
         {
             return View();
         }
 
+        [BirimKoordinatoruUstYetki]
         [HttpPost]
         public IActionResult Ekle(Models.Birim birim)
         {
@@ -34,6 +36,7 @@ namespace StajyerTakip.Controllers
 
         }
 
+        [BirimKoordinatoruUstYetki]
         public IActionResult Duzenle(int id)
         {
             Models.Birim birim = db.Birimler.ToList().Find(x => x.ID == id);
@@ -41,7 +44,7 @@ namespace StajyerTakip.Controllers
 
             return View(birim);
         }
-
+        [BirimKoordinatoruUstYetki]
         [HttpPost]
         public IActionResult Duzenle(Models.Birim birim, int id)
         {
@@ -53,6 +56,8 @@ namespace StajyerTakip.Controllers
             db.SaveChanges();
             return Redirect("~/Birim/Listele");
         }
+
+        [BirimKoordinatoruUstYetki]
         public IActionResult Listele()
         {
             List<Models.Birim> birimler = db.Birimler.ToList();
@@ -60,13 +65,15 @@ namespace StajyerTakip.Controllers
 
             return View(birimler);
         }
+
+        [BirimKoordinatoruUstYetki]
         public IActionResult Goruntule(int id)
         {
             Models.Birim birim = db.Birimler.Find(id);
             return View(birim);
         }
 
-        [StajyerUstYetki]
+        [BirimKoordinatoruUstYetki]
 
         public IActionResult Sil(int id)
         {
@@ -75,8 +82,8 @@ namespace StajyerTakip.Controllers
         }
 
 
+        [BirimKoordinatoruUstYetki]
         [ActionName("Sil"), HttpPost]
-        [StajyerUstYetki]
         public ActionResult Silme(int id)
         {
             Models.Birim birim = db.Birimler.Find(id);

@@ -3,7 +3,14 @@
     ViewData["Title"] = "Stajyerler";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using Microsoft.AspNetCore.Http
 
+@{
+    var yetki = Context.Session.GetInt32("yetki");
+    var profilid = Context.Session.GetInt32("profilid");
+    var kadi = Context.Session.GetString("kadi");
+    var id = Context.Session.GetInt32("id");
+}
 
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
@@ -70,8 +77,8 @@
                                     </td>
                                     <td>
 
-                                        <a href="~/Devamsizlik/Goruntule/@i.ID" class="btn btn-success">Görüntüle</a>
-                                        <a href="~/Devamsizlik/Ekle/@i.ID" class="btn btn-primary">Düzenle</a>
+                                        <a href="~/Devamsizlik/Ekle/@i.ID" class="btn btn-success">Ekle</a>
+                                        <a href="~/Devamsizlik/Goruntule/@i.ID" class="btn btn-primary">Görüntüle</a>
 
                                     </td>
                                     <td>
@@ -81,11 +88,11 @@
                                     </td>
                                 </tr>
                             }
-                           }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
+</div>
 

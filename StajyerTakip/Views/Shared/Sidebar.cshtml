@@ -51,18 +51,26 @@
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Stajyer/Listele" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Stajyer</span></a></li>
 
                 }
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Gunluk/Listele" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Günlük</span></a></li>
 
+                @if (yetki == 4)
+                {
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Gunluk/Listele" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Günlük</span></a></li>
+                }
+                @if (yetki == 3 || yetki == 2 || yetki == 1)
+                {
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Gunluk/Yonet" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Günlük</span></a></li>
+
+                }
                 @if (yetki == 4)
                 {
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Devamsizlik/Goruntule" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Devamsızlık</span></a></li>
                 }
                 @if (yetki == 3 || yetki == 2 || yetki == 1)
                 {
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Devamsizlik/Listele" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Devamsızlık</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Devamsizlik/Yonet" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Devamsızlık</span></a></li>
                 }
 
-                @if (yetki == 3 || yetki == 2 || yetki == 1)
+                @if (yetki == 2 || yetki == 1)
                 {
                     <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Birim/Listele" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Birim</span></a></li>
 

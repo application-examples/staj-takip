@@ -24,72 +24,124 @@ namespace StajyerTakip.Controllers
         [StajyerUstYetki]
         public IActionResult Duzenle(int id)
         {
-            Stajyer stajyer = db.Stajyerler.Find(id);
-            stajyer.Profil = db.Hesaplar.Find(stajyer.ProfilID);
-            stajyer.Devamsizliklar = db.Devamsizlik.ToList().FindAll(x => x.StajyerID == stajyer.ID);
+            var yetki = (int)HttpContext.Session.GetInt32("yetki");
+            var kisiid = (int)HttpContext.Session.GetInt32("id");
+            var profilid = (int)HttpContext.Session.GetInt32("profilid");
+            var username = HttpContext.Session.GetString("kadi");
+
+            Stajyer stajyer = db.Stajyerler.Where(x => x.ID == id).Include(x => x.Devamsizliklar).Include(x => x.Birimler).Include(x => x.Profil).SingleOrDefault();
+
+            if (yetki == 3)
+            {
+                BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Where(x => x.ID == kisiid).Include(x => x.Birimler).Include(x => x.Profil).SingleOrDefault();
+                foreach (var birim in koordinator.Birimler)
+                {
+                    if (stajyer.Birimler.Any(x => x.BirimID == birim.BirimID))
+                    {
+                        return View(stajyer);
+
+                    }
+                }
+                return Redirect("~/Error/AuthProblem");
+            }
+
             return View(stajyer);
         }
 
         [StajyerUstYetki]
         public IActionResult Yonet()
         {
+            var id = (int)HttpContext.Session.GetInt32("id");
             var yetki = HttpContext.Session.GetInt32("yetki");
-            List<Stajyer> stajyerler = new List<Stajyer>();
+            var profilid = HttpContext.Session.GetInt32("profilid");
+            var kadi = HttpContext.Session.GetString("kadi");
+
             if (yetki == 3)
             {
+                BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Where(x => x.ID == id).Include(x => x.Profil).Include(x => x.Birimler).FirstOrDefault();
+                List<Stajyer> stajyerler = db.Stajyerler.Include(x => x.Birimler).Include(x => x.Devamsizliklar).Include(x => x.Gunlukler).Include(x => x.Profil).ToList();
 
-            }
-            if (yetki == 2 || yetki == 1)
-            {
-                stajyerler = db.Stajyerler.ToList();
-                foreach (var i in stajyerler)
+                List<Stajyer> stajyers = new List<Stajyer>();
+                foreach (var birim in koordinator.Birimler)
                 {
-                    i.Profil = db.Hesaplar.Find(i.ProfilID);
-                    i.Devamsizliklar = db.Devamsizlik.ToList().FindAll(x => x.StajyerID == i.ID);
+                    foreach (var stajyer in stajyerler)
+                    {
+                        if (stajyer.Birimler.Any(x => x.BirimID == birim.BirimID) && !stajyers.Any(x => x.ID == stajyer.ID))
+                        {
+                            stajyers.Add(stajyer);
+                        }
+                    }
                 }
-            }
+                return View(stajyers);
 
-            return View(stajyerler);
+            }
+            else
+            {
+                List<Stajyer> stajyerler = db.Stajyerler.Include(x => x.Birimler).Include(x => x.Devamsizliklar).Include(x => x.Gunlukler).Include(x => x.Profil).ToList();
+                return View(stajyerler);
+            }
         }
 
         [StajyerUstYetki]
         public IActionResult Listele()
         {
+            var id = (int)HttpContext.Session.GetInt32("id");
             var yetki = HttpContext.Session.GetInt32("yetki");
-            List<Stajyer> stajyerler = new List<Stajyer>();
+            var profilid = HttpContext.Session.GetInt32("profilid");
+            var kadi = HttpContext.Session.GetString("kadi");
+
             if (yetki == 3)
             {
-              
-                BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Find(HttpContext.Session.GetInt32("id"));
-                koordinator.Birimler = db.BirimveKoordinator.ToList().FindAll(x=>x.BirimKoordinatoruID == koordinator.ID);
-                foreach(var i in koordinator.Birimler)
-                {
+                BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Where(x => x.ID == id).Include(x => x.Profil).Include(x => x.Birimler).FirstOrDefault();
+                List<Stajyer> stajyerler = db.Stajyerler.Include(x => x.Birimler).Include(x => x.Devamsizliklar).Include(x => x.Gunlukler).Include(x => x.Profil).ToList();
 
+                List<Stajyer> stajyers = new List<Stajyer>();
+                foreach (var birim in koordinator.Birimler)
+                {
+                    foreach (var stajyer in stajyerler)
+                    {
+                        if (stajyer.Birimler.Any(x => x.BirimID == birim.BirimID) && !stajyers.Any(x => x.ID == stajyer.ID))
+                        {
+                            stajyers.Add(stajyer);
+                        }
+                    }
                 }
+                return View(stajyers);
+
             }
-            if (yetki == 2 || yetki == 1)
+            else
             {
-                stajyerler = db.Stajyerler.ToList();
-                foreach (var i in stajyerler)
-                {
-                    i.Profil = db.Hesaplar.Find(i.ProfilID);
-                    i.Devamsizliklar = db.Devamsizlik.ToList().FindAll(x => x.StajyerID == i.ID);
-                }
+                List<Stajyer> stajyerler = db.Stajyerler.Include(x => x.Birimler).Include(x => x.Devamsizliklar).Include(x => x.Gunlukler).Include(x => x.Profil).ToList();
+                return View(stajyerler);
             }
-
-            return View(stajyerler);
         }
 
         [StajyerUstYetki]
         public IActionResult Ekle(int id)
         {
-            if (id == 0)
-                return RedirectToAction("Listele");
-            Models.Stajyer stajyer = db.Stajyerler.Find(id);
-            stajyer.Profil = db.Hesaplar.Find(stajyer.ProfilID);
+
+            Models.Stajyer stajyer = db.Stajyerler.Where(x => x.ID == id).Include(x => x.Profil).Include(x => x.Birimler).SingleOrDefault();
+            var yetki = HttpContext.Session.GetInt32("yetki");
+            var kisiid = HttpContext.Session.GetInt32("id");
+
+            if(yetki == 3)
+            {
+                BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Where(x => x.ID == kisiid).Include(x => x.Birimler).SingleOrDefault();
+
+                foreach(var birim in koordinator.Birimler)
+                {
+                    if(stajyer.Birimler.Any(x=>x.BirimID == birim.BirimID))
+                    {
+                        return View(stajyer);
+                    }
+                }
+                return Redirect("~/Error/AuthProblem");
+            }
+
             return View(stajyer);
         }
 
+        [StajyerUstYetki]
         [HttpPost]
         public IActionResult Ekle(int id, Models.Devamsizlik devamsizlik)
         {
@@ -103,22 +155,48 @@ namespace StajyerTakip.Controllers
         [StajyerID]
         public IActionResult Goruntule(int id)
         {
-            List<Devamsizlik> veriler = db.Devamsizlik.ToList().FindAll(x => x.StajyerID == id);
-            Models.Stajyer stajyer = db.Stajyerler.Find(id);
-            Models.Profil profil = db.Hesaplar.ToList().Find(x => x.ID == stajyer.ProfilID);
-            stajyer.Profil = profil;
+            var yetki = (int)HttpContext.Session.GetInt32("yetki");
+            var kisiid = (int)HttpContext.Session.GetInt32("id");
 
-            StajyerDevamsizlik d = new StajyerDevamsizlik();
-            d.Veriler = veriler;
-            d.Stajyer = stajyer;
-            return View(d);
+            Stajyer stajyer = db.Stajyerler.Where(x => x.ID == id).Include(x => x.Birimler).Include(x => x.Devamsizliklar).Include(x => x.Profil).SingleOrDefault();
+            if (yetki == 3)
+            {
+                BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Where(x => x.ID == kisiid).Include(x => x.Birimler).SingleOrDefault();
+
+                foreach (var birim in koordinator.Birimler)
+                {
+                    if (stajyer.Birimler.Any(x => x.BirimID == birim.BirimID))
+                    {
+                        return View(stajyer);
+                    }
+                }
+                return Redirect("~/Error/AuthProblem");
+            }
+
+            return View(stajyer);
         }
         [StajyerUstYetki]
         public IActionResult Sil(int id)
         {
             Devamsizlik devamsizlik = db.Devamsizlik.Find(id);
-            devamsizlik.Stajyer = db.Stajyerler.Find(devamsizlik.StajyerID);
-            devamsizlik.Stajyer.Profil = db.Hesaplar.Find(devamsizlik.Stajyer.ID);
+            devamsizlik.Stajyer = db.Stajyerler.Where(x => x.ID == devamsizlik.StajyerID).Include(x => x.Profil).Include(x => x.Devamsizliklar).SingleOrDefault();
+            var yetki = HttpContext.Session.GetInt32("yetki");
+            var kisiid = HttpContext.Session.GetInt32("id");
+
+            if (yetki == 3)
+            {
+                BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Where(x => x.ID == kisiid).Include(x => x.Birimler).Include(x => x.Profil).SingleOrDefault();
+
+                foreach (var birim in koordinator.Birimler)
+                {
+                    if (devamsizlik.Stajyer.Birimler.Any(x => x.BirimID == birim.BirimID))
+                    {
+                        return View(devamsizlik);
+                    }
+                }
+                return Redirect("~/Error/AuthProblem");
+            }
+
             return View(devamsizlik);
         }
         [ActionName("Sil"), HttpPost]

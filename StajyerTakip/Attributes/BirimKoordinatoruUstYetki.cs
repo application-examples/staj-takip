@@ -17,7 +17,6 @@ namespace StajyerTakip.Attributes
 
             if (yetki == 3 || yetki == 4)
                 context.Result = new RedirectResult("~/Error/AuthProblem");
-
             base.OnActionExecuting(context);
         }
     }

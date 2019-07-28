@@ -23,7 +23,7 @@ namespace StajyerTakip.Controllers
             {
                 return Redirect("~/Home/Index");
             }
-                return View();
+            return View();
         }
 
         [HttpPost]
@@ -38,11 +38,14 @@ namespace StajyerTakip.Controllers
             HttpContext.Session.SetString("kadi", hesap1.KullaniciAdi);
             HttpContext.Session.SetInt32("profilid", hesap1.ID);
             HttpContext.Session.SetInt32("yetki", hesap1.Rol);
+            HttpContext.Session.SetString("profilfotograf", hesap1.Fotograf);
+
+
             if (hesap1.Rol == 4)
                 HttpContext.Session.SetInt32("id", db.Stajyerler.ToList().Find(x => x.ProfilID == hesap1.ID).ID);
-            if(hesap1.Rol == 3)
+            if (hesap1.Rol == 3)
                 HttpContext.Session.SetInt32("id", db.BirimKoordinatorleri.ToList().Find(x => x.ProfilID == hesap1.ID).ID);
-            if(hesap1.Rol == 2)
+            if (hesap1.Rol == 2)
                 HttpContext.Session.SetInt32("id", db.Moderatorler.ToList().Find(x => x.ProfilID == hesap1.ID).ID);
             //TODO buraya sistem yöneticisi de eklenecek.
             return Redirect("~/Home/Index");
