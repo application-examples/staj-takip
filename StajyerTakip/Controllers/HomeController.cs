@@ -20,8 +20,9 @@ namespace StajyerTakip.Controllers
         }
         public IActionResult Index()
         {
-            List<Profil> hesaplar = db.Hesaplar.ToList();
-            return View(hesaplar);
+            List<Duyuru> Duyurular = db.Duyurular.ToList();
+            ViewBag.Duyurular = Duyurular;
+            return View();
         }
     }
 }

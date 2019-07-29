@@ -38,7 +38,7 @@ namespace StajyerTakip.Controllers
             HttpContext.Session.SetString("kadi", hesap1.KullaniciAdi);
             HttpContext.Session.SetInt32("profilid", hesap1.ID);
             HttpContext.Session.SetInt32("yetki", hesap1.Rol);
-            HttpContext.Session.SetString("profilfotograf", hesap1.Fotograf);
+            HttpContext.Session.SetString("profilfotograf", hesap1.Fotograf ?? "~/images/man.png");
 
 
             if (hesap1.Rol == 4)
@@ -47,7 +47,8 @@ namespace StajyerTakip.Controllers
                 HttpContext.Session.SetInt32("id", db.BirimKoordinatorleri.ToList().Find(x => x.ProfilID == hesap1.ID).ID);
             if (hesap1.Rol == 2)
                 HttpContext.Session.SetInt32("id", db.Moderatorler.ToList().Find(x => x.ProfilID == hesap1.ID).ID);
-            //TODO buraya sistem yöneticisi de eklenecek.
+            if (hesap1.Rol == 1)
+                HttpContext.Session.SetInt32("id", db.SistemYoneticisi.ToList().Find(x => x.ProfilID == hesap1.ID).ID);
             return Redirect("~/Home/Index");
 
         }

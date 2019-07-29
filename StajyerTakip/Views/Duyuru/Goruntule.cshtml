@@ -1,0 +1,39 @@
+﻿@model Duyuru
+@{
+    ViewData["Title"] = "Goruntule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-10 offset-1 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+
+            <form>
+
+                <div class="form-group">
+                    <label for="isim">Duyuru Başlığı: </label>
+                    <input type="text" class="form-control" placeholder="Birim Adı" disabled value="@Model.Baslik" />
+                </div>
+                <div class="form-group">
+                    <label for="isim">Tarih: </label>
+                    <input type="text" class="form-control" placeholder="Birim Adı" disabled value="@Model.EklenmeTarihi" />
+                </div>
+                <div class="form-group">
+                    <label for="isim">Son Güncellenme Tarihi: </label>
+                    <input type="text" class="form-control" placeholder="Birim Adı" disabled value="@Model.GuncellenmeTarihi" />
+                </div>
+                <div class="form-group">
+                    <label for="isim">Ekleyen Kişi: </label>
+                    <input type="text" class="form-control" placeholder="Birim Adı" disabled value="@ViewBag.EkleyenKisi" />
+                </div>
+                <div class="form-group ">
+                    <label for="acıklama">İçerik: </label>
+                    <textarea class="form-control" id="acıklama" placeholder="Açıklama" disabled>@Model.Icerik</textarea>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>

@@ -52,6 +52,7 @@ namespace StajyerTakip.Controllers
                     }
                 }
             }
+            moderator.Profil.Rol = 2;
             moderator.Profil.Fotograf = path;
             db.Hesaplar.Add(moderator.Profil);
             db.Moderatorler.Add(moderator);
@@ -126,9 +127,21 @@ namespace StajyerTakip.Controllers
             Moderator moderator = db.Moderatorler.Find(id);
             moderator.Profil = db.Hesaplar.Find(moderator.ProfilID);
 
-            return Redirect("~/Moderator/Listele");
+            return View(moderator);
         }
 
+        [HttpPost]
+        [ActionName("Sil")]
+        [ModeratorUstYetki]
+        public IActionResult Silme(int id)
+        {
+            Moderator moderator = db.Moderatorler.Where(x => x.ID == id).SingleOrDefault();
+            db.Hesaplar.Remove(db.Hesaplar.Find(moderator.ID));
+
+            db.SaveChanges();
+
+            return Redirect("~/Moderator/Listele");
+        }
         [ModeratorUstYetki]
         public IActionResult Listele()
         {

@@ -11,7 +11,7 @@ namespace StajyerTakip
     {
         public Context(DbContextOptions<Context> options) : base(options)
         {
-
+                
         }
 
         public DbSet<Stajyer> Stajyerler { get; set; }
@@ -27,6 +27,8 @@ namespace StajyerTakip
         public DbSet<Devamsizlik> Devamsizlik { get; internal set; }
         public DbSet<BirimveStajyer> BirimveStajyer { get; internal set; }
         public DbSet<BirimveKoordinator> BirimveKoordinator { get; internal set; }
+        public DbSet<SistemYoneticisi> SistemYoneticisi { get; set; }
+        public DbSet<Duyuru> Duyurular { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //StajyerProje

@@ -1,0 +1,33 @@
+﻿@model Duyuru
+@{
+    ViewData["Title"] = "Duzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-10 offset-1 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Duyuru Bilgileri</h4>
+            <form method="post">
+
+                <div class="form-group">
+
+                    <div class="form-group ">
+                        <label for="duyurubaslik">Duyuru Başlığı: </label>
+                        <input type="text" class="form-control" id="duyurubaslik" name="Baslik" placeholder="Duyuru Başlığı" value="@Model.Baslik">
+                    </div>
+
+
+                    <div class="form-group ">
+                        <label for="icerik">Icerik: </label>
+                        <textarea class="form-control" id="icerik" name="Icerik" placeholder="İçerik">@Model.Icerik</textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                <a href="~/Birim/Listele" type="submit" class="btn btn-primary">İptal</a>
+
+            </form>
+        </div>
+    </div>
+</div>

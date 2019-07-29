@@ -76,7 +76,7 @@ namespace StajyerTakip.Controllers
                 birimler.Add(new BirimveStajyer { BirimID = Int32.Parse(Birimler[i]), Stajyer = stajyer });
             }
 
-
+            stajyer.Profil.Rol = 4;
             stajyer.Birimler = birimler;
             db.Hesaplar.Add(stajyer.Profil);
             db.Stajyerler.Add(stajyer);

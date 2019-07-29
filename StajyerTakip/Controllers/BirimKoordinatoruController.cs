@@ -74,6 +74,7 @@ namespace StajyerTakip.Controllers
                 birimler.Add(new BirimveKoordinator { BirimID = Int32.Parse(Birimler[i]), BirimKoordinatoru = birimkoordinatoru });
             }
 
+            birimkoordinatoru.Profil.Rol = 3;
             birimkoordinatoru.Birimler = birimler;
             db.Hesaplar.Add(birimkoordinatoru.Profil);
             db.BirimKoordinatorleri.Add(birimkoordinatoru);
