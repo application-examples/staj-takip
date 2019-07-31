@@ -3,7 +3,14 @@
     ViewData["Title"] = "Duzenle";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using Microsoft.AspNetCore.Http
 
+@{
+    var yetki = Context.Session.GetInt32("yetki");
+    var profilid = Context.Session.GetInt32("profilid");
+    var kadi = Context.Session.GetString("kadi");
+    var id = Context.Session.GetInt32("id");
+}
 <div class="col-md-10 offset-1 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
@@ -30,14 +37,36 @@
                     <label for="email">Email Adres</label>
                     <input type="email" class="form-control" id="email" name="Profil.Email" placeholder="Email" value="@Model.Profil.Email">
                 </div>
-                <div class="form-group">
-                    <label for="birim">Birim</label>
-                    <select name="Birimler[]" id="select2" multiple="multiple" class="form-control" data- asp-items="ViewBag.Birimler"></select>
-                </div>
+                @if (yetki != 4 && yetki != 3)
+                {
+                    <div class="form-group">
+                        <label for="birim">Birim</label>
+                        <select name="Birimler[]" id="select2" multiple="multiple" class="form-control" data- asp-items="ViewBag.Birimler"></select>
+                    </div>
+                }
                 <div class="form-group">
                     <label for="sifre">Şifre</label>
                     <input type="password" class="form-control" id="sifre" name="Profil.Sifre" placeholder="Şifre" value="@Model.Profil.Sifre">
                 </div>
+                @if (yetki != 4 && yetki != 3)
+                {
+                    <div class="form-row">
+                        <div class="form-group col-sm-4">
+                            <label for="GunSayisi">Staj Süresi(Gün)</label>
+                            <input type="text" id="GunSayisi" name="GunSayisi" class="form-control" placeholder="Staj Gün Sayısı" />
+                        </div>
+
+                        <div class="form-group col-sm-4">
+                            <label for="baslangictarihi">Başlangıç Tarihi:</label>
+                            <input type="date" class="form-control" id="baslangictarihi" name="BaslangicTarihi" placeholder="Başlangıç Tarihi">
+                        </div>
+
+                        <div class="form-group col-sm-4">
+                            <label for="bitistarihi">Bitiş Tarihi:</label>
+                            <input type="date" class="form-control" id="bitistarihi" name="BitisTarihi" placeholder="Bitiş Tarihi">
+                        </div>
+                    </div>
+                }
                 <div class="form-group">
                     <label for="telefonnumarasi">Telefon Numarası:</label>
                     <input type="text" class="form-control bfh-phone" data-format="+1 (ddd) ddd-dddd" name="Profil.Telefon" placeholder="Telefon Numarası" value="@Model.Profil.Telefon">
@@ -82,7 +111,7 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success ">Kaydet</button>
-             
+
 
                 <a href="~/Home/Index" class="btn btn-primary">İptal</a>
 

@@ -115,6 +115,7 @@ namespace StajyerTakip.Controllers
         {
             BirimKoordinatoru anaveri = db.BirimKoordinatorleri.Find(id);
             Profil profil = db.Hesaplar.ToList().Find(x => x.ID == anaveri.ProfilID);
+            var yetki = HttpContext.Session.GetInt32("yetki");
 
             var filepath = @"wwwroot/profile_images";
             if (img == null || img.Length <= 0) { }
@@ -134,25 +135,27 @@ namespace StajyerTakip.Controllers
                     }
                 }
             }
-
-            var silinecekbirimler = db.BirimveKoordinator.ToList().FindAll(x => x.BirimKoordinatoruID == id);
-            foreach (var birim in silinecekbirimler)
+            if (yetki != 3)
             {
-                db.BirimveKoordinator.Remove(birim);
-            }
-
-            var birimler = new List<BirimveKoordinator>();
-
-            for (var i = 0; i < Birimler.Length; i++)
-            {
-                birimler.Add(new BirimveKoordinator
+                var silinecekbirimler = db.BirimveKoordinator.ToList().FindAll(x => x.BirimKoordinatoruID == id);
+                foreach (var birim in silinecekbirimler)
                 {
-                    BirimKoordinatoru = anaveri,
-                    BirimID = Int32.Parse(Birimler[i])
-                });
+                    db.BirimveKoordinator.Remove(birim);
+                }
+
+                var birimler = new List<BirimveKoordinator>();
+
+                for (var i = 0; i < Birimler.Length; i++)
+                {
+                    birimler.Add(new BirimveKoordinator
+                    {
+                        BirimKoordinatoru = anaveri,
+                        BirimID = Int32.Parse(Birimler[i])
+                    });
+                }
+                anaveri.Birimler = birimler;
             }
 
-            anaveri.Birimler = birimler;
             anaveri.Profil.Ad = birimkoordinatoru.Profil.Ad;
             anaveri.Profil.Soyad = birimkoordinatoru.Profil.Soyad;
             anaveri.Profil.KullaniciAdi = birimkoordinatoru.Profil.KullaniciAdi;
@@ -167,7 +170,6 @@ namespace StajyerTakip.Controllers
 
             db.SaveChanges();
 
-            var yetki = HttpContext.Session.GetInt32("yetki");
 
             if (yetki != 3)
                 return Redirect("~/BirimKoordinatoru/Listele");

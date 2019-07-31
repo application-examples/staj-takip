@@ -131,34 +131,33 @@ namespace StajyerTakip.Controllers
         }
 
         [StajyerUstYetki]
-        public IActionResult Onayla(int id)
+        public JsonResult Onayla(int id)
         {
             Gunluk gunluk = db.Gunlukler.Find(id);
 
-            if (gunluk.OnayDurumu != -1)
-            {
-                return Redirect("~/Error/Error");
-            }
             gunluk.OnayDurumu = 1;
             db.SaveChanges();
 
-            return Redirect("~/Gunluk/Goruntule/" + id);
+            return Json(new
+            {
+                result = true,
+                message= "başarılı"
+            });
         }
 
         [StajyerUstYetki]
-        public IActionResult Reddet(int id)
+        public JsonResult Reddet(int id)
         {
             Gunluk gunluk = db.Gunlukler.Find(id);
 
-            if (gunluk.OnayDurumu != -1)
-            {
-                return Redirect("~/Error/Error");
-            }
 
             gunluk.OnayDurumu = 0;
             db.SaveChanges();
 
-            return Redirect("~/Gunluk/Goruntule/" + id);
+            return Json(new{
+                result = true,
+                message = "başarılı"
+            });
         }
     }
 }

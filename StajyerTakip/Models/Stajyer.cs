@@ -11,8 +11,11 @@ namespace StajyerTakip.Models
         public int ProfilID { get; set; }
         public string Okul { get; set; }
         public string Bolum { get; set; }
-
+        public int GunSayisi { get; set; }
         public Profil Profil { get; set; }
+        public DateTime EklenmeTarihi { get; set; }
+        public DateTime BaslangicTarihi { get; set; }
+        public DateTime BitisTarihi { get; set; }
 
         public List<Gunluk> Gunlukler { get; set; }
         public List<BirimveStajyer> Birimler { get; set; }

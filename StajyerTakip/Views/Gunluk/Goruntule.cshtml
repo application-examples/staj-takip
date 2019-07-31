@@ -52,28 +52,106 @@
 
                 @if (yetki != 4)
                 {
+                    if (Model.OnayDurumu == 1)
+                    {
+
+                        <div class="card card-header bg-success text-white d-block"><span class="mdi mdi-check-circle" style=""> </span><span class="">Onaylandı </span><button type="button" data-toggle="modal" data-target="#duzenle" class="text-white btn btn-success py-0 float-right mdi mdi-pencil-circle ">Düzenle</button></div>
+
+                        <div class="modal" id="duzenle">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header"><h4 class="modal-title">Lütfen seçiminizi yapın</h4><button type="button" class="close" data-dismiss="modal">&times;</button> </div>
+                                    <div class="modal-body text-center">
+                                        <a class="btn btn-success text-white" id="btnOnayla">Onayla</a>
+                                        <a class="btn btn-danger text-white" id="btnReddet">Reddet</a>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    if (Model.OnayDurumu == 0)
+                    {
+                        <div class="card card-header bg-danger text-white d-block"><span class="mdi mdi-close-circle" style=""> </span><span class="">Reddedildi </span><button type="button" data-toggle="modal" data-target="#duzenle" class="text-white btn btn-danger py-0 float-right mdi mdi-pencil-circle ">Düzenle</button></div>
+                        <div class="modal" id="duzenle">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header"><h4 class="modal-title">Lütfen seçiminizi yapın</h4><button type="button" data-dismiss="modal" class="close">&times;</button></div>
+                                    <div class="modal-body text-center">
+                                        <a class="btn btn-success text-white" id="btnOnayla">Onayla</a>
+                                        <a class="btn btn-danger text-white" id="btnReddet">Reddet</a>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                     if (Model.OnayDurumu == -1)
                     {
                         <a href="~/Gunluk/Onayla/@Model.ID" class="btn btn-success ">Onayla</a>
                         <a href="~/Gunluk/Reddet/@Model.ID" class="btn btn-danger">Reddet</a>
                     }
+                    
 
                 }
-                @{
+                @if (yetki == 4)
+                {
                     if (Model.OnayDurumu == 1)
                     {
                         <div class="card card-header bg-success text-white"><span class="mdi mdi-check-circle"> Onaylandı</span></div>
                     }
-                    if(Model.OnayDurumu == 0)
+                    if (Model.OnayDurumu == 0)
                     {
                         <div class="card card-header bg-danger text-white"><span class="mdi mdi-close-circle"> Reddedildi.</span></div>
                     }
                 }
-                <a class="nav-link" href="#">Link</a>
-
 
             </form>
 
         </div>
     </div>
 </div>
+
+<script>
+    $(function () {
+        $('#btnOnayla').click(function () {
+
+            $.ajax({
+                type: "POST",
+                url: '/Gunluk/Onayla',
+                dataType: "json",
+                data: { id: @Model.ID },
+                success: function () {
+                    alert('başarılı');
+                },
+                error: function () {
+                    alert('hata var');
+                }
+                
+            });
+            return false;
+        });
+
+        $('#btnReddet').click(function () {
+
+            $.ajax({
+                type: "POST",
+                url: '/Gunluk/Reddet',
+                dataType: "json",
+                data: { id: @Model.ID},
+                success: function () {
+                    alert('başarılı');
+                },
+                error: function () {
+                    alert('hatalı');
+                }
+            });
+            return false;
+        });
+    });
+    
+</script>

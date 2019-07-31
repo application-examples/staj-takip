@@ -130,7 +130,7 @@ namespace StajyerTakip.Controllers
         {
             Stajyer anaveri = db.Stajyerler.Find(id);
             anaveri.Profil = db.Hesaplar.ToList().Find(x => x.ID == anaveri.ProfilID);
-
+            var yetki = HttpContext.Session.GetInt32("yetki");
 
             var filepath = @"wwwroot/profile_images";
             if (img == null || img.Length <= 0)
@@ -154,21 +154,23 @@ namespace StajyerTakip.Controllers
                 }
             }
 
-
-            List<BirimveStajyer> birimler = new List<BirimveStajyer>();
-            for (var i = 0; i < Birimler.Length; i++)
+            if (yetki != 4 && yetki != 3)
             {
-                birimler.Add(new BirimveStajyer { BirimID = Int32.Parse(Birimler[i]), Stajyer = anaveri });
+                List<BirimveStajyer> birimler = new List<BirimveStajyer>();
+                for (var i = 0; i < Birimler.Length; i++)
+                {
+                    birimler.Add(new BirimveStajyer { BirimID = Int32.Parse(Birimler[i]), Stajyer = anaveri });
+                }
+
+                List<BirimveStajyer> silinecekbirimler = db.BirimveStajyer.ToList().FindAll(x => x.StajyerID == id);
+
+                foreach (var birim in silinecekbirimler)
+                {
+                    db.BirimveStajyer.Remove(birim);
+                }
+                anaveri.Birimler = birimler;
             }
 
-            List<BirimveStajyer> silinecekbirimler = db.BirimveStajyer.ToList().FindAll(x => x.StajyerID == id);
-
-            foreach (var birim in silinecekbirimler)
-            {
-                db.BirimveStajyer.Remove(birim);
-            }
-
-            anaveri.Birimler = birimler;
             anaveri.Profil.Ad = stajyer.Profil.Ad;
             anaveri.Profil.Soyad = stajyer.Profil.Soyad;
             anaveri.Profil.KullaniciAdi = stajyer.Profil.KullaniciAdi;
@@ -176,6 +178,12 @@ namespace StajyerTakip.Controllers
             anaveri.Profil.Email = stajyer.Profil.Email;
             anaveri.Profil.Telefon = stajyer.Profil.Telefon;
             anaveri.Okul = stajyer.Okul;
+            if (yetki != 4 && yetki != 3)
+            {
+                anaveri.GunSayisi = stajyer.GunSayisi;
+                anaveri.BaslangicTarihi = stajyer.BaslangicTarihi;
+                anaveri.BitisTarihi = stajyer.BitisTarihi;
+            }
             anaveri.Bolum = stajyer.Bolum;
             anaveri.Profil.Adres = stajyer.Profil.Adres;
             anaveri.Profil.Il = stajyer.Profil.Il;
@@ -184,7 +192,6 @@ namespace StajyerTakip.Controllers
 
             db.SaveChanges();
 
-            var yetki = HttpContext.Session.GetInt32("yetki");
 
             if (yetki == 4)
                 return Redirect("~/Home/Index");
@@ -234,15 +241,15 @@ namespace StajyerTakip.Controllers
             var yetki = HttpContext.Session.GetInt32("yetki");
             var kisiid = HttpContext.Session.GetInt32("id");
 
-            if(yetki == 3)
+            if (yetki == 3)
             {
                 BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Where(x => x.ID == kisiid).Include(x => x.Birimler).SingleOrDefault();
                 List<Stajyer> stajyers = new List<Stajyer>();
-                foreach(var birim in koordinator.Birimler)
+                foreach (var birim in koordinator.Birimler)
                 {
                     foreach (var stajyer in stajyerler)
                     {
-                        if(stajyer.Birimler.Any(x=>x.BirimID == birim.BirimID) && !stajyers.Any(x=>x.ID == stajyer.ID))
+                        if (stajyer.Birimler.Any(x => x.BirimID == birim.BirimID) && !stajyers.Any(x => x.ID == stajyer.ID))
                         {
                             stajyers.Add(stajyer);
                         }

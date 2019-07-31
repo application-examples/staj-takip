@@ -30,11 +30,11 @@
                 {
                     @if (yetki == 1)
                     {
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Moderator/Listele" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Moderator</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Moderator/Listele" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Moderatorler</span></a></li>
                     }
                     @if (yetki == 2)
                     {
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Moderator/Duzenle" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Moderator</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Moderator/Duzenle" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Profil</span></a></li>
                     }
                 }
 
@@ -43,49 +43,49 @@
                 {
                     if (yetki != 3)
                     {
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/BirimKoordinatoru/Listele" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Birim Koordinatörü</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/BirimKoordinatoru/Listele" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Birim Koordinatörleri</span></a></li>
                     }
                     else
                     {
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/BirimKoordinatoru/Duzenle" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Birim Koordinatörü</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/BirimKoordinatoru/Duzenle" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Profil</span></a></li>
                     }
                 }
 
                 @if (yetki == 4)
                 {
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Stajyer/Duzenle" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Stajyer</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Stajyer/Duzenle" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Profil</span></a></li>
                 }
                 @if (yetki == 3 || yetki == 2 || yetki == 1)
                 {
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Stajyer/Listele" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Stajyer</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Stajyer/Listele" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Stajyerler</span></a></li>
 
                 }
 
                 @if (yetki == 4)
                 {
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Gunluk/Listele" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Günlük</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Gunluk/Listele" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Günlükler</span></a></li>
                 }
                 @if (yetki == 3 || yetki == 2 || yetki == 1)
                 {
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Gunluk/Yonet" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Günlük</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Gunluk/Yonet" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Günlükler</span></a></li>
 
                 }
                 @if (yetki == 4)
                 {
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Devamsizlik/Goruntule" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Devamsızlık</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Devamsizlik/Goruntule" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Devamsızlıklar</span></a></li>
                 }
                 @if (yetki == 3 || yetki == 2 || yetki == 1)
                 {
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Devamsizlik/Yonet" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Devamsızlık</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Devamsizlik/Yonet" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Devamsızlıklar</span></a></li>
                 }
 
                 @if (yetki == 2 || yetki == 1)
                 {
-                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Birim/Listele" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Birim</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Birim/Listele" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Birimler</span></a></li>
 
                 }
 
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Duyuru/Listele" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Duyuru</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="~/Duyuru/Listele" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Duyurular</span></a></li>
 
 
 
