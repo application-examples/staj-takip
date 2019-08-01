@@ -55,7 +55,7 @@ namespace StajyerTakip.Controllers
             if (gunluk.Tarih == DateTime.UtcNow)
                 return View(gunluk);
             else
-                return Redirect("~/Gunluk/Goruntule/"+id);
+                return Redirect("~/Gunluk/Goruntule/" + id);
         }
         [HttpPost]
         public IActionResult Duzenle(Models.Gunluk gunluk, int id)
@@ -130,34 +130,28 @@ namespace StajyerTakip.Controllers
             return View(gunluk);
         }
 
+        [HttpPost]
         [StajyerUstYetki]
-        public JsonResult Onayla(int id)
+        public IActionResult Onayla(int id)
         {
             Gunluk gunluk = db.Gunlukler.Find(id);
 
             gunluk.OnayDurumu = 1;
             db.SaveChanges();
 
-            return Json(new
-            {
-                result = true,
-                message= "başarılı"
-            });
+            return PartialView("_GunlukDurumu", gunluk);
         }
 
         [StajyerUstYetki]
-        public JsonResult Reddet(int id)
+        [HttpPost]
+        public IActionResult Reddet(int id)
         {
             Gunluk gunluk = db.Gunlukler.Find(id);
-
 
             gunluk.OnayDurumu = 0;
             db.SaveChanges();
 
-            return Json(new{
-                result = true,
-                message = "başarılı"
-            });
+            return PartialView("_GunlukDurumu", gunluk);
         }
     }
 }

@@ -1,0 +1,85 @@
+﻿@model Gunluk
+@using Microsoft.AspNetCore.Http
+
+@{
+    var yetki = Context.Session.GetInt32("yetki");
+    var profilid = Context.Session.GetInt32("profilid");
+    var kadi = Context.Session.GetString("kadi");
+    var id = Context.Session.GetInt32("id");
+}
+
+
+@if (yetki != 4)
+{
+    if (Model.OnayDurumu == 1)
+    {
+
+        <div class="card card-header bg-success text-white d-block"><span class="mdi mdi-check-circle" style=""> </span><span class="">Onaylandı </span><button type="button" data-toggle="modal" data-target="#duzenle" class="text-white btn btn-success py-0 float-right mdi mdi-pencil-circle ">Düzenle</button></div>
+
+    }
+    if (Model.OnayDurumu == 0)
+    {
+        <div class="card card-header bg-danger text-white d-block"><span class="mdi mdi-close-circle" style=""> </span><span class="">Reddedildi </span><button type="button" data-toggle="modal" data-target="#duzenle" class="text-white btn btn-danger py-0 float-right mdi mdi-pencil-circle ">Düzenle</button></div>
+        
+    }
+    if (Model.OnayDurumu == -1)
+    {
+        <a href="" id="btnOnayla" class="btn btn-success ">Onayla</a>
+        <a href="" id="btnReddet" class="btn btn-danger">Reddet</a>
+    }
+
+
+}
+@if (yetki == 4)
+{
+    if (Model.OnayDurumu == 1)
+    {
+        <div class="card card-header bg-success text-white"><span class="mdi mdi-check-circle"> Onaylandı</span></div>
+    }
+    if (Model.OnayDurumu == 0)
+    {
+        <div class="card card-header bg-danger text-white"><span class="mdi mdi-close-circle"> Reddedildi.</span></div>
+    }
+}
+
+        <script>
+
+
+    $(function () {
+        $('#btnOnayla').click(function () {
+
+            $.ajax({
+                type: "POST",
+                url: '/Gunluk/Onayla',
+                dataType: "text",
+                data: { id: @Model.ID },
+                success: function (data) {
+                    $('#veriler').html(data);
+                },
+                error: function () {
+                }
+
+            });
+            $('#duzenle').modal('hide');
+            return false;
+        });
+
+        $('#btnReddet').click(function () {
+
+            $.ajax({
+                type: "POST",
+                url: '/Gunluk/Reddet',
+                dataType: "text",
+                data: { id: @Model.ID},
+                success: function (data) {
+                    $('#veriler').html(data);
+                },
+                error: function () {
+                }
+            });
+            $('#duzenle').modal('hide');
+            return false;
+        });
+    });
+
+        </script>

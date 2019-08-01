@@ -39,10 +39,11 @@
                                         @i.Profil.Ad @i.Profil.Soyad
                                     </td>
                                     <td>
-
-                                        <a href="~/Devamsizlik/Ekle/@i.ID" class="btn btn-sm btn-success">Ekle</a>
-                                        <a href="~/Devamsizlik/Duzenle/@i.ID" class="btn btn-sm btn-primary">Düzenle</a>
-                                        <a href="~/Devamsizlik/Goruntule/@i.ID" class="btn btn-sm btn-danger">Görüntüle</a>
+                                        <input type="hidden" id="@i.ID" value="@i.ID" />
+                                        <div hidden="hidden" id="@i.Profil.Ad @i.Profil.Soyad"></div>
+                                        <button type="button" data-toggle="modal" data-target="#devamsizlikekle" id="@i.ID" class="btn btn-success">Ekle</button>
+                                        <a href="~/Devamsizlik/Duzenle/@i.ID" class="btn btn-primary">Düzenle</a>
+                                        <a href="~/Devamsizlik/Goruntule/@i.ID" class="btn btn-danger">Görüntüle</a>
 
                                     </td>
                                 </tr>
@@ -58,3 +59,60 @@
 </div>
 
 
+<div class="modal" id="devamsizlikekle">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h4 class="modal-title">Devamsızlık Ekle</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="px-3 pl-0 py-3 bg-light mb-2" id="veri">
+
+                </div>
+                <div class="form-group">
+
+                    <div class="input-group date" id="datetimepicker5">
+
+                        <input type="date" class="form-control" name="Tarih" id="dtarih" required />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="devamsizkaydet" class="btn btn-success">Kaydet</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        var id;
+        $("button").click(function () {
+            id = $("td>input").attr("id");
+            var adsoyad = $("td>div").attr("id");
+            $('#veri').html(adsoyad);
+        });
+
+        $("#devamsizkaydet").click(function () {
+            var devamsizlik = {};
+            devamsizlik.Tarih = $('#dtarih').val();
+            devamsizlik.StajyerID = id;
+            $.ajax({
+                url: "/Devamsizlik/Ekle",
+                data: {devamsizlik: JSON.stringify(devamsizlik),id: id},
+                dataType: "json",
+                type: "POST",
+                success: function () {
+                    alert("başarılı");
+                },
+                error: function () {
+                    alert("hata");
+                }
+            });
+        });
+       
+    });
+</script>

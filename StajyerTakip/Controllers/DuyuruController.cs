@@ -115,6 +115,14 @@ namespace StajyerTakip.Controllers
             }
             return View(duyuru);
         }
+
+        [HttpPost]
+        public IActionResult DuyurulariCek()
+        {
+            List<Duyuru> Duyurular = db.Duyurular.ToList();
+
+            return PartialView("_Duyurular", Duyurular);
+        }
        
     }
 }

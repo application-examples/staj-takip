@@ -124,13 +124,13 @@ namespace StajyerTakip.Controllers
             var yetki = HttpContext.Session.GetInt32("yetki");
             var kisiid = HttpContext.Session.GetInt32("id");
 
-            if(yetki == 3)
+            if (yetki == 3)
             {
                 BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Where(x => x.ID == kisiid).Include(x => x.Birimler).SingleOrDefault();
 
-                foreach(var birim in koordinator.Birimler)
+                foreach (var birim in koordinator.Birimler)
                 {
-                    if(stajyer.Birimler.Any(x=>x.BirimID == birim.BirimID))
+                    if (stajyer.Birimler.Any(x => x.BirimID == birim.BirimID))
                     {
                         return View(stajyer);
                     }
@@ -143,13 +143,13 @@ namespace StajyerTakip.Controllers
 
         [StajyerUstYetki]
         [HttpPost]
-        public IActionResult Ekle(int id, Models.Devamsizlik devamsizlik)
+        public JsonResult Ekle(int id, Models.Devamsizlik devamsizlik)
         {
             devamsizlik.StajyerID = id;
             devamsizlik.ID = 0;
             db.Devamsizlik.Add(devamsizlik);
             db.SaveChanges();
-            return RedirectToAction("Ekle");
+            return Json(new { result = true, message = "başarılı" });
         }
 
         [StajyerID]
