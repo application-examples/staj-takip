@@ -1,0 +1,25 @@
+﻿@model List<Devamsizlik>
+
+@{
+    int c = 0;
+}
+@foreach (var i in Model)
+{
+
+    <tr>
+        <td>
+            @{ c++;}
+            @c
+        </td>
+        <td>@i.Tarih.ToString("dd/MMM/yyyy")</td>
+        <td><button type="button" data-target="#silmeonay" data-toggle="modal" class="btn btn-danger btnsil" id="@i.ID">Sil</button></td>
+    </tr>
+}
+
+<script>
+        var idsil;
+        $('.btnsil').click(function () {
+            idsil = this.id;
+        });
+</script>
+

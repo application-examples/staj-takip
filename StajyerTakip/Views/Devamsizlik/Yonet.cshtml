@@ -4,7 +4,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    .profile-area {
+        max-height: 200px;
+        height: 200px;
+    }
 
+    @@media screen and (max-width:767px) {
+        .profile-area-image {
+            max-height: 0px;
+            height: 0px;
+            display: none;
+        }
+    }
+</style>
 
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
@@ -12,7 +25,7 @@
             <h4 class="card-title">Stajyer Bilgileri</h4>
 
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped" id="kisilertablosu">
                     <thead>
                         <tr>
                             <th>
@@ -20,6 +33,9 @@
                             </th>
                             <th>
                                 Adı Soyadı
+                            </th>
+                            <th>
+                                Toplam Devamsızlık
                             </th>
                             <th>
                                 Devamsızlık
@@ -38,11 +54,12 @@
                                     <td>
                                         @i.Profil.Ad @i.Profil.Soyad
                                     </td>
+                                    <td class="">
+                                        @i.Devamsizliklar.Count
+                                    </td>
                                     <td>
-                                        <input type="hidden" id="@i.ID" value="@i.ID" />
-                                        <div hidden="hidden" id="@i.Profil.Ad @i.Profil.Soyad"></div>
-                                        <button type="button" data-toggle="modal" data-target="#devamsizlikekle" id="@i.ID" class="btn btn-success">Ekle</button>
-                                        <a href="~/Devamsizlik/Duzenle/@i.ID" class="btn btn-primary">Düzenle</a>
+                                        <button type="button" data-toggle="modal" data-target="#devamsizlikekle" id="@i.ID" class="btn btn-success btnekle">Ekle</button>
+                                        <button type="button" class="btn btn-primary btnduzenle" data-toggle="modal" data-target="#devamsizlikduzenle" id="@i.ID">Düzenle</button>
                                         <a href="~/Devamsizlik/Goruntule/@i.ID" class="btn btn-danger">Görüntüle</a>
 
                                     </td>
@@ -59,22 +76,100 @@
 </div>
 
 
-<div class="modal" id="devamsizlikekle">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content ">
-            <div class="modal-header">
-                <h4 class="modal-title">Devamsızlık Ekle</h4>
+
+<div class="modal " id="devamsizlikduzenle">
+    <div class="modal-dialog " style="max-width:650px;">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title"><span class="mdi mdi-pencil-box mdi-18px"></span>Devamsızlık Düzenle</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="px-3 pl-0 py-3 bg-light mb-2" id="veri">
+                <div class="container-fluid row ml-1 " style="">
+                    <div class="bg-dark  col-md-4  profile-area profile-area-image" style=""></div>
+                    <div class="bg-success col-md-8 col-xs-12 profile-area " style="">
+                        <div class="card h-100" style="margin-left:-10px; margin-right:-10px;">
+                            <div class="card-header bg-light"><h5 class="card-title">Profil Bilgileri</h5></div>
+                            <div class="card-body border h-100 scrollable">
+                                <div class="row">
+                                    <div class="w-25 font-bold pl-2 pl-sm-0 text-right">Ad Soyad:</div>
+                                    <div class="w-75 pl-4 pl-sm-2 text-primary font-bold">Niyazi Ekinci</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="w-25 font-bold pl-2 pl-sm-0 text-right">Okul:</div>
+                                    <div class="w-75 pl-4 pl-sm-2 text-primary font-bold">Alanya Alaaddin Keykubat Üniversitesi</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="w-25 font-bold pl-2 pl-sm-0 text-right">Bölüm:</div>
+                                    <div class="w-75 pl-4 pl-sm-2 text-primary font-bold">Bilgisayar Mühendisliği</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="w-25 font-bold pl-2 pl-sm-0 text-right">Telefon:</div>
+                                    <div class="w-75 pl-4 pl-sm-2 text-primary font-bold">+90 (532) 543 2704</div>
+                                </div>
+                                <div class="row mt-1">
+                                    <div class="w-25 font-bold pl-2 text-right">Email:</div>
+                                    <div class="w-75 pl-4 pl-sm-2 text-primary font-bold">niyaziekinci5050@gmail.com</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
+                <div class="container-fluid mt-1">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card" style="margin-right: -4px; margin-left:4px;">
+                                <div class="card-header bg-light">
+                                    <div class="row">
+                                        <div class="font-bold col-md-4 col-xs-12 align-self-center">Toplam Devamsızlık : 5</div>
+                                        <div class="col-md-4 col-xs-12 offset-md-4 text-right">
+                                            <button type="button" data-target="#devamsizlikekle" data-toggle="modal" class="btn btn-success">Ekle</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid mt-1">
+                    <div class="table-responsive">
+                        <table class="table table-striped " id="devamsizliktablosu" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tarih</th>
+                                    <th>Düzenle</th>
+                                </tr>
+                            </thead>
+                            <tbody id="devamsizliklistesi">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="devamsizlikekle">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content ">
+            <div class="modal-header bg-light">
+                <h4 class="modal-title"><span class="mdi mdi-plus-box mdi-18px"></span>Devamsızlık Ekle</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="usericon" hidden>
+                    <span class="mdi mdi-18px mdi-account"></span>
+                </div>
+                <div class="pl-1 py-3  mb-2 font-18" id="veri">
                 </div>
                 <div class="form-group">
 
                     <div class="input-group date" id="datetimepicker5">
 
-                        <input type="date" class="form-control" name="Tarih" id="dtarih" required />
+                        <input type="date" class="form-control datepicker" name="Tarih" id="dtarih" required />
                     </div>
                 </div>
             </div>
@@ -86,33 +181,124 @@
     </div>
 </div>
 
+<div class="modal fade fadeOutUp" id="durum">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h4 class="modal-title text-white">Durum</h4>
+                <button class="close text-white" data-dismiss="modal" type="button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center row">
+                    <span class="mdi mdi-48px mdi-check-circle  pl-3 text-success"></span>
+                    <div class="align-self-center lead pl-2 font-bold  font-24 pb-1">Başarıyla kaydedildi.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="durum1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h4 class="modal-title">Durum</h4>
+                <button class="close text-white" data-dismiss="modal" type="button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center row">
+                    <span class="mdi mdi-48px mdi-close-circle text-danger pl-3"></span>
+                    <div class="align-self-center lead pl-2 font-bold font-24 pb-1">Bir sorun oluştu.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="silmeonay">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><span class="mdi mdi-delete"></span>Silme Onayı</h4>
+            </div>
+            <div class="modal-body lead text-center">
+                Gerçekten silmek istiyor musunuz? 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btnSil">Sil</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     $(function () {
-        var id;
-        $("button").click(function () {
-            id = $("td>input").attr("id");
-            var adsoyad = $("td>div").attr("id");
-            $('#veri').html(adsoyad);
+
+      
+        $('#kisilertablosu').DataTable({
+            "language": { "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json" }
+            
         });
 
-        $("#devamsizkaydet").click(function () {
-            var devamsizlik = {};
-            devamsizlik.Tarih = $('#dtarih').val();
-            devamsizlik.StajyerID = id;
+        var idx;
+        $('.btnekle').click(function () {
+            idx = this.id;
             $.ajax({
-                url: "/Devamsizlik/Ekle",
-                data: {devamsizlik: JSON.stringify(devamsizlik),id: id},
-                dataType: "json",
                 type: "POST",
-                success: function () {
-                    alert("başarılı");
-                },
-                error: function () {
-                    alert("hata");
+                dataType: "text",
+                data: { id: idx },
+                url: "/Devamsizlik/AdSoyadCek",
+                success: function (data) {
+                    $('#veri').html($('#usericon').html() + data);
                 }
             });
         });
-       
+
+
+        $('#btnSil').click(function () {
+            console.log(idsil);
+        });
+        
+        var idduzenle;
+        $('.btnduzenle').click(function () {
+
+            idduzenle = this.id;
+            console.log(idduzenle);
+            $.ajax({
+                type: "POST",
+                data: { id: idduzenle },
+                dataType: "text",
+                url: "/Devamsizlik/DevamsizlikTablosu",
+                success: function (data) {
+                    $('#devamsizliklistesi').html(data);
+                    $('#devamsizliktablosu').DataTable({
+                        "language": { "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json" }
+                    });
+                }
+            });
+            
+        });
+        
+
+        $("#devamsizkaydet").click(function () {
+            const id = idx;
+            var devamsizlik = { StajyerID: id, Tarih: $('#dtarih').val() };
+            $.ajax({
+                url: "/Devamsizlik/Ekle",
+                data: { devamsizlik: devamsizlik, id: id },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    $('#devamsizlikekle').modal('hide');
+                    $('#durum').modal('show');
+                },
+                error: function (data) {
+                    $('#devamsizlikekle').modal('hide');
+                    $('#durum1').modal('show');
+
+                }
+            });
+        });
+
     });
 </script>

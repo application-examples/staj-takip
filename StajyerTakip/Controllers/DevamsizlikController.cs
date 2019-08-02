@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -145,13 +146,36 @@ namespace StajyerTakip.Controllers
         [HttpPost]
         public JsonResult Ekle(int id, Models.Devamsizlik devamsizlik)
         {
-            devamsizlik.StajyerID = id;
+
             devamsizlik.ID = 0;
             db.Devamsizlik.Add(devamsizlik);
             db.SaveChanges();
-            return Json(new { result = true, message = "başarılı" });
+            return Json(new { result = false, message = "başarılı" });
         }
 
+        public JsonResult TarihAl()
+        {
+
+            DateTime date = DateTime.UtcNow;
+            return Json(new { tarih = date });
+        }
+        [HttpPost]
+        public string AdSoyadCek(int id)
+        {
+            Stajyer stajyer = db.Stajyerler.Where(x => x.ID == id).Include(x => x.Profil).SingleOrDefault();
+
+            string adsoyad = stajyer.Profil.Ad + " " + stajyer.Profil.Soyad;
+
+            return adsoyad;
+        }
+
+        [HttpPost]
+        public IActionResult DevamsizlikTablosu(int id)
+        {
+            List<Devamsizlik> Devamsizliklar = db.Devamsizlik.ToList().FindAll(x => x.StajyerID == id);
+
+            return View(Devamsizliklar);
+        }
         [StajyerID]
         public IActionResult Goruntule(int id)
         {
@@ -199,15 +223,32 @@ namespace StajyerTakip.Controllers
 
             return View(devamsizlik);
         }
+
+        [StajyerUstYetki]
         [ActionName("Sil"), HttpPost]
         public IActionResult Silme(int id)
         {
             Devamsizlik devamsizlik = db.Devamsizlik.Find(id);
+            int stajyerID = devamsizlik.StajyerID;
             db.Devamsizlik.Remove(devamsizlik);
             db.SaveChanges();
-            return Redirect("~/Home/Index");
+            List<Devamsizlik> devamsizliklar = db.Devamsizlik.ToList().FindAll(x => x.StajyerID == stajyerID);
+            return PartialView("DevamsizlikTablosu", devamsizliklar);
 
 
+        }
+
+        [StajyerUstYetki]
+        [HttpPost]
+        public IActionResult Silx(int id)
+        {
+            Devamsizlik devamsizlik = db.Devamsizlik.Find(id);
+            int stajyerID = devamsizlik.StajyerID;
+            int a = 0;
+            db.Devamsizlik.Remove(devamsizlik);
+            db.SaveChanges();
+            List<Devamsizlik> devamsizliklar = db.Devamsizlik.ToList().FindAll(x => x.StajyerID == stajyerID);
+            return PartialView("DevamsizlikTablosu", devamsizliklar);
         }
     }
 }
