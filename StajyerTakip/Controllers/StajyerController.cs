@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using StajyerTakip.Attributes;
 using StajyerTakip.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace StajyerTakip.Controllers
 {
@@ -45,22 +46,34 @@ namespace StajyerTakip.Controllers
 
         [HttpPost]
         [StajyerUstYetki]
-        public async Task<IActionResult> Ekle(Stajyer stajyer, string[] Birimler, IFormFile img)
+        public ActionResult Ekle(Stajyer stajyer, string[] Birimler, string img)
         {
 
 
+            var id = HttpContext.Session.GetInt32("id");
             var filepath = @"wwwroot/profile_images";
             if (!Directory.Exists(filepath))
                 Directory.CreateDirectory(filepath);
-            string path = "";
-            if (img != null && img.Length > 0)
+            string path = "/images/man.png";
+            if (!string.IsNullOrEmpty(img))
             {
-                string fullpath = Path.Combine(filepath, img.FileName);
+                var t = img.Replace("data:image/jpeg;base64,", "");
+                byte[] imagebytes = Convert.FromBase64String(t);
+
+                string filename = "IMG_" + id + "_" + DateTime.UtcNow.ToString("yyyyMMdd_hhmmss") + new Random().Next(0,99);
+                var ext = ".png";
+                filename += ext;
+                
+                string fullpath = Path.Combine(filepath, filename);
                 using (var stream = new FileStream(fullpath, FileMode.Create, FileAccess.ReadWrite))
                 {
                     try
                     {
-                        await img.CopyToAsync(stream);
+                        using(BinaryWriter bw = new BinaryWriter(stream))
+                        {
+                            bw.Write(imagebytes);
+                        }
+
                         path = fullpath.Replace("wwwroot/", "");
                     }
                     catch (Exception ex)
