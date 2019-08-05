@@ -29,45 +29,17 @@
     figure figcaption {
         position: relative;
         color: #fff;
-        text-align:center;
+        text-align: center;
         width: 100%;
-        bottom:2rem;
+        bottom: 2rem;
         text-shadow: 0 0 10px #000;
     }
 
-    <div class="col-md-2 col-xs-12 col-sm-12 text-center bg-dark" style="" >
-    <label class="cabinet center-block bg-dark h-100" >
-    <figure class="h-100" >
-    <img src="" class="gambar img-responsive img-thumbnail" id="item-img-output" / >
-    <figcaption class="" > <i class="fa fa-camera" > </i > </figcaption >
-    </figure >
-    <input type="file" class="item-img file center-block" name="file_photo" / >
-    </label >
-    <div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-    <div class="modal-dialog" >
-    <div class="modal-content" >
-    <div class="modal-header" >
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close" > <span aria-hidden="true" > &times;</span > </button >
-    <h4 class="modal-title" id="myModalLabel" >
-    <?=multiLanguage( "Edit Foto", "Edit Photo" )? >
-    </h4 >
-    </div >
-    <div class="modal-body" >
-    <div id="upload-demo" class="center-block text-center" > </div >
-    </div >
-    <div class="modal-footer" >
-    <button type="button" class="btn btn-default" data-dismiss="modal" > Close</button >
-    <button type="button" id="cropImageBtn" class="btn btn-primary" > Crop</button >
-    </div >
-    </div >
-    </div >
-    </div >
-    </div >
 </style>
 
 <div class="container border-secondary">
     <div class="row">
-        <div class="col-lg-3 col-md-12 h-25  ">
+        <div class="col-lg-2  col-md-12 h-25  ">
             <label class="cabinet center-block h-100 ">
                 <figure class="h-100 text-center">
                     <img src="" class="gambar img-responsive img-thumbnail" style="" id="item-img-output" />
@@ -84,7 +56,7 @@
                                 Fotoğrafı Düzenle
                             </h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true"> &times;</span> </button>
-                            
+
                         </div>
                         <div class="modal-body">
                             <div id="upload-demo" class="center-block text-center"> </div>
@@ -141,9 +113,11 @@
                         <label for="email">Email Adres</label>
                         <input type="email" class="form-control" id="email" name="Profil.Email" placeholder="Email">
                     </div>
-                    <div class="form-group">
-                        <label for="birim">Birim</label>
-                        <select name="Birimler[]" id="select2" multiple="multiple" class="form-control bootstrap-select" asp-items="ViewBag.Birimler"></select>
+                    <div class="input-group" style="">
+                        <div class="row col-12">
+                            <label for="birim">Birim</label>
+                        </div>
+                        <select name="Birimler[]" id="select2" multiple="multiple" class="form-control" asp-items="@ViewBag.Birimler"></select>
                     </div>
                 </div>
                 <h5>İletişim Bilgileri</h5>
@@ -194,7 +168,12 @@
 </div>
 
 <script>
-    $('#select2').select2();
+
+    $('#select2').select2({
+        placeholder: 'Birim seçin',
+        theme: 'bootstrap4',
+        width: 'element'
+    });
 
     $(".gambar").attr("src", "https://user.gadjian.com/static/images/personnel_boy.png");
     var $uploadCrop,

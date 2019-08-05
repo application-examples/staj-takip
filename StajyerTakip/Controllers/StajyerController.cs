@@ -54,7 +54,7 @@ namespace StajyerTakip.Controllers
             var filepath = @"wwwroot/profile_images";
             if (!Directory.Exists(filepath))
                 Directory.CreateDirectory(filepath);
-            string path = "/images/man.png";
+            string path = "/images/man-200x200.png";
             if (!string.IsNullOrEmpty(img))
             {
                 var t = img.Replace("data:image/jpeg;base64,", "");
