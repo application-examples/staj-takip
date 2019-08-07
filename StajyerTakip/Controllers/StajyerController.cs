@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -60,21 +61,21 @@ namespace StajyerTakip.Controllers
                 var t = img.Replace("data:image/jpeg;base64,", "");
                 byte[] imagebytes = Convert.FromBase64String(t);
 
-                string filename = "IMG_" + id + "_" + DateTime.UtcNow.ToString("yyyyMMdd_hhmmss") + new Random().Next(0,99);
+                string filename = "IMG_" + id + "_" + DateTime.UtcNow.ToString("yyyyMMdd_hhmmss") + new Random().Next(0, 99);
                 var ext = ".png";
                 filename += ext;
-                
+
                 string fullpath = Path.Combine(filepath, filename);
                 using (var stream = new FileStream(fullpath, FileMode.Create, FileAccess.ReadWrite))
                 {
                     try
                     {
-                        using(BinaryWriter bw = new BinaryWriter(stream))
+                        using (BinaryWriter bw = new BinaryWriter(stream))
                         {
                             bw.Write(imagebytes);
                         }
 
-                        path = fullpath.Replace("wwwroot/", "");
+                        path = fullpath.Replace("wwwroot", "");
                     }
                     catch (Exception ex)
                     {
@@ -139,26 +140,36 @@ namespace StajyerTakip.Controllers
 
         [StajyerID]
         [HttpPost]
-        public async Task<IActionResult> Duzenle(Stajyer stajyer, int id, string[] Birimler, IFormFile img)
+        public IActionResult Duzenle(Stajyer stajyer, int id, string[] Birimler, string img)
         {
             Stajyer anaveri = db.Stajyerler.Find(id);
             anaveri.Profil = db.Hesaplar.ToList().Find(x => x.ID == anaveri.ProfilID);
             var yetki = HttpContext.Session.GetInt32("yetki");
 
             var filepath = @"wwwroot/profile_images";
-            if (img == null || img.Length <= 0)
+            if (string.IsNullOrEmpty(img))
             {
 
             }
             else
             {
-                string fullpath = Path.Combine(filepath, img.FileName);
+                var t = img.Replace("data:image/jpeg;base64,", "");
+                byte[] imagebytes = Convert.FromBase64String(t);
+
+                string filename = "IMG_" + id + "_" + DateTime.UtcNow.ToString("yyyyMMdd_hhmmss") + new Random().Next(0, 99);
+                var ext = ".png";
+                filename += ext;
+
+                string fullpath = Path.Combine(filepath, filename);
                 using (var stream = new FileStream(fullpath, FileMode.Create, FileAccess.ReadWrite))
                 {
                     try
                     {
-                        await img.CopyToAsync(stream);
-                        anaveri.Profil.Fotograf = fullpath.Replace("wwwroot/", "");
+                        using (BinaryWriter bw = new BinaryWriter(stream))
+                        {
+                            bw.Write(imagebytes);
+                        }
+                        anaveri.Profil.Fotograf = fullpath.Replace("wwwroot", "");
                     }
                     catch (Exception ex)
                     {

@@ -34,23 +34,38 @@ namespace StajyerTakip.Controllers
         [HttpPost]
         [ModeratorUstYetki]
 
-        public async Task<IActionResult> Duzenle(SistemYoneticisi update, IFormFile img)
+        public  IActionResult Duzenle(SistemYoneticisi update, string img)
         {
             var id = HttpContext.Session.GetInt32("id");
             SistemYoneticisi anaveri = db.SistemYoneticisi.Where(x => x.ID == id).Include(x => x.Profil).SingleOrDefault();
 
-            var filepath = @"wwwroot/profile_images";
 
-            if (img == null || img.Length <= 0) { }
+            var yetki = HttpContext.Session.GetInt32("yetki");
+
+            var filepath = @"wwwroot/profile_images";
+            if (string.IsNullOrEmpty(img))
+            {
+
+            }
             else
             {
-                string fullpath = Path.Combine(filepath, img.FileName);
+                var t = img.Replace("data:image/jpeg;base64,", "");
+                byte[] imagebytes = Convert.FromBase64String(t);
+
+                string filename = "IMG_" + id + "_" + DateTime.UtcNow.ToString("yyyyMMdd_hhmmss") + new Random().Next(0, 99);
+                var ext = ".png";
+                filename += ext;
+
+                string fullpath = Path.Combine(filepath, filename);
                 using (var stream = new FileStream(fullpath, FileMode.Create, FileAccess.ReadWrite))
                 {
                     try
                     {
-                        await img.CopyToAsync(stream);
-                        anaveri.Profil.Fotograf = fullpath.Replace("wwwroot/", "");
+                        using (BinaryWriter bw = new BinaryWriter(stream))
+                        {
+                            bw.Write(imagebytes);
+                        }
+                        anaveri.Profil.Fotograf = fullpath.Replace("wwwroot", "");
                     }
                     catch (Exception ex)
                     {

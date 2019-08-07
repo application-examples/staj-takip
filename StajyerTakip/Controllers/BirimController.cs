@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StajyerTakip.Attributes;
+using StajyerTakip.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,34 +20,23 @@ namespace StajyerTakip.Controllers
             this.db = db;
         }
 
-        [BirimKoordinatoruUstYetki]
-        public IActionResult Ekle()
-        {
-            return View();
-        }
 
         [BirimKoordinatoruUstYetki]
         [HttpPost]
-        public IActionResult Ekle(Models.Birim birim)
+        public JsonResult Ekle(Models.Birim birim)
         {
+
 
             db.Birimler.Add(birim);
             db.SaveChanges();
-            return Redirect("~/Birim/Listele");
-
+            Birim birim1 = db.Birimler.LastOrDefault();
+            return Json(birim1);
         }
 
-        [BirimKoordinatoruUstYetki]
-        public IActionResult Duzenle(int id)
-        {
-            Models.Birim birim = db.Birimler.ToList().Find(x => x.ID == id);
-
-
-            return View(birim);
-        }
+       
         [BirimKoordinatoruUstYetki]
         [HttpPost]
-        public IActionResult Duzenle(Models.Birim birim, int id)
+        public JsonResult Duzenle(Models.Birim birim, int id)
         {
             Models.Birim anaveri = db.Birimler.Find(id);
 
@@ -54,23 +44,33 @@ namespace StajyerTakip.Controllers
             anaveri.Ad = birim.Ad;
 
             db.SaveChanges();
-            return Redirect("~/Birim/Listele");
+
+            List<Birim> birimler = db.Birimler.OrderByDescending(x=>x.ID).ToList();
+
+            return Json(birimler);
         }
 
         [BirimKoordinatoruUstYetki]
         public IActionResult Listele()
         {
-            List<Models.Birim> birimler = db.Birimler.ToList();
-
-
-            return View(birimler);
+            return View();
         }
 
         [BirimKoordinatoruUstYetki]
-        public IActionResult Goruntule(int id)
+        [HttpPost]
+        public JsonResult BirimleriCek()
+        {
+            List<Models.Birim> birimler = db.Birimler.OrderByDescending(x => x.ID).ToList();
+
+            return Json(birimler);
+        }
+
+        [BirimKoordinatoruUstYetki]
+        [HttpPost]
+        public JsonResult Goruntule(int id)
         {
             Models.Birim birim = db.Birimler.Find(id);
-            return View(birim);
+            return Json(birim);
         }
 
         [BirimKoordinatoruUstYetki]
@@ -94,5 +94,5 @@ namespace StajyerTakip.Controllers
 
         }
     }
-   
+
 }

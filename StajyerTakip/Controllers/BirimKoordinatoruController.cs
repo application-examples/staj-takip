@@ -42,22 +42,34 @@ namespace StajyerTakip.Controllers
 
         [HttpPost]
         [BirimKoordinatoruUstYetki]
-        public async Task<IActionResult> Ekle(BirimKoordinatoru birimkoordinatoru, string[] Birimler, IFormFile img)
+        public IActionResult Ekle(BirimKoordinatoru birimkoordinatoru, string[] Birimler, string img)
         {
-
             var filepath = @"wwwroot/profile_images";
             if (!Directory.Exists(filepath))
                 Directory.CreateDirectory(filepath);
-            string path = "";
-            if (img != null && img.Length > 0)
+            string path = "/images/man-200x200.png";
+            var id = HttpContext.Session.GetInt32("id");
+
+            if (!string.IsNullOrEmpty(img))
             {
-                string fullpath = Path.Combine(filepath, img.FileName);
+
+                var t = img.Replace("data:image/jpeg;base64,", "");
+                byte[] imagebytes = Convert.FromBase64String(t);
+
+                string filename = "IMG_" + id + "_" + DateTime.UtcNow.ToString("yyyyMMdd_hhmmss") + new Random().Next(0, 99);
+                var ext = ".png";
+                filename += ext;
+                string fullpath = Path.Combine(filepath, filename);
+
                 using (var stream = new FileStream(fullpath, FileMode.Create, FileAccess.ReadWrite))
                 {
                     try
                     {
-                        await img.CopyToAsync(stream);
-                        path = fullpath.Replace("wwwroot/", "");
+                        using (BinaryWriter bw = new BinaryWriter(stream))
+                        {
+                            bw.Write(imagebytes);
+                        }
+                        path = fullpath.Replace("wwwroot", "");
                     }
                     catch (Exception ex)
                     {
@@ -111,23 +123,36 @@ namespace StajyerTakip.Controllers
         [StajyerUstYetki]
         [HttpPost]
         [BirimKoordinatoruID]
-        public async Task<IActionResult> Duzenle(BirimKoordinatoru birimkoordinatoru, int id, string[] Birimler, IFormFile img)
+        public  IActionResult Duzenle(BirimKoordinatoru birimkoordinatoru, int id, string[] Birimler, string img)
         {
             BirimKoordinatoru anaveri = db.BirimKoordinatorleri.Find(id);
             Profil profil = db.Hesaplar.ToList().Find(x => x.ID == anaveri.ProfilID);
             var yetki = HttpContext.Session.GetInt32("yetki");
 
             var filepath = @"wwwroot/profile_images";
-            if (img == null || img.Length <= 0) { }
+            if (string.IsNullOrEmpty(img))
+            {
+
+            }
             else
             {
-                string fullpath = Path.Combine(filepath, img.FileName);
+                var t = img.Replace("data:image/jpeg;base64,", "");
+                byte[] imagebytes = Convert.FromBase64String(t);
+
+                string filename = "IMG_" + id + "_" + DateTime.UtcNow.ToString("yyyyMMdd_hhmmss") + new Random().Next(0, 99);
+                var ext = ".png";
+                filename += ext;
+
+                string fullpath = Path.Combine(filepath, filename);
                 using (var stream = new FileStream(fullpath, FileMode.Create, FileAccess.ReadWrite))
                 {
                     try
                     {
-                        await img.CopyToAsync(stream);
-                        anaveri.Profil.Fotograf = fullpath.Replace("wwwroot/", "");
+                        using (BinaryWriter bw = new BinaryWriter(stream))
+                        {
+                            bw.Write(imagebytes);
+                        }
+                        anaveri.Profil.Fotograf = fullpath.Replace("wwwroot", "");
                     }
                     catch (Exception ex)
                     {

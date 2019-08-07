@@ -181,38 +181,7 @@
     </div>
 </div>
 
-<div class="modal fade fadeOutUp" id="durum">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-success">
-                <h4 class="modal-title text-white">Durum</h4>
-                <button class="close text-white" data-dismiss="modal" type="button">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="text-center row">
-                    <span class="mdi mdi-48px mdi-check-circle  pl-3 text-success"></span>
-                    <div class="align-self-center lead pl-2 font-bold  font-24 pb-1">Başarıyla kaydedildi.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal" id="durum1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h4 class="modal-title">Durum</h4>
-                <button class="close text-white" data-dismiss="modal" type="button">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="text-center row">
-                    <span class="mdi mdi-48px mdi-close-circle text-danger pl-3"></span>
-                    <div class="align-self-center lead pl-2 font-bold font-24 pb-1">Bir sorun oluştu.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div class="modal" id="silmeonay">
     <div class="modal-dialog modal-dialog-centered">
@@ -235,7 +204,7 @@
     $(function () {
 
       
-        $('#kisilertablosu').DataTable({
+        var kisiler = $('#kisilertablosu').DataTable({
             "language": { "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json" }
             
         });
@@ -255,6 +224,11 @@
         });
 
 
+        
+        function veritablosu(ids) {
+            
+        }
+
         $('#btnSil').click(function () {
             console.log(idsil);
         });
@@ -263,19 +237,7 @@
         $('.btnduzenle').click(function () {
 
             idduzenle = this.id;
-            console.log(idduzenle);
-            $.ajax({
-                type: "POST",
-                data: { id: idduzenle },
-                dataType: "text",
-                url: "/Devamsizlik/DevamsizlikTablosu",
-                success: function (data) {
-                    $('#devamsizliklistesi').html(data);
-                    $('#devamsizliktablosu').DataTable({
-                        "language": { "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json" }
-                    });
-                }
-            });
+            tablocek(idduzenle);
             
         });
         
@@ -290,12 +252,21 @@
                 type: "POST",
                 success: function (data) {
                     $('#devamsizlikekle').modal('hide');
-                    $('#durum').modal('show');
+                    swal({
+                        title: "Başarılı",
+                        text: "Başarıyla kaydedildi",
+                        icon: "success",
+                        button : "Kapat"
+                    });
                 },
                 error: function (data) {
                     $('#devamsizlikekle').modal('hide');
-                    $('#durum1').modal('show');
-
+                    swal({
+                        title: "Bir sorun oluştu",
+                        text: "Kaydedilirken bir sorunla karşılaşıldı, tekrar deneyin!",
+                        icon: "error",
+                        button :"Kapat"
+                    });
                 }
             });
         });

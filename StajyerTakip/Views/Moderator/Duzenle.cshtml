@@ -5,97 +5,138 @@
 }
 
 
-<div class="col-md-10 offset-1 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
+<div class="container border-secondary">
+    <div class="row">
+        <div class="col-lg-2  col-md-12 h-25  ">
+            <label class="cabinet center-block h-100 ">
+                <figure class="h-100 text-center">
+                    <img src="@Model.Profil.Fotograf" class="gambar img-responsive img-thumbnail" style="" id="item-img-output" />
+                    <figcaption class=""> <i class="fa fa-camera"> </i> </figcaption>
 
-            <h4 class="card-title">Moderator Bilgileri</h4>
+                </figure>
+                <input type="file" class="item-img file center-block" name="file_photo" / >
+            </label>
+            <div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">
+                                Fotoğrafı Düzenle
+                            </h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true"> &times;</span> </button>
 
-
-
+                        </div>
+                        <div class="modal-body">
+                            <div id="upload-demo" class="center-block text-center"> </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"> Çıkış</button>
+                            <button type="button" id="cropImageBtn" class="btn btn-primary"> Kırp</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-12">
             <form class="forms-sample" method="post" enctype="multipart/form-data">
+                <h5 class="">Hesap Bilgileri</h5>
 
-                <div class="form-group">
-                    <label for="ad">Ad</label>
-                    <input type="text" class="form-control" id="ad" name="Profil.Ad" placeholder="Ad" value="@Model.Profil.Ad">
-                </div>
-                <div class="form-group">
-                    <label for="soyad">Soyad</label>
-                    <input type="text" class="form-control" id="soyad" name="Profil.Soyad" placeholder="Soyad" value="@Model.Profil.Soyad">
-                </div>
-                <div class="form-group">
-                    <label for="kullaniciadi">Kullanıcı Adı</label>
-                    <input type="text" class="form-control" id="kullaniciadi" name="Profil.KullaniciAdi" placeholder="Kullancı Adı" value="@Model.Profil.KullaniciAdi">
-                </div>
+                <hr />
 
-                <div class="form-group">
-                    <label for="email">Email Adres</label>
-                    <input type="email" class="form-control" id="email" name="Profil.Email" placeholder="Email" value="@Model.Profil.Email">
-                </div>
-                <div class="form-group">
-                    <label for="sifre">Şifre</label>
-                    <input type="password" class="form-control" id="sifre" name="Profil.Sifre" placeholder="Şifre" value="@Model.Profil.Sifre">
-                </div>
-                <div class="form-group">
-                    <label for="telefonnumarasi">Telefon Numarası:</label>
-                    <input type="text" class="form-control bfh-phone" data-format="+1 (ddd) ddd-dddd" name="Profil.Telefon" placeholder="Telefon Numarası" value="@Model.Profil.Telefon">
-                </div>
-
-                <div class="form-group">
-                    <label for="unvan">Ünvan:</label>
-                    <select class="form-control" id="unvan" name="Unvan" value="@Model.Unvan">
-                        <option>Teknisyen</option>
-                        <option>Uzman</option>
-                        <option>Öğretim Planlamacısı</option>
-                        <option>Çevirmen</option>
-                        <option>Okutman</option>
-                        <option>Öğretim Görevlisi </option>
-                        <option>Öğretim Üyesi </option>
-                        <option>Araştırma Görevlisi</option>
-                        <option>Araştırma Görevlisi Doktor</option>
-                        <option>Yardımcı Doçent</option>
-                        <option>Yardımcı Doçent Doktor</option>
-                        <option>Doçent</option>
-                        <option>Doçent Doktor</option>
-                        <option>Profesör</option>
-                        <option>Profesör Doktor</option>
-                        <option>Ordinaryüs Profesör</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="adres">Adres</label>
-                    <input type="text" class="form-control" id="adres" name="Profil.Adres" placeholder="Adres" value="@Model.Profil.Adres">
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-sm-4">
-                        <label for="il">İl</label>
-                        <input type="text" class="form-control" id="il" name="Profil.Il" placeholder="İl" value="@Model.Profil.Il">
+                <div class="card card-body" style="border-radius:10px 20px;">
+                    <div class="form-group">
+                        <label for="ad">Ad</label>
+                        <input type="text" class="form-control" id="ad" name="Profil.Ad" placeholder="Ad" value="@Model.Profil.Ad">
+                    </div>
+                    <div class="form-group">
+                        <label for="soyad">Soyad</label>
+                        <input type="text" class="form-control" id="soyad" name="Profil.Soyad" placeholder="Soyad" value="@Model.Profil.Soyad">
+                    </div>
+                    <div class="form-group">
+                        <label for="kullaniciadi">Kullanıcı Adı</label>
+                        <input type="text" class="form-control" id="kullaniciadi" name="Profil.KullaniciAdi" placeholder="Kullancı Adı" value="@Model.Profil.KullaniciAdi">
+                    </div>
+                    <div class="form-group">
+                        <label for="Sifre">Şifre</label>
+                        <input type="password" class="form-control" id="Sifre" name="Profil.Sifre" placeholder="Şifre" value="@Model.Profil.Sifre">
                     </div>
 
-                    <div class="form-group col-sm-4">
-                        <label for="ilce">İlçe</label>
-                        <input type="text" class="form-control" id="ilce" name="Profil.Ilce" placeholder="İlçe" value="@Model.Profil.Ilce">
+                    <div class="form-group">
+                        <label for="email">Email Adres</label>
+                        <input type="email" class="form-control" id="email" name="Profil.Email" placeholder="Email" value="@Model.Profil.Email">
                     </div>
 
-                    <div class="form-group col-sm-4">
-                        <label for="sokak">Sokak</label>
-                        <input type="text" class="form-control" id="sokak" name="Profil.Sokak" placeholder="Sokak" value="@Model.Profil.Sokak">
+                </div>
+                <h5>İletişim Bilgileri</h5>
+                <hr />
+                <div class="card card-body " style="border-radius:10px 20px;">
+
+                    <div class="form-group">
+                        <label for="unvan"> Ünvan:</label>
+                        <select class="form-control" id="unvan" name="Unvan">
+                            <!-- TODO // Seçili gelecek. -->
+                            <option> Teknisyen</option>
+                            <option> Uzman</option>
+                            <option> Öğretim Planlamacısı</option>
+                            <option> Çevirmen</option>
+                            <option> Okutman</option>
+                            <option> Öğretim Görevlisi </option>
+                            <option> Öğretim Üyesi </option>
+                            <option> Araştırma Görevlisi</option>
+                            <option> Araştırma Görevlisi Doktor</option>
+                            <option> Yardımcı Doçent</option>
+                            <option> Yardımcı Doçent Doktor</option>
+                            <option> Doçent</option>
+                            <option> Doçent Doktor</option>
+                            <option> Profesör</option>
+                            <option> Profesör Doktor</option>
+                            <option> Ordinaryüs Profesör</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefonnumarasi">Telefon Numarası:</label>
+                        <input type="text" class="form-control bfh-phone" data-format="+90 (ddd) ddd-dddd" name="Profil.Telefon" placeholder="Telefon Numarası" value="@Model.Profil.Telefon">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adres">Adres</label>
+                        <input type="text" class="form-control" id="adres" name="Profil.Adres" placeholder="Adres" value="@Model.Profil.Adres">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-sm-4">
+                            <label for="il">İl</label>
+
+                            <input type="text" class="form-control" id="il" name="Profil.Il" placeholder="İl" value="@Model.Profil.Il">
+                        </div>
+
+                        <div class="form-group col-sm-4">
+                            <label for="ilce">İlçe</label>
+                            <input type="text" class="form-control" id="ilce" name="Profil.Ilce" placeholder="İlçe" value="@Model.Profil.Ilce">
+                        </div>
+
+                        <div class="form-group col-sm-4">
+                            <label for="sokak">Sokak</label>
+                            <input type="text" class="form-control" id="sokak" name="Profil.Sokak" placeholder="Sokak" value="@Model.Profil.Sokak">
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="">Profil Fotoğrafı</label>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="img" name="img">
-                        <label class="custom-file-label" for="validatedCustomFile">Fotoğraf seçin...</label>
-                        <div class="invalid-feedback">Resim seçilmedi</div>
-                    </div>
-                </div>
+                <input type="text" class="custom-file-input" id="img" name="img" hidden />
                 <button type="submit" class="btn btn-success ">Kaydet</button>
-                <a href="~/Home/Index" class="btn btn-primary">İptal</a>
-
+                <a href="~/Moderator/Listele" class="btn btn-primary">İptal</a>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+
+    $('#select2').select2({
+        placeholder: 'Birim seçin',
+        theme: 'bootstrap4',
+        width: 'element'
+    });
+</script>
+<script src="~/js/photo-edit.js">
+
+</script>

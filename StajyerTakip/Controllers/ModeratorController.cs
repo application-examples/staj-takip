@@ -30,21 +30,32 @@ namespace StajyerTakip.Controllers
 
         [ModeratorUstYetki]
         [HttpPost]
-        public async Task<IActionResult> Ekle(Moderator moderator, IFormFile img)
+        public IActionResult Ekle(Moderator moderator, string img)
         {
+            var id = HttpContext.Session.GetInt32("id");
             var filepath = @"wwwroot/profile_images";
             if (!Directory.Exists(filepath))
                 Directory.CreateDirectory(filepath);
-            string path = "";
-            if (img != null && img.Length > 0)
+            string path = "/images/man-200x200.png";
+            if (!string.IsNullOrEmpty(img))
             {
-                string fullpath = Path.Combine(filepath, img.FileName);
+                var t = img.Replace("data:image/jpeg;base64,", "");
+                byte[] imagebytes = Convert.FromBase64String(t);
+                string filename = "IMG_" + id + "_" + DateTime.UtcNow.ToString("yyyyMMdd_hhmmss") + new Random().Next(0, 99);
+                var ext = ".png";
+                filename += ext;
+                string fullpath = Path.Combine(filepath, filename);
+
+
                 using (var stream = new FileStream(fullpath, FileMode.Create, FileAccess.ReadWrite))
                 {
                     try
                     {
-                        await img.CopyToAsync(stream);
-                        path = fullpath.Replace("wwwroot/", "");
+                        using (BinaryWriter bw = new BinaryWriter(stream))
+                        {
+                            bw.Write(imagebytes);
+                        }
+                        path = fullpath.Replace("wwwroot", "");
                     }
                     catch (Exception ex)
                     {
@@ -73,23 +84,37 @@ namespace StajyerTakip.Controllers
         [HttpPost]
         [ModeratorID]
         [BirimKoordinatoruUstYetki]
-        public async Task<IActionResult> Duzenle(Moderator moderator, int id, IFormFile img)
+        public  IActionResult Duzenle(Moderator moderator, int id, string img)
         {
             Moderator anaveri = db.Moderatorler.Find(id);
             Profil profil = db.Hesaplar.ToList().Find(x => x.ID == anaveri.ProfilID);
 
-            var filepath = @"wwwroot/profile_images";
+            var yetki = HttpContext.Session.GetInt32("yetki");
 
-            if (img == null || img.Length <= 0) { }
+            var filepath = @"wwwroot/profile_images";
+            if (string.IsNullOrEmpty(img))
+            {
+
+            }
             else
             {
-                string fullpath = Path.Combine(filepath, img.FileName);
+                var t = img.Replace("data:image/jpeg;base64,", "");
+                byte[] imagebytes = Convert.FromBase64String(t);
+
+                string filename = "IMG_" + id + "_" + DateTime.UtcNow.ToString("yyyyMMdd_hhmmss") + new Random().Next(0, 99);
+                var ext = ".png";
+                filename += ext;
+
+                string fullpath = Path.Combine(filepath, filename);
                 using (var stream = new FileStream(fullpath, FileMode.Create, FileAccess.ReadWrite))
                 {
                     try
                     {
-                        await img.CopyToAsync(stream);
-                        anaveri.Profil.Fotograf = fullpath.Replace("wwwroot/", "");
+                        using (BinaryWriter bw = new BinaryWriter(stream))
+                        {
+                            bw.Write(imagebytes);
+                        }
+                        anaveri.Profil.Fotograf = fullpath.Replace("wwwroot", "");
                     }
                     catch (Exception ex)
                     {
@@ -111,8 +136,6 @@ namespace StajyerTakip.Controllers
 
 
             db.SaveChanges();
-            var yetki = HttpContext.Session.GetInt32("yetki");
-
             if (yetki != 2)
                 return Redirect("~/Moderator/Listele");
             else
