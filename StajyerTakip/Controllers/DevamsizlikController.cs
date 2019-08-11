@@ -52,6 +52,19 @@ namespace StajyerTakip.Controllers
         [StajyerUstYetki]
         public IActionResult Yonet()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult Devamsizliklar(int id)
+        {
+            List<Devamsizlik> devamsizlik = db.Devamsizlik.ToList().FindAll(x => x.StajyerID == id);
+
+            return Json(devamsizlik);
+        }
+
+        public JsonResult KisileriCek()
+        {
             var id = (int)HttpContext.Session.GetInt32("id");
             var yetki = HttpContext.Session.GetInt32("yetki");
             var profilid = HttpContext.Session.GetInt32("profilid");
@@ -61,7 +74,7 @@ namespace StajyerTakip.Controllers
             {
                 BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Where(x => x.ID == id).Include(x => x.Profil).Include(x => x.Birimler).FirstOrDefault();
                 List<Stajyer> stajyerler = db.Stajyerler.Include(x => x.Birimler).Include(x => x.Devamsizliklar).Include(x => x.Gunlukler).Include(x => x.Profil).ToList();
-
+                
                 List<Stajyer> stajyers = new List<Stajyer>();
                 foreach (var birim in koordinator.Birimler)
                 {
@@ -73,14 +86,15 @@ namespace StajyerTakip.Controllers
                         }
                     }
                 }
-                return View(stajyers);
+                return Json(stajyers);
 
             }
             else
             {
                 List<Stajyer> stajyerler = db.Stajyerler.Include(x => x.Birimler).Include(x => x.Devamsizliklar).Include(x => x.Gunlukler).Include(x => x.Profil).ToList();
-                return View(stajyerler);
+                return Json(stajyerler);
             }
+
         }
 
         [StajyerUstYetki]
@@ -118,48 +132,23 @@ namespace StajyerTakip.Controllers
         }
 
         [StajyerUstYetki]
-        public IActionResult Ekle(int id)
-        {
-
-            Models.Stajyer stajyer = db.Stajyerler.Where(x => x.ID == id).Include(x => x.Profil).Include(x => x.Birimler).SingleOrDefault();
-            var yetki = HttpContext.Session.GetInt32("yetki");
-            var kisiid = HttpContext.Session.GetInt32("id");
-
-            if (yetki == 3)
-            {
-                BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Where(x => x.ID == kisiid).Include(x => x.Birimler).SingleOrDefault();
-
-                foreach (var birim in koordinator.Birimler)
-                {
-                    if (stajyer.Birimler.Any(x => x.BirimID == birim.BirimID))
-                    {
-                        return View(stajyer);
-                    }
-                }
-                return Redirect("~/Error/AuthProblem");
-            }
-
-            return View(stajyer);
-        }
-
-        [StajyerUstYetki]
         [HttpPost]
         public JsonResult Ekle(int id, Models.Devamsizlik devamsizlik)
         {
 
             devamsizlik.ID = 0;
+            devamsizlik.StajyerID = id;
             db.Devamsizlik.Add(devamsizlik);
             db.SaveChanges();
-            return Json(new { result = false, message = "başarılı" });
+            return Json(new { result = true, message = "başarılı" });
         }
 
         public JsonResult TarihAl()
         {
-
             DateTime date = DateTime.UtcNow;
             return Json(new { tarih = date });
         }
-        [HttpPost]
+        [HttpGet]
         public string AdSoyadCek(int id)
         {
             Stajyer stajyer = db.Stajyerler.Where(x => x.ID == id).Include(x => x.Profil).SingleOrDefault();
@@ -199,56 +188,17 @@ namespace StajyerTakip.Controllers
 
             return View(stajyer);
         }
-        [StajyerUstYetki]
-        public IActionResult Sil(int id)
-        {
-            Devamsizlik devamsizlik = db.Devamsizlik.Find(id);
-            devamsizlik.Stajyer = db.Stajyerler.Where(x => x.ID == devamsizlik.StajyerID).Include(x => x.Profil).Include(x => x.Devamsizliklar).SingleOrDefault();
-            var yetki = HttpContext.Session.GetInt32("yetki");
-            var kisiid = HttpContext.Session.GetInt32("id");
-
-            if (yetki == 3)
-            {
-                BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Where(x => x.ID == kisiid).Include(x => x.Birimler).Include(x => x.Profil).SingleOrDefault();
-
-                foreach (var birim in koordinator.Birimler)
-                {
-                    if (devamsizlik.Stajyer.Birimler.Any(x => x.BirimID == birim.BirimID))
-                    {
-                        return View(devamsizlik);
-                    }
-                }
-                return Redirect("~/Error/AuthProblem");
-            }
-
-            return View(devamsizlik);
-        }
-
-        [StajyerUstYetki]
-        [ActionName("Sil"), HttpPost]
-        public IActionResult Silme(int id)
-        {
-            Devamsizlik devamsizlik = db.Devamsizlik.Find(id);
-            int stajyerID = devamsizlik.StajyerID;
-            db.Devamsizlik.Remove(devamsizlik);
-            db.SaveChanges();
-            List<Devamsizlik> devamsizliklar = db.Devamsizlik.ToList().FindAll(x => x.StajyerID == stajyerID);
-            return PartialView("DevamsizlikTablosu", devamsizliklar);
-
-
-        }
-
+       
         [StajyerUstYetki]
         [HttpPost]
-        public IActionResult Silx(int id)
+        public JsonResult Sil(int id)
         {
             Devamsizlik devamsizlik = db.Devamsizlik.Find(id);
-            int stajyerID = devamsizlik.StajyerID;
-            int a = 0;
             db.Devamsizlik.Remove(devamsizlik);
             db.SaveChanges();
-            List<Devamsizlik> devamsizliklar = db.Devamsizlik.ToList().FindAll(x => x.StajyerID == stajyerID);
-            return PartialView("DevamsizlikTablosu", devamsizliklar);
+            return Json(true);
+
         }
+
     }
 }

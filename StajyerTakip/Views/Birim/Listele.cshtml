@@ -23,22 +23,22 @@
 
             <div class="table-responsive">
                 <table class="table table-striped table-bordered" id="birimlistesi">
-                    <thead>
+                    <thead class="text-info">
                         <tr>
 
-                            <th>
+                            <th class="font-weight-bold">
                                 Birim Adı
                             </th>
-                            <th>
+                            <th class="font-weight-bold">
                                 Açıklama
                             </th>
-                            <th>
+                            <th class="font-weight-bold">
                                 Görüntüle
                             </th>
-                            <th>
+                            <th class="font-weight-bold">
                                 Düzenle
                             </th>
-                            <th>
+                            <th class="font-weight-bold">
                                 Sil
                             </th>
                         </tr>
@@ -53,7 +53,7 @@
 <div class="modal" id="birimekle">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-light">
                 <h5 class="modal-title">
                     Birim Ekle
                 </h5>
@@ -66,12 +66,12 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-white"><i class="mdi mdi-google-circles-communities"></i></span>
                         </div>
-                        <input type="text" id="birimadi" name="Ad" class="form-control" />
+                        <input type="text" id="birimadi" name="Ad" class="form-control" required />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="aciklama" class="">Açıklama</label>
-                    <textarea id="aciklama" name="Aciklama" class="form-control" placeholder="Açıklama giriniz"></textarea>
+                    <textarea id="aciklama" name="Aciklama" class="form-control" placeholder="Açıklama giriniz" required></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -123,7 +123,6 @@
     $(function () {
         var birimlistesi;
         var id;
-
         var birimlistesicek = function () {
             birimlistesi = $('#birimlistesi').DataTable({
                 "ordering": false,
@@ -164,26 +163,6 @@
 
             });
         }
-        birimlistesicek();
-        $('#birimkaydet').click(function () {
-
-            var ad = $('#birimadi').val();
-            var aciklama = $('#aciklama').val();
-
-            $.ajax({
-                url: '/Birim/Ekle',
-                type: 'POST',
-                dataType: 'json',
-                data: { Ad: ad, Aciklama: aciklama },
-                success: function (data) {
-                    birimlistesi.destroy();
-                    birimlistesicek();
-                    $('#birimekle').modal('hide');
-                }
-            }).r;
-        });
-
-
         var birimcek = function (ids) {
             return $.ajax({
                 url: '/Birim/Goruntule',
@@ -197,6 +176,78 @@
 
             });
         }
+
+        birimlistesicek();
+
+
+        var kontrol = (ad, aciklama) => {
+            if (ad == '') {
+                Swal.mixin({
+                    toast: 'true',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                }).fire({
+                    type: 'warning',
+                    title: 'Birim adı girilmedi.'
+                });
+
+                return false;
+            } else if (aciklama == '') {
+                Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                }).fire({
+                    type: 'warning',
+                    title: 'Açıklama girilmedi.'
+                });
+                return false;
+            }
+            return true;
+        }
+
+        var kaydetCheck = () => {
+            var ad = $('#birimadi').val();
+            var aciklama = $('#aciklama').val();
+
+            return kontrol(ad, aciklama);
+        }
+
+        var duzenleCheck = () => {
+
+            const ad = $('#birimadi1').val();
+            const aciklama = $('#birimaciklama').val();
+
+            return kontrol(ad, aciklama);
+        }
+
+        $('#birimkaydet').click(function () {
+
+            var ad = $('#birimadi').val();
+            var aciklama = $('#aciklama').val();
+            if (kaydetCheck()) {
+                $.ajax({
+                    url: '/Birim/Ekle',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: { Ad: ad, Aciklama: aciklama },
+                    success: function (data) {
+                        Swal.fire('Başarılı', 'Birim başarıyla eklendi.', 'success');
+                        birimlistesi.destroy();
+                        birimlistesicek();
+                        $('#birimekle').modal('hide');
+                        $('#birimadi').val('');
+                        $('#aciklama').val('');
+                    },
+                    error: function (data) {
+                        Swal.fire('Ooops..', 'Eklenirken bir sorunla karşılaşıldı.', 'error');
+                    }
+                });
+            }
+        });
+
         $(document).on('click', '.goruntule', function () {
             id = this.id;
             $('#birimaciklama').prop('disabled', true);
@@ -215,7 +266,6 @@
             birimcek(id);
 
         });
-
 
         $(document).on('click', '.sil', function () {
             id = this.id;
@@ -259,19 +309,24 @@
                 Ad: $('#birimadi1').val(),
                 Aciklama: $('#birimaciklama').val()
             }
-            $.ajax({
-                url: '/Birim/Duzenle',
-                data: { birim: model, id: id },
-                dataType: "json",
-                type: 'POST',
-                success: function (data) {
-                    birimlistesi.destroy();
-                    birimlistesicek();
-                    $('#birimgoruntule').modal('hide');
-                }
-            });
+            if (duzenleCheck()) {
+                $.ajax({
+                    url: '/Birim/Duzenle',
+                    data: { birim: model, id: id },
+                    dataType: "json",
+                    type: 'POST',
+                    success: function (data) {
+                        Swal.fire('Başarılı', 'Başarıyla güncellendi.', 'success');
+                        birimlistesi.destroy();
+                        birimlistesicek();
+                        $('#birimgoruntule').modal('hide');
+                    },
+                    error: function (data) {
+                        Swal.fire('Oopss..', 'Güncellenirken bir sorunla karşılaşıldı.', 'error');
+                    }
+                });
+            }
         });
-
 
 
     });

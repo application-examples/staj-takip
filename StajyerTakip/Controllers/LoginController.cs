@@ -17,6 +17,19 @@ namespace StajyerTakip.Controllers
         {
             this.db = db;
         }
+
+        [HttpPost]
+        public JsonResult GetSessionValues()
+        {
+            var session = new {
+                session_id = HttpContext.Session.GetInt32("id"),
+                session_auth_id = HttpContext.Session.GetInt32("yetki"),
+                session_profile_id = HttpContext.Session.GetInt32("profilid")
+            };
+            return Json(session);
+        }
+
+
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("kadi") != null)

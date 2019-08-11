@@ -10,6 +10,7 @@ using StajyerTakip.Models;
 
 namespace StajyerTakip.Controllers
 {
+    [GirisKontrol]
     public class DuyuruController : Controller
     {
         private readonly Context db;
@@ -19,19 +20,13 @@ namespace StajyerTakip.Controllers
             db = _db;
         }
 
-        [StajyerUstYetki]
-        public IActionResult Ekle()
-        {
-            return View();
-        }
 
         [HttpPost]
         [StajyerUstYetki]
-        public IActionResult Ekle(Duyuru duyuru)
+        public JsonResult Ekle(Duyuru duyuru)
         {
             var yetki = (int)HttpContext.Session.GetInt32("yetki");
-            var id = (int) HttpContext.Session.GetInt32("id");
-
+            var id = (int)HttpContext.Session.GetInt32("profilid");
             duyuru.EklenmeTarihi = DateTime.UtcNow;
             duyuru.GuncellenmeTarihi = DateTime.UtcNow;
             duyuru.EkleyenID = id;
@@ -40,20 +35,13 @@ namespace StajyerTakip.Controllers
             db.Duyurular.Add(duyuru);
             db.SaveChanges();
 
-            return Redirect("~/Duyuru/Listele");
+            return Json(true);
         }
 
-        [StajyerUstYetki]
-        public IActionResult Duzenle(int id)
-        {
-            Duyuru duyuru = db.Duyurular.Find(id);
-            return View(duyuru);
-
-        }
 
         [HttpPost]
         [StajyerUstYetki]
-        public IActionResult Duzenle(Duyuru duyuru,int id)
+        public JsonResult Duzenle(Duyuru duyuru, int id)
         {
             Duyuru anaveri = db.Duyurular.Find(id);
 
@@ -62,33 +50,49 @@ namespace StajyerTakip.Controllers
             anaveri.Icerik = duyuru.Icerik;
 
             db.SaveChanges();
-            return Redirect("~/Duyuru/Listele");
+            return Json(true);
         }
 
         [StajyerUstYetki]
-        public IActionResult Sil(int id)
+        [HttpPost]
+        public JsonResult Sil(int id)
         {
             Duyuru anaveri = db.Duyurular.Find(id);
-            return View(anaveri);
+            db.Duyurular.Remove(anaveri);
+            db.SaveChanges();
+            return Json(true);
 
         }
 
-        [HttpPost]
-        [ActionName("Sil")]
-        [StajyerUstYetki]
-        public IActionResult Silme(int id)
+        public JsonResult DuyuruCekJson(int id)
         {
             Duyuru duyuru = db.Duyurular.Find(id);
 
-            db.Duyurular.Remove(duyuru);
-            db.SaveChanges();
-            return Redirect("~/Duyuru/Listele");
+            return Json(duyuru);
         }
+
+
+        public JsonResult DuyurulariCekJson()
+        {
+            List<Duyuru> duyurular = db.Duyurular.OrderByDescending(x => x.EklenmeTarihi).ToList();
+
+            List<object> liste = new List<object>();
+            foreach (var duyuru in duyurular)
+            {
+                Profil profil = db.Hesaplar.Find(duyuru.EkleyenID);
+                string adsoyad = profil.Ad + " " + profil.Soyad;
+                var nesne = new { duyuru = duyuru, adsoyad = adsoyad };
+                liste.Add(nesne);
+            }
+
+
+            return Json(liste);
+        }
+
 
         public IActionResult Listele()
         {
-            List<Duyuru> duyurular = db.Duyurular.ToList();
-            return View(duyurular);
+            return View();
 
         }
 
@@ -98,7 +102,7 @@ namespace StajyerTakip.Controllers
             var yetki = HttpContext.Session.GetInt32("yetki");
             var kisiid = (int)HttpContext.Session.GetInt32("id");
 
-            if(yetki == 3)
+            if (yetki == 3)
             {
                 BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Where(x => x.ID == kisiid).Include(x => x.Profil).SingleOrDefault();
                 ViewBag.EkleyenKisi = koordinator.Profil.Ad + " " + koordinator.Profil.Soyad;
@@ -123,6 +127,6 @@ namespace StajyerTakip.Controllers
 
             return PartialView("_Duyurular", Duyurular);
         }
-       
+
     }
 }

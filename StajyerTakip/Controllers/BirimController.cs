@@ -74,25 +74,16 @@ namespace StajyerTakip.Controllers
         }
 
         [BirimKoordinatoruUstYetki]
-
-        public IActionResult Sil(int id)
+        [HttpPost]
+        public JsonResult Sil(int id)
         {
             Models.Birim birim = db.Birimler.Find(id);
-            return View(birim);
-        }
-
-
-        [BirimKoordinatoruUstYetki]
-        [ActionName("Sil"), HttpPost]
-        public ActionResult Silme(int id)
-        {
-            Models.Birim birim = db.Birimler.Find(id);
-            db.Birimler.Remove(db.Birimler.Find(birim.ID));
+            db.Birimler.Remove(birim);
             db.SaveChanges();
-            return Redirect("~/Birim/Listele");
-
-
+            return Json(true);
         }
+
+      
     }
 
 }

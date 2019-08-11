@@ -87,39 +87,6 @@ namespace StajyerTakip.Controllers
             return View(gunlukler);
         }
 
-        [StajyerUstYetki]
-        public IActionResult Yonet()
-        {
-            var id = (int)HttpContext.Session.GetInt32("id");
-            var yetki = HttpContext.Session.GetInt32("yetki");
-            var profilid = HttpContext.Session.GetInt32("profilid");
-            var kadi = HttpContext.Session.GetString("kadi");
-
-            if (yetki == 3)
-            {
-                BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Where(x => x.ID == id).Include(x => x.Profil).Include(x => x.Birimler).FirstOrDefault();
-                List<Stajyer> stajyerler = db.Stajyerler.Include(x => x.Birimler).Include(x => x.Devamsizliklar).Include(x => x.Gunlukler).Include(x => x.Profil).ToList();
-
-                List<Stajyer> stajyers = new List<Stajyer>();
-                foreach (var birim in koordinator.Birimler)
-                {
-                    foreach (var stajyer in stajyerler)
-                    {
-                        if (stajyer.Birimler.Any(x => x.BirimID == birim.BirimID) && !stajyers.Any(x => x.ID == stajyer.ID))
-                        {
-                            stajyers.Add(stajyer);
-                        }
-                    }
-                }
-                return View(stajyers);
-
-            }
-            else
-            {
-                List<Stajyer> stajyerler = db.Stajyerler.Include(x => x.Birimler).Include(x => x.Devamsizliklar).Include(x => x.Gunlukler).Include(x => x.Profil).ToList();
-                return View(stajyerler);
-            }
-        }
 
         [ServiceFilter(typeof(GunlukGoruntuleme))]
         public IActionResult Goruntule(int id)

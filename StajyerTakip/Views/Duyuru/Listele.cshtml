@@ -1,5 +1,4 @@
-﻿@model List<Duyuru>
-@{
+﻿@{
     ViewData["Title"] = "Listele";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -16,7 +15,7 @@
                 <nav class=" navbar navbar-light bg-white">
                     <a class="navbar-brand">Duyuru Ekle</a>
 
-                    <a href="~/Duyuru/Ekle" class="btn btn-success my-2 my-sm-0" type="submit">Ekle</a>
+                    <button class="btn btn-success my-2 my-sm-0" type="button" data-toggle="modal" data-target="#duyuruekle">Ekle</button>
                 </nav>
             </div>
         </div>
@@ -29,71 +28,315 @@
 
 
             <div class="table-responsive">
-                <table class="table table-striped" id="duyurular1">
-                    <thead>
+                <table class="table table-striped table-bordered" id="duyurular1">
+                    <thead class="text-info">
                         <tr>
 
-                            <th>
+                            <th class="font-weight-bold">
                                 Duyuru Başlığı
                             </th>
-                            <th>
+                            <th class="font-weight-bold">
                                 İçerik
                             </th>
-                            <th>
+                            <th class="font-weight-bold">
+                                Son Güncellenme Tarihi
+                            </th>
+                            <th class="font-weight-bold">
+                                Ekleyen Kişi
+                            </th>
+                            <th class="font-weight-bold">
                                 Görüntüle
                             </th>
                             @if (yetki != 4)
                             {
-                                <th>
-                                    Yönet
+                                <th class="font-weight-bold">
+                                    Düzenle
+                                </th>
+                                <th class="font-weight-bold">
+                                    Sil
                                 </th>
                             }
                         </tr>
                     </thead>
-                    <tbody>
-
-                        @{
-                            foreach (var i in Model)
-                            {
-                                <tr>
-
-
-                                    <td>
-                                        @i.Baslik
-                                    </td>
-                                    <td>
-                                        @i.Icerik.Substring(0, Math.Min(i.Icerik.Length, 20))
-                                    </td>
-                                    <td>
-
-                                        <a href="~/Duyuru/Goruntule/@i.ID" class="btn btn-sm btn-success">Görüntüle</a>
-                                    </td>
-                                    @if (yetki != 4)
-                                    {
-                                        <td>
-
-                                            <a href="~/Duyuru/Duzenle/@i.ID" class="btn btn-primary">Duzenle</a>
-                                            <a href="~/Duyuru/Sil/@i.ID" class="btn btn-danger">Sil</a>
-
-                                        </td>
-                                    }
-                                </tr>
-
-
-                            }
-                        }
-                    </tbody>
+                    <tbody class="duyurularbody"></tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
 
+
+<div class="modal" id="duyuruekle">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title">Duyuru Ekle</h5>
+                <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="baslik">Duyuru Başlığı:</label>
+                    <input type="text" id="baslik" class="form-control" placeholder="Duyuru Başlığı" />
+                </div>
+                <div class="form-group">
+                    <label for="icerik">Duyuru İçeriği:</label>
+                    <textarea id="icerik" class="form-control" placeholder="Duyuru İçeriği"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" id="btnKaydet">Kaydet</button>
+                <button class="btn btn-info" data-dismiss="modal">Kapat</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal" id="duyuruduzenle">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Duyuru Düzenle</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="dbaslik">Duyuru Başlığı:</label>
+                    <input type="text" class="form-control" id="dbaslik" placeholder="Duyuru Başlığı" />
+                </div>
+                <div class="form-group">
+                    <label for="dicerik">Duyuru İçeriği:</label>
+                    <textarea class="form-control" id="dicerik" placeholder="Duyuru İçeriği"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" id="btnDuzenle">Kaydet</button>
+                <button class="btn btn-info" data-dismiss="modal">Kapat</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
-        $('#duyurular1').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json"}
+
+        var session_id;
+        var session_auth_id;
+        var duyurulistesi;
+        var columns;
+        var id;
+        $.ajax({
+            url: "/Login/GetSessionValues",
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+                session_id: data.session_id;
+                session_auth_id: data.session_auth_id;
+                session_profile_id: data.session_profile_id;
+            }
         });
+        console.log(session_auth_id);
+        if (session_auth_id != 4) {
+            console.log('girdi');
+            columns = [
+                { "data": "baslik" },
+                { "data": "icerik" },
+                { "data": "gtarihi" },
+                { "data": "ekleyen" },
+                { "data": "goruntule", "width": "5%" },
+                { "data": "duzenle", "width": "5%" },
+                { "data": "sil", "width": "5%" }
+
+            ];
+        } else {
+            console.log('girdi');
+            columns = [
+                { "data": "baslik" },
+                { "data": "icerik" },
+                { "data": "gtarihi" },
+                { "data": "ekleyen" },
+                { "data": "goruntule", "width": "10%" }
+
+            ];
+        }
+
+        var duyurularicek = () => {
+            duyurulistesi = $('#duyurular1').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json"
+                },
+                "ordering": false,
+                responsive: true,
+                "ajax": {
+                    url: '/Duyuru/DuyurulariCekJson',
+                    type: 'POST',
+                    "dataSrc": function (data) {
+                        var return_data = new Array();
+
+                        $.each(data, function (id, obj) {
+                            if (session_auth_id != 4) {
+                                return_data.push({
+                                    'baslik': obj.duyuru.baslik,
+                                    'icerik': obj.duyuru.icerik.substr(0, Math.min(obj.duyuru.icerik.length, 72)),
+                                    'gtarihi': new Date(obj.duyuru.guncellenmeTarihi).getDay().toString() + '/' + new Date(obj.duyuru.guncellenmeTarihi).getMonth().toString() + new Date(obj.duyuru.guncellenmeTarihi).getFullYear().toString(),
+                                    'ekleyen': obj.adsoyad,
+                                    'goruntule': '<a class="btn btn-success" href="/Duyuru/Goruntule/' + obj.duyuru.id + '"><span class="mdi mdi-eye text-white"></span> Görüntüle</a>',
+                                    'duzenle': '<button type="button" class="btn btn-info duzenle"  id = "' + obj.duyuru.id + '" data-toggle="modal" data-target="#duyuruduzenle"><i class="mdi mdi-pencil text-white"></i> Düzenle</button>',
+                                    'sil': '<button type="button" class="btn btn-danger sil" id = "' + obj.duyuru.id + '"><i class="mdi mdi-eraser text-white"></i> Sil</button>'
+                                });
+                            }
+                            else {
+                                return_data.push({
+                                    'baslik': obj.duyuru.baslik,
+                                    'icerik': obj.duyuru.icerik,
+                                    'gtarihi': new Date(obj.duyuru.guncellenmeTarihi).getDay().toString() + '/' + new Date(obj.duyuru.guncellenmeTarihi).getMonth().toString() + new Date(obj.duyuru.guncellenmeTarihi).getFullYear().toString(),
+                                    'ekleyen': obj.adsoyad,
+                                    'goruntule': '<a class="btn btn-success" href="/Duyuru/Goruntule/' + obj.duyuru.id + '"><i class="mdi mdi-eraser text-white"></i> Görüntüle</a>'
+                                });
+                            }
+                        });
+                        return return_data;
+
+                    }
+                },
+                "columns": columns
+
+
+            });
+        }
+
+        duyurularicek();
+
+        var check = (baslik, icerik) => {
+
+            if (baslik == '') {
+                Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000
+                }).fire({
+                    type: "warning",
+                    title: "Duyuru Başlığı girilmedi"
+                });
+                return false;
+            } else if (icerik == '') {
+                Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000
+                }).fire({
+                    type: "warning",
+                    title: "İçerik girilmedi"
+                });
+                return false;
+            }
+            return true;
+        }
+
+        $(document).on('click', '#btnKaydet', function () {
+
+            var baslik = $('#baslik').val();
+            var icerik = $('#icerik').val();
+
+            if (!check(baslik, icerik)) {
+                return false;
+            }
+
+            $.ajax({
+                url: "/Duyuru/Ekle",
+                type: "POST",
+                data: { duyuru: { baslik: baslik, icerik: icerik } },
+                success: function () {
+                    duyurulistesi.destroy();
+                    duyurularicek();
+                    $('#duyuruekle').modal('hide');
+                    Swal.fire("Başarılı", "Başarıyla eklendi.", "success");
+
+                },
+                error: function () {
+                    Swal.fire("Oops..", "Eklenirken bir sorun oluştu.", "error");
+                }
+            });
+        });
+
+        $(document).on('click', '.duzenle', function () {
+            id = this.id;
+
+            $.ajax({
+                url: "/Duyuru/DuyuruCekJson",
+                data: { id: id },
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    $('#dbaslik').val(data.baslik);
+                    $('#dicerik').val(data.icerik);
+                }
+            });
+        });
+
+        $(document).on('click', '#btnDuzenle', function () {
+            var baslik = $('#dbaslik').val();
+            var icerik = $('#dicerik').val();
+
+            if (!check(baslik, icerik))
+                return false;
+
+            $.ajax({
+                url: "/Duyuru/Duzenle",
+                data: { id: id, duyuru: { baslik: baslik, icerik: icerik } },
+                dataType: "json",
+                type: "POST",
+                success: function () {
+
+                    duyurulistesi.destroy();
+                    duyurularicek();
+                    $('#duyuruduzenle').modal('hide');
+                    Swal.fire('Başarılı', 'Başarıyla güncellendi.', 'success');
+
+                },
+                error: function () {
+                    Swal.fire('Ooops..', 'Güncellenirken bir sorun oluştu.', 'error');
+                }
+            });
+        });
+
+        $(document).on('click', '.sil', function () {
+            id = this.id;
+
+            Swal.fire({
+                title: "Gerçekten silmek istiyor musunuz?",
+                html: "Duyuru silinecektir, <strong>onaylıyor musunuz?</strong>",
+                type: "question",
+                showConfirmButton: true,
+                confirmButtonText: "<i class='mdi mdi-eraser'></i> Sil",
+                confirmButtonColor: '#dc3545',
+                showCancelButton: true,
+                cancelButtonText: '<i class="mdi mdi-close-circle"></i> Kapat'
+            }).then(function (data) {
+                if (data.value) {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Duyuru/Sil",
+                        data: { id: id },
+                        dataType: "json",
+                        success: function (data) {
+                            Swal.fire('Silindi', 'Duyuru başarıyla silindi.', 'success');
+                            duyurulistesi.destroy();
+                            duyurularicek();
+                        },
+                        error: function (data) {
+                            Swal.fire('Silinemedi', 'Silinemedi, silinirken bir hata oluştu.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+
+
     });
 </script>
