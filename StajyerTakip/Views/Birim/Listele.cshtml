@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
@@ -44,6 +45,8 @@
                         </tr>
                     </thead>
                     <tbody id="birimbody"></tbody>
+
+
                 </table>
             </div>
         </div>
@@ -119,67 +122,68 @@
 
 
 <script>
+    var birimlistesi;
+    var id;
+    var birimlistesicek = function () {
+        birimlistesi = $('#birimlistesi').DataTable({
+            "ordering": false,
+            "ajax": {
+                url: "/Birim/BirimleriCek",
+                responsive: true,
+                type: "POST",
+                "dataSrc": function (data) {
+                    var return_data = new Array();
+                    $.each(data, function (id, obj) {
+                        return_data.push({
+                            'birimadi': obj.ad,
+                            'aciklama': obj.aciklama,
+                            'goruntule': '<div class="text-center "><button class="btn btn-success goruntule" id="' + obj.id + '" type="button" data-toggle= "modal" data-target = "#birimgoruntule"><span class="mdi mdi-eye text-white"></span> Görüntüle</button></div>',
+                            'duzenle': '<div class="text-center "><button class="btn btn-info duzenle" id="' + obj.id + '" type="button" data-toggle= "modal" data-target = "#birimgoruntule"><span class="mdi mdi-pencil text-white"></span> Düzenle</button></div>',
+                            'sil': '<div class="text-center "><button class="btn btn-danger sil" id="' + obj.id + '" type="button" data-toggle= "modal" data-target = ""><span class="mdi mdi-eraser text-white"></span> Sil</button></div>'
+                        });
+                    });
+
+                    return return_data;
+                }
+            },
+            "columns": [
+                {
+                    "data": "birimadi"
+                },
+                { "data": "aciklama" },
+                { "data": "goruntule", "width": "10%" },
+                { "data": "duzenle", "width": "10%" },
+                { "data": "sil", "width": "10%" }
+
+            ],
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json"
+            }
+
+
+
+        });
+
+
+    }
+    var birimcek = function (ids) {
+        return $.ajax({
+            url: '/Birim/Goruntule',
+            type: 'POST',
+            dataType: 'json',
+            data: { id: ids },
+            success: function (data) {
+                $('#birimadi1').val(data.ad);
+                $('#birimaciklama').html(data.aciklama);
+            }
+
+        });
+    }
 
     $(function () {
-        var birimlistesi;
-        var id;
-        var birimlistesicek = function () {
-            birimlistesi = $('#birimlistesi').DataTable({
-                "ordering": false,
-                responsive: true,
-                "ajax": {
-                    url: "/Birim/BirimleriCek",
-                    type: "POST",
-                    "dataSrc": function (data) {
-                        var return_data = new Array();
-                        $.each(data, function (id, obj) {
-                            return_data.push({
-                                'birimadi': obj.ad,
-                                'aciklama': obj.aciklama,
-                                'goruntule': '<div class="text-center "><button class="btn btn-success goruntule" id="' + obj.id + '" type="button" data-toggle= "modal" data-target = "#birimgoruntule"><span class="mdi mdi-eye text-white"></span> Görüntüle</button></div>',
-                                'duzenle': '<div class="text-center "><button class="btn btn-info duzenle" id="' + obj.id + '" type="button" data-toggle= "modal" data-target = "#birimgoruntule"><span class="mdi mdi-pencil text-white"></span> Düzenle</button></div>',
-                                'sil': '<div class="text-center "><button class="btn btn-danger sil" id="' + obj.id + '" type="button" data-toggle= "modal" data-target = ""><span class="mdi mdi-eraser text-white"></span> Sil</button></div>'
-                            });
-                        });
 
-                        return return_data;
-                    }
-                },
-                "columns": [
-                    {
-                        "data": "birimadi"
-                    },
-                    { "data": "aciklama" },
-                    { "data": "goruntule", "width": "10%" },
-                    { "data": "duzenle", "width": "10%" },
-                    { "data": "sil", "width": "10%" }
-
-                ],
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json"
-                }
-
-
-
-            });
-        }
-        var birimcek = function (ids) {
-            return $.ajax({
-                url: '/Birim/Goruntule',
-                type: 'POST',
-                dataType: 'json',
-                data: { id: ids },
-                success: function (data) {
-                    $('#birimadi1').val(data.ad);
-                    $('#birimaciklama').html(data.aciklama);
-                }
-
-            });
-        }
 
         birimlistesicek();
-
-
         var kontrol = (ad, aciklama) => {
             if (ad == '') {
                 Swal.mixin({

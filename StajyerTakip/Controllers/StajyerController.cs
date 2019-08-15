@@ -260,6 +260,12 @@ namespace StajyerTakip.Controllers
         [StajyerUstYetki]
         public ActionResult Listele()
         {
+            return View();
+        }
+
+        [StajyerUstYetki]
+        public JsonResult StajyerleriCek()
+        {
             List<Stajyer> stajyerler = db.Stajyerler.Include(x => x.Profil).Include(x => x.Birimler).ToList();
 
             var yetki = HttpContext.Session.GetInt32("yetki");
@@ -279,11 +285,10 @@ namespace StajyerTakip.Controllers
                         }
                     }
                 }
-                return View(stajyers);
+                return Json(stajyers);
             }
 
-            return View(stajyerler);
-
+            return Json(stajyerler);
         }
 
 

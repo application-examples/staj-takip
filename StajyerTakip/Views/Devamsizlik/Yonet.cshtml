@@ -124,8 +124,8 @@
                                 'foto': '<div class="text-center"><img src="/' + obj.profil.fotograf + '" alt="image" draggable="false" class="rounded-circle" style="border:2px solid #808080; " width="48" /></div>',
                                 'adsoyad': obj.profil.ad + " " + obj.profil.soyad,
                                 'devamsizlik': Object.keys(obj.devamsizliklar).length.toString(),
-                                'ekle': '<div class="text-center"><button type="button" data-toggle="modal" data-target="#devamsizlikekle" id="' + obj.id + '" class="btn btn-success ekle"><i class="mdi mdi-calendar-plus"></i> Ekle</button></div>',
-                                'duzenle': '<div class="text-center"><button type="button" class="btn btn-info duzenle" data-toggle="modal" data-target="#devamsizlikduzenle" id="' + obj.id + '"><i class="mdi mdi-pencil"></i> Düzenle</button></div>',
+                                'ekle': '<div class="text-center"><button type="button" data-toggle="modal" data-target="#devamsizlikekle" id="' + obj.id + '" class="btn btn-success devekle"><i class="mdi mdi-calendar-plus"></i> Ekle</button></div>',
+                                'duzenle': '<div class="text-center"><button type="button" class="btn btn-info devduzenle" data-toggle="modal" data-target="#devamsizlikduzenle" id="' + obj.id + '"><i class="mdi mdi-pencil"></i> Düzenle</button></div>',
                                 'goruntule': '<div class="text-center"><a href="/Devamsizlik/Goruntule/' + obj.id + '" class="btn btn-success"><span class="mdi mdi-eye text-white"></span> Görüntüle</a></div>'
                             });
                         });
@@ -166,7 +166,7 @@
                             return_data.push({
                                 "no": no++,
                                 "tarih": parts[2].substr(0, 2) + "/" + parts[1] + "/" + parts[0],
-                                "duzenle": '<button type="button" class="btn btn-danger sil" id="' + obj.id + '">Sil</button>'
+                                "duzenle": '<button type="button" class="btn btn-danger devsil" id="' + obj.id + '">Sil</button>'
                             });
                         });
                         return return_data;
@@ -180,7 +180,7 @@
             });
         }
 
-        $(document).on('click', '.ekle', function () {
+        $(document).on('click', '.devekle', function () {
             id = this.id;
 
             $.ajax({
@@ -229,7 +229,7 @@
         });
 
 
-        $(document).on('click', '.duzenle', function () {
+        $(document).on('click', '.devduzenle', function () {
             id = this.id;
             tmpid = this.id;
             $.ajax({
@@ -243,7 +243,7 @@
             devamsizliklaricek(id);
         });
 
-        $(document).on('click', '.sil', function () {
+        $(document).on('click', '.devsil', function () {
             id = this.id;
             Swal.fire({
                 title: 'Gerçekten silmek istiyor musunuz?',
