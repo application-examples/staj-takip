@@ -40,50 +40,80 @@
     </div>
 }
 
-<div class="container">
-    <div class="card border-bottom-0">
-        <div class="row no-gutters px-4 py-2 pt-3">
-            <div class="col-auto ">
-                <img src="~/images/man-200x200.png" class="img-fluid rounded-circle" alt="" width="48">
-            </div>
-            <div class="col">
-                <div class="card-block px-2 pl-3">
-                    <h6 class="card-title">Git hesapları açıldı.</h6>
+    <div class="container">
+        <div class="card border-bottom-0">
+            <div class="row no-gutters px-4 py-2 pt-3">
+                <div class="col-auto ">
+                    <img src="~/images/man-200x200.png" class="img-fluid rounded-circle" alt="" width="48">
+                </div>
+                <div class="col">
+                    <div class="card-block px-2 pl-3">
+                        <h6 class="card-title">Git hesapları açıldı.</h6>
 
-                    <div class="card-subtitle text-muted">27 Haziran 2019</div>
-                    <p class="card-text mt-2 pb-2">
-                        Git hesapları açıldı.Git hesapları açıldı.Git hesapları
-                        açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları
-                        açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları
-                        açıldı.Git hesapları açıldı.
-                    </p>
+                        <div class="card-subtitle text-muted">27 Haziran 2019</div>
+                        <p class="card-text mt-2 pb-2">
+                            Git hesapları açıldı.Git hesapları açıldı.Git hesapları
+                            açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları
+                            açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları
+                            açıldı.Git hesapları açıldı.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card-footer w-100 text-muted bg-white border-top-0">
-            <span class="float-right text-success"><i class="fa fa-check-circle"></i> Onaylandı</span>
-        </div>
-    </div>
-    <div class="card border-bottom-0">
-        <div class="row no-gutters px-4 py-2 pt-3">
-            <div class="col-auto ">
-                <img src="1.png" class="img-fluid rounded-circle" alt="" width="48">
+            <div class="card-footer w-100 text-muted bg-white border-top-0">
+                <span class="float-right text-success"><i class="fa fa-check-circle"></i> Onaylandı</span>
             </div>
-            <div class="col">
-                <div class="card-block px-2 pl-3">
-                    <h6 class="card-title">Git hesapları açıldı.</h6>
+        </div>
+        <div class="card border-bottom-0">
+            <div class="row no-gutters px-4 py-2 pt-3">
+                <div class="col-auto ">
+                    <img src="1.png" class="img-fluid rounded-circle" alt="" width="48">
+                </div>
+                <div class="col">
+                    <div class="card-block px-2 pl-3">
+                        <h6 class="card-title">Git hesapları açıldı.</h6>
 
-                    <div class="card-subtitle text-muted">27 Haziran 2019</div>
-                    <p class="card-text mt-2 pb-2">
-                        Git hesapları açıldı.Git hesapları açıldı.Git hesapları
-                        açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları
-                        açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları
-                        açıldı.Git hesapları açıldı.
-                    </p>
+                        <div class="card-subtitle text-muted">27 Haziran 2019</div>
+                        <p class="card-text mt-2 pb-2">
+                            Git hesapları açıldı.Git hesapları açıldı.Git hesapları
+                            açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları
+                            açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları açıldı.Git hesapları
+                            açıldı.Git hesapları açıldı.
+                        </p>
+                    </div>
                 </div>
             </div>
+            <div class="card-footer w-100 text-muted bg-white border-top-0">
+                <span class="float-right text-muted"><i class="fa fa-history"></i> Beklemede</span>
+            </div>
         </div>
-        <div class="card-footer w-100 text-muted bg-white border-top-0">
-            <span class="float-right text-muted"><i class="fa fa-history"></i> Beklemede</span>
-        </div>
-    </div>
+        <script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $(document).on('mouseenter', '.btn-circle', function () {
+            if ($(this).hasClass('btn-outline-success')) {
+                $(this).html('<i class="fa fa-check"></i> Onayla');
+            } else if ($(this).hasClass('btn-outline-danger')) {
+                $(this).html('<i class="fa fa-times"></i> Reddet');
+            }
+        });
+
+        $(document).on('mouseleave', '.btn-circle', function () {
+            if ($(this).hasClass('btn-outline-success'))
+                $(this).html('<i class="fa fa-check"></i>');
+            else if ($(this).hasClass('btn-outline-danger')) {
+                $(this).html('<i class="fa fa-times"></i>')
+            }
+        });
+
+        $(document).on('mouseenter', '.card', function () {
+            $(this).addClass('well');
+        });
+
+        $(document).on('mouseleave', '.card', function () {
+            $(this).removeClass('well');
+
+        });
+    })
+        </script>
