@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using StajyerTakip.Attributes;
 using StajyerTakip.Models;
 
@@ -225,15 +226,18 @@ namespace StajyerTakip.Controllers
         [StajyerUstYetki]
         public IActionResult Listele()
         {
-            List<Models.BirimKoordinatoru> birimkoordinatorleri = db.BirimKoordinatorleri.ToList();
-            List<Models.Profil> profiller = db.Hesaplar.ToList();
-            foreach (var i in birimkoordinatorleri)
-            {
-                i.Profil = profiller.Find(x => x.ID == i.ProfilID);
-            }
-            return View(birimkoordinatorleri);
+            return View();
 
 
+        }
+
+        [BirimKoordinatoruUstYetki]
+        [StajyerUstYetki]
+
+        public JsonResult BirimKoordinatorleriCek()
+        {
+            List<BirimKoordinatoru> birimKoordinatorleri = db.BirimKoordinatorleri.Include(x=>x.Profil).Include(x=>x.Birimler).ThenInclude(x=>x.Birim).ToList();
+            return Json(birimKoordinatorleri);
         }
 
         [BirimKoordinatoruID]
@@ -244,6 +248,16 @@ namespace StajyerTakip.Controllers
             birimkoordinatoru.Profil = db.Hesaplar.Find(birimkoordinatoru.ProfilID);
 
             return View(birimkoordinatoru);
+        }
+
+        [HttpPost]
+        [BirimKoordinatoruUstYetki]
+        public JsonResult SilAjax(int id)
+        {
+            BirimKoordinatoru koordinator = db.BirimKoordinatorleri.Find(id);
+            db.Hesaplar.Remove(db.Hesaplar.Find(koordinator.ProfilID));
+            db.SaveChanges();
+            return Json(true);
         }
 
 

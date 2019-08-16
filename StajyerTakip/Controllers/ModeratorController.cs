@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StajyerTakip.Attributes;
 using StajyerTakip.Models;
 
@@ -160,24 +161,42 @@ namespace StajyerTakip.Controllers
         {
             Moderator moderator = db.Moderatorler.Where(x => x.ID == id).SingleOrDefault();
             db.Hesaplar.Remove(db.Hesaplar.Find(moderator.ID));
-
             db.SaveChanges();
 
             return Redirect("~/Moderator/Listele");
         }
+
+
+        [HttpPost]
+        [ModeratorUstYetki]
+        public JsonResult SilAjax1(int id)
+        {
+            Moderator moderator = db.Moderatorler.Where(x => x.ID == id).SingleOrDefault();
+            db.Hesaplar.Remove(db.Hesaplar.Find(moderator.ProfilID));
+            db.SaveChanges();
+
+            return Json(true);
+        }
         [ModeratorUstYetki]
         public IActionResult Listele()
         {
-            List<Models.Moderator> moderatorler = db.Moderatorler.ToList();
-            List<Models.Profil> profiller = db.Hesaplar.ToList();
-            foreach (var i in moderatorler)
-            {
-                i.Profil = profiller.Find(x => x.ID == i.ProfilID);
-            }
-            return View(moderatorler);
+            
+            return View();
 
 
         }
+
+
+
+        [ModeratorUstYetki]
+
+        public JsonResult ModeratorleriCek()
+        {
+            List<Moderator> moderatorler = db.Moderatorler.Include(x=>x.Profil).ToList();
+
+            return Json(moderatorler);
+        }
+
         [ModeratorID]
         [BirimKoordinatoruUstYetki]
         public IActionResult Goruntule(int id)

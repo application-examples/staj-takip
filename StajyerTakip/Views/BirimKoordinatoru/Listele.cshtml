@@ -1,5 +1,4 @@
-﻿@model List<BirimKoordinatoru>
-@{
+﻿@{
     ViewData["Title"] = "Listele";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -20,47 +19,31 @@
 
 
             <div class="table-responsive">
-                <table class="table table-striped" id="birimklistesi">
-                    <thead>
+                <table class="table table-striped table-bordered" id="birimklistesi">
+                    <thead class="text-info">
                         <tr>
 
-                            <th>
+                            <th class="font-weight-bold">
+                                Fotoğraf
+                            </th>
+                            <th class="font-weight-bold">
                                 Ad Soyad
                             </th>
-                            <th>
-                                Bilgileri
+                            <th class="font-weight-bold">
+                                Ünvan 
                             </th>
-                            <th>
-
+                            <th class="font-weight-bold">
+                                Birimler
+                            </th>
+                            <th class="font-weight-bold">
+                                Düzenle
+                            </th>
+                            <th class="font-weight-bold">
+                                Sil
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @{
-                            foreach (var i in Model)
-                            {
-                                <tr>
-
-
-                                    <td>
-                                        @i.Profil.Ad @i.Profil.Soyad
-                                    </td>
-                                    <td>
-
-                                        <a href="~/BirimKoordinatoru/Goruntule/@i.ID" class="btn btn-sm btn-success">Görüntüle</a>
-                                    </td>
-                                    <td>
-
-                                        <a href="~/BirimKoordinatoru/Duzenle/@i.ID" class="btn btn-primary">Duzenle</a>
-                                        <a href="~/BirimKoordinatoru/Sil/@i.ID" class="btn btn-danger">Sil</a>
-
-                                    </td>
-
-                                </tr>
-                            }
-                        }
-
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -69,7 +52,94 @@
 
 <script>
 
-    $(function(){
-        $('#birimklistesi').DataTable();
+    $(function () {
+        var bklistesi;
+        var id;
+        function bklistesicek() {
+            bklistesi = $('#birimklistesi').DataTable({
+                destroy: true,
+                "language": { "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json" },
+                "ajax": {
+                    url: '/BirimKoordinatoru/BirimKoordinatorleriCek',
+                    type: 'GET',
+                    dataType: 'json',
+                    "dataSrc": function (data) {
+
+                        var return_data = new Array();
+
+                        $.each(data, function (id, obj) {
+                            var birimler = "";
+                            $.each(obj.birimler, function (birimid, birim) {
+                                birimler += '<span class="badge badge-lg badge-primary">' + birim.birim.ad + '</span> ';
+                            });
+                            return_data.push({
+                                'foto': '<div class="text-center"><img src="' + obj.profil.fotograf + '" alt="profile_image" draggable="false" class="rounded-circle" style="border:2px solid #808080;" width="36" /></div>',
+                                'adsoyad': obj.profil.ad + " " + obj.profil.soyad,
+                                'unvan': obj.unvan,
+                                'birim': birimler,
+                                'duzenle': '<a class="btn btn-info" href="/BirimKoordinatoru/Duzenle/' + obj.id + '"><i class="mdi mdi-pencil"></i> Düzenle</a>',
+                                'sil': '<button type="button" class="btn btn-danger bksil" data-target="#bksil" data-toggle="modal" id="' + obj.id + '"><i class="mdi mdi-eraser"></i> Sil</button>'
+                            });
+                        });
+                        return return_data;
+                    }
+                },
+                "columns": [
+                    { "data": "foto", "width": "5%" },
+                    { "data": "adsoyad" },
+                    { "data": "unvan" },
+                    { "data": "birim" },
+                    { "data": "duzenle", "width": "5%", "class": "text-center" },
+                    { "data": "sil", "width": "5%", "class": "text-center" }
+                ]
+            });
+        }
+
+        bklistesicek();
+
+
+        $(document).on('click', '.bksil', function () {
+            id = this.id;
+
+            Swal.fire({
+                title: 'Gerçekten silmek istiyor musunuz?',
+                html: '<strong><h5>Birim Koordinatörünü silerseniz birim koordinatörüne bağlı stajyerler boşta kalır gerçekten silmek istiyor musunuz?<br/>Silmek için aşağıdaki alana "Silmek istiyorum" yazın. </h5></strong> ',
+                type: 'warning',
+                input: 'text',
+                onOpen: function () {
+                    Swal.disableConfirmButton();
+
+                    Swal.getInput().addEventListener('keyup', function (e) {
+                        if (e.target.value.toString().toLowerCase() === 'silmek istiyorum')
+                            Swal.enableConfirmButton();
+                        else
+                            Swal.disableConfirmButton();
+                    });
+                },
+                showConfirmButton: true,
+                showCancelButton: true,
+                confirmButtonText: '<i class="mdi mdi-eraser text-white"></i> Sil',
+                confirmButtonColor: '#dc3545',
+                cancelButtonText: '<i class="mdi mdi-close-circle"></i> Kapat',
+                cancelButtonColor: '#2255a4'
+
+            }).then(function (result) {
+                if (result.value) {
+                    $.ajax({
+                        url: '/BirimKoordinatoru/SilAjax',
+                        data: { id: id },
+                        type: "POST",
+                        success: function (data) {
+                            bklistesi.destroy();
+                            bklistesicek();
+                            Swal.fire('Başarılı', 'Başarıyla silindi.Stajyerlere yeni <strong>Birim Koordinatörü eklemeyi unutmayın!</strong>', 'success');
+                        },
+                        error: function (data) {
+                            Swal.fire('Oopss..', 'Silinemedi, lütfen tekrar deneyin.', 'error');
+                        }
+                    });
+                }
+            });
+        });
     });
 </script>

@@ -258,6 +258,16 @@ namespace StajyerTakip.Controllers
         }
 
         [StajyerUstYetki]
+        [HttpPost]
+        public JsonResult SilAjax(int id)
+        {
+            Stajyer stajyer = db.Stajyerler.Find(id);
+            db.Hesaplar.Remove(db.Hesaplar.Find(stajyer.ProfilID));
+            db.SaveChanges();
+            return Json(true);
+        }
+
+        [StajyerUstYetki]
         public ActionResult Listele()
         {
             return View();

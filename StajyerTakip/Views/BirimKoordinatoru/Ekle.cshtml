@@ -47,30 +47,30 @@
                 <div class="card card-body" style="border-radius:10px 20px;">
                     <div class="form-group">
                         <label for="ad">Ad</label>
-                        <input type="text" class="form-control" id="ad" name="Profil.Ad" placeholder="Ad">
+                        <input type="text" class="form-control" id="ad" name="Profil.Ad" placeholder="Ad" required>
                     </div>
                     <div class="form-group">
                         <label for="soyad">Soyad</label>
-                        <input type="text" class="form-control" id="soyad" name="Profil.Soyad" placeholder="Soyad">
+                        <input type="text" class="form-control" id="soyad" name="Profil.Soyad" placeholder="Soyad" required>
                     </div>
                     <div class="form-group">
                         <label for="kullaniciadi">Kullanıcı Adı</label>
-                        <input type="text" class="form-control" id="kullaniciadi" name="Profil.KullaniciAdi" placeholder="Kullancı Adı">
+                        <input type="text" class="form-control" id="kullaniciadi" name="Profil.KullaniciAdi" placeholder="Kullancı Adı" required>
                     </div>
                     <div class="form-group">
                         <label for="Sifre">Şifre</label>
-                        <input type="password" class="form-control" id="Sifre" name="Profil.Sifre" placeholder="Şifre">
+                        <input type="password" class="form-control" id="Sifre" name="Profil.Sifre" placeholder="Şifre" required>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email Adres</label>
-                        <input type="email" class="form-control" id="email" name="Profil.Email" placeholder="Email">
+                        <input type="email" class="form-control" id="email" name="Profil.Email" placeholder="Email" required>
                     </div>
                     <div class="input-group" style="">
                         <div class="row col-12">
                             <label for="birim">Birim</label>
                         </div>
-                        <select name="Birimler[]" id="select2" multiple="multiple" class="form-control" asp-items="@ViewBag.Birimler"></select>
+                        <select name="Birimler[]" id="select2" multiple="multiple" class="form-control" asp-items="@ViewBag.Birimler" required></select>
                     </div>
                 </div>
                 <h5>İletişim Bilgileri</h5>
@@ -127,7 +127,7 @@
                 </div>
                 <input type="text" class="custom-file-input" id="img" name="img" hidden />
                 <button type="submit" class="btn btn-success ">Kaydet</button>
-                <a href="~/Stajyer/Listele" class="btn btn-primary">İptal</a>
+                <a href="~/BirimKoordinatoru/Listele" class="btn btn-primary">İptal</a>
             </form>
         </div>
     </div>

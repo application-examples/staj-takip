@@ -140,12 +140,12 @@
                                 return_data.push({
                                     'foto': '<div class="text-center"><img src="/' + obj.profil.fotograf + '" alt="profile_image" draggable="false" class="rounded-circle" style="border:2px solid #808080;" width="48" /></div>',
                                     'adsoyad': obj.profil.ad + " " + obj.profil.soyad,
-                                    'okul': 'Alanya Alaaddin Keykubat Üniversitesi',
-                                    'bolum': 'Bilgisayar Mühendisliği',
-                                    'devamsizlik': '<div class=""><button class="btn btn-success devekle" data-toggle="modal" data-target="#devamsizlikekle" id="' + obj.id + '" type="button"><i class="mdi mdi-calendar-plus"></i> Ekle</button> <button data-toggle="modal" data-target="#devamsizlikduzenle" class="btn btn-info devduzenle" id="' + obj.id + '" type="button"><i class="mdi mdi-pencil"></i> Düzenle</button> <a href="/Devamsizlik/Goruntule/'+obj.id+'" class="btn btn-dark"><span class="mdi mdi-eye text-white"></span> Görüntüle</a></div>',
-                                    'gunluk': '<button type="button" class="btn btn-dark"><i class="mdi mdi-eye"></i> Görüntüle</button>',
+                                    'okul': obj.okul,
+                                    'bolum': obj.bolum,
+                                    'devamsizlik': '<div class="text-center"><button class="btn btn-success devekle" data-toggle="modal" data-target="#devamsizlikekle" id="' + obj.id + '" type="button"><i class="mdi mdi-calendar-plus"></i> Ekle</button> <button data-toggle="modal" data-target="#devamsizlikduzenle" class="btn btn-info devduzenle" id="' + obj.id + '" type="button"><i class="mdi mdi-pencil"></i> Düzenle</button> <a href="/Devamsizlik/Goruntule/' + obj.id + '" class="btn btn-dark"><span class="mdi mdi-eye text-white"></span> Görüntüle</a></div>',
+                                    'gunluk': '<a href="/Gunluk/Listele/'+obj.id+'" class="btn btn-dark"><i class="mdi mdi-eye"></i> Görüntüle</a>',
                                     'proje': '0',
-                                    'stajyer': '<div class=""><button type="button" class= "btn btn-info"><i class="mdi mdi-pencil"></i> Düzenle</button> <button type="button" class="btn btn-danger"><span class="mdi mdi-eraser text-white"></span> Sil</button></div>'
+                                    'stajyer': '<div class=""><a class= "btn btn-info" href="/Stajyer/Duzenle/' + obj.id + '"><i class="mdi mdi-pencil" ></i> Düzenle</a> <button type="button" id="' + obj.id + '" class="btn btn-danger stajyersil"><span class="mdi mdi-eraser text-white"></span> Sil</button></div>'
                                 });
 
                             });
@@ -283,6 +283,50 @@
                             devamsizliklaricek(tmpid);
                             kisiler.destroy();
                             kisilericek();
+                            Swal.fire('Başarılı', 'Başarıyla silindi.', 'success');
+                        },
+                        error: function (data) {
+                            Swal.fire('Oopss..', 'Silinemedi, lütfen tekrar deneyin.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+
+        $(document).on('click', '.stajyersil', function () {
+            id = this.id;
+
+            Swal.fire({
+                title: 'Gerçekten silmek istiyor musunuz?',
+                html: '<strong><h5>Eğer bu stajyeri silerseniz stajyere bağlı devamsızlıklar ve günlükleride sileceksiniz silmek istediğinize emin misiniz?<br/>Silmek için aşağıdaki alana "Silmek istiyorum" yazın. </h5></strong> ',
+                type: 'warning',
+                input: 'text',
+                onOpen: function () {
+                    Swal.disableConfirmButton();
+
+                    Swal.getInput().addEventListener('keyup', function (e) {
+                        if (e.target.value.toString().toLowerCase() === 'silmek istiyorum')
+                            Swal.enableConfirmButton();
+                        else
+                            Swal.disableConfirmButton();
+                    });
+                },
+                showConfirmButton: true,
+                showCancelButton: true,
+                confirmButtonText: '<i class="mdi mdi-eraser text-white"></i> Sil',
+                confirmButtonColor: '#dc3545',
+                cancelButtonText: '<i class="mdi mdi-close-circle"></i> Kapat',
+                cancelButtonColor: '#2255a4'
+
+            }).then(function (result) {
+                if (result.value) {
+                    $.ajax({
+                        url: '/Stajyer/SilAjax',
+                        data: { id: id },
+                        type: "POST",
+                        success: function (data) {
+                            stajyerlistesi.destroy();
+                            stajyerlericek();
                             Swal.fire('Başarılı', 'Başarıyla silindi.', 'success');
                         },
                         error: function (data) {

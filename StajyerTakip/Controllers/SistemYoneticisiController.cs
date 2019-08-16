@@ -86,7 +86,7 @@ namespace StajyerTakip.Controllers
 
             db.SaveChanges();
 
-            return Redirect("~/SistemYoneticisi/Goruntule");
+            return Redirect("~/Home/Index");
         }
 
 

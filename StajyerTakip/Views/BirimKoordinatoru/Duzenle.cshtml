@@ -53,24 +53,24 @@
                 <div class="card card-body" style="border-radius:10px 20px;">
                     <div class="form-group">
                         <label for="ad">Ad</label>
-                        <input type="text" class="form-control" id="ad" name="Profil.Ad" placeholder="Ad" value="@Model.Profil.Ad">
+                        <input type="text" class="form-control" id="ad" name="Profil.Ad" placeholder="Ad" value="@Model.Profil.Ad" required>
                     </div>
                     <div class="form-group">
                         <label for="soyad">Soyad</label>
-                        <input type="text" class="form-control" id="soyad" name="Profil.Soyad" placeholder="Soyad" value="@Model.Profil.Soyad">
+                        <input type="text" class="form-control" id="soyad" name="Profil.Soyad" placeholder="Soyad" value="@Model.Profil.Soyad" required>
                     </div>
                     <div class="form-group">
                         <label for="kullaniciadi">Kullanıcı Adı</label>
-                        <input type="text" class="form-control" id="kullaniciadi" name="Profil.KullaniciAdi" placeholder="Kullancı Adı" value="@Model.Profil.KullaniciAdi">
+                        <input type="text" class="form-control" id="kullaniciadi" name="Profil.KullaniciAdi" placeholder="Kullancı Adı" value="@Model.Profil.KullaniciAdi" required>
                     </div>
                     <div class="form-group">
                         <label for="Sifre">Şifre</label>
-                        <input type="password" class="form-control" id="Sifre" name="Profil.Sifre" placeholder="Şifre" value="@Model.Profil.Sifre">
+                        <input type="password" class="form-control" id="Sifre" name="Profil.Sifre" placeholder="Şifre" value="@Model.Profil.Sifre" required>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email Adres</label>
-                        <input type="email" class="form-control" id="email" name="Profil.Email" placeholder="Email" value="@Model.Profil.Email">
+                        <input type="email" class="form-control" id="email" name="Profil.Email" placeholder="Email" value="@Model.Profil.Email" required>
                     </div>
                     @if (yetki != 3)
                     {
@@ -78,7 +78,7 @@
                             <div class="row col-12">
                                 <label for="birim">Birim</label>
                             </div>
-                            <select name="Birimler[]" id="select2" multiple="multiple" class="form-control" asp-items="@ViewBag.Birimler"></select>
+                            <select name="Birimler[]" id="select2" multiple="multiple" class="form-control" asp-items="@ViewBag.Birimler" required></select>
                         </div>
                     }
                 </div>
