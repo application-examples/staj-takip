@@ -1,39 +1,99 @@
 ﻿<!DOCTYPE html>
-<html>
-
+<html dir="ltr" lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <title> </title>
-
-
-    <!-- Favicon -->
-    <link href="~/assets/img/brand/favicon.png" rel="icon" type="image/png">
-
-    <!-- Fonts -->
-    <link href="" rel="stylesheet">
-
-    <!-- Icons -->
-    <link href="~/assets/js/plugins/nucleo/css/nucleo.css" rel="stylesheet">
-    <link href="~/assets/js/plugins/@@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-
-    <!--  CSS -->
-    <link type="text/css" href="~/assets/css/argon-dashboard.css" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewData["Title"] | Stajyer Takip Sistemi</title>
+    <link href="~/res/css/style.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css" rel="stylesheet" />
+    <link href="~/css/select2-bootstrap4.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <link rel="stylesheet" href="~/croppie/croppie.css" />
+    <link rel="stylesheet" href="~/css/photo-edit.css" />
+    <script src="~/croppie/croppie.min.js"></script>
 
 </head>
-
 <body>
-    @RenderBody()
+    <!-- ============================================================== -->
+    @*
 
-
-    <!-- Core -->
-    <script src="../assets/js/plugins/jquery/dist/jquery.min.js"></script>
-    <script src="../assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!--  JS -->
-    <script src="../assets/js/argon-dashboard.min.js"></script>
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+    *@
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        @{
+            await Html.RenderPartialAsync("Topbar");
+        }
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        @{
+            await Html.RenderPartialAsync("Sidebar");
+        }
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer text-center">
+                Akdeniz Üniversitesi Bilgisayar Bilimleri Araştırma ve Uygulama Merkezi <a href="https://baum.akdeniz.edu.tr">Baum Stajyerleri</a>.
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="~/res/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/res/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/res/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="~/res/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="~/res/js/sidebarmenu.js"></script>
+    <script src="~/res/js/custom.js"></script>
 
 </body>
-
 </html>
