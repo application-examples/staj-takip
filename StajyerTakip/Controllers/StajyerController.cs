@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -276,7 +275,7 @@ namespace StajyerTakip.Controllers
         [StajyerUstYetki]
         public JsonResult StajyerleriCek()
         {
-            List<Stajyer> stajyerler = db.Stajyerler.Include(x => x.Profil).Include(x => x.Birimler).ToList();
+            List<Stajyer> stajyerler = db.Stajyerler.Include(x => x.Profil).Include(x => x.Birimler).ThenInclude(x=>x.Birim).ToList();
 
             var yetki = HttpContext.Session.GetInt32("yetki");
             var kisiid = HttpContext.Session.GetInt32("id");

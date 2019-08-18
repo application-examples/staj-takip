@@ -112,7 +112,7 @@
                     }
                     <div class="form-group">
                         <label for="telefonnumarasi">Telefon Numarası:</label>
-                        <input type="text" class="form-control bfh-phone" data-format="+90 (ddd) ddd-dddd" name="Profil.Telefon" placeholder="Telefon Numarası" value="@Model.Profil.Telefon">
+                        <input id="telefon" type="text" class="form-control bfh-phone" data-format="+90 (ddd) ddd-dddd" name="Profil.Telefon" placeholder="Telefon Numarası" value="@Model.Profil.Telefon">
                     </div>
 
                     <div class="form-group">
@@ -146,6 +146,7 @@
 </div>
 
 <script>
+    $('#telefon').inputmask({ "mask": "0(999) 999-9999" });
 
     $('#select2').select2({
         placeholder: 'Birim seçin',

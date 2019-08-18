@@ -77,16 +77,18 @@ namespace StajyerTakip.Controllers
         public ActionResult Listele(int id)
         {
 
-            List<Models.Gunluk> gunlukler = db.Gunlukler.ToList().FindAll(x => x.OgrenciID == id);
-
-            foreach (var i in gunlukler)
-            {
-                i.Ogrenci = db.Stajyerler.Find(i.OgrenciID);
-                i.Ogrenci.Profil = db.Hesaplar.Find(i.Ogrenci.ProfilID);
-            }
-            return View(gunlukler);
+            return View();
         }
 
+        [StajyerID]
+        [ServiceFilter(typeof(GunlukListeFiltre))]
+        
+        public JsonResult GunlukleriCekJson(int id)
+        {
+            Stajyer stajyer = db.Stajyerler.Where(x => x.ID == id).Include(x => x.Profil).Include(x => x.Gunlukler).SingleOrDefault();
+
+            return Json(stajyer);
+        }
 
         [ServiceFilter(typeof(GunlukGoruntuleme))]
         public IActionResult Goruntule(int id)

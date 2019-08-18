@@ -13,7 +13,6 @@ namespace StajyerTakip.Attributes
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             var yetki = context.HttpContext.Session.GetInt32("yetki");
-
             if (yetki != 1)
                 context.Result = new RedirectResult("~/Error/AuthProblem");
             base.OnActionExecuting(context);

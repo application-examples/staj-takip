@@ -6,6 +6,9 @@
 @using Microsoft.AspNetCore.Http
 @{
     var yetki = Context.Session.GetInt32("yetki");
+    var profilid = Context.Session.GetInt32("profilid");
+    var id = Context.Session.GetInt32("id");
+
 }
 @if (yetki != 4)
 {
@@ -119,27 +122,27 @@
         </div>
     </div>
 </div>
+<input type="hidden" id="sessionauthid" value="@yetki" />
+<input type="hidden" id="sessionprofileid" value="@profilid" />
+<input type="hidden" id="sessionid" value="@id" />
+
 <script>
+    var session_id;
+    var session_auth_id;
+    var session_profile_id;
     $(document).ready(function () {
 
-        var session_id;
-        var session_auth_id;
+        
         var duyurulistesi;
         var columns;
         var id;
-        $.ajax({
-            url: "/Login/GetSessionValues",
-            type: "POST",
-            dataType: "json",
-            success: function (data) {
-                session_id: data.session_id;
-                session_auth_id: data.session_auth_id;
-                session_profile_id: data.session_profile_id;
-            }
-        });
-        console.log(session_auth_id);
-        if (session_auth_id != 4) {
-            console.log('girdi');
+
+        this.session_auth_id = $('#sessionauthid').val();
+        this.session_profile_id = $('#sessionprofileid').val();
+        this.session_id = $('#sessionid').val();
+
+
+        if (this.session_auth_id == 1 || this.session_auth_id == 2 || this.session_auth_id == 3) {
             columns = [
                 { "data": "baslik" },
                 { "data": "icerik" },
@@ -150,8 +153,7 @@
                 { "data": "sil", "width": "5%" }
 
             ];
-        } else {
-            console.log('girdi');
+        } if (this.session_auth_id == 4) {
             columns = [
                 { "data": "baslik" },
                 { "data": "icerik" },
@@ -172,12 +174,12 @@
                 responsive: true,
                 "ajax": {
                     url: '/Duyuru/DuyurulariCekJson',
-                    type: 'POST',
+                    type: 'GET',
                     "dataSrc": function (data) {
                         var return_data = new Array();
-
                         $.each(data, function (id, obj) {
-                            if (session_auth_id != 4) {
+                            if (document.session_auth_id == 1 || document.session_auth_id == 2 || document.session_auth_id == 3) {
+                                console.log('girdi');
                                 return_data.push({
                                     'baslik': obj.duyuru.baslik,
                                     'icerik': obj.duyuru.icerik.substr(0, Math.min(obj.duyuru.icerik.length, 72)),
@@ -188,7 +190,7 @@
                                     'sil': '<button type="button" class="btn btn-danger sil" id = "' + obj.duyuru.id + '"><i class="mdi mdi-eraser text-white"></i> Sil</button>'
                                 });
                             }
-                            else {
+                            if (document.session_auth_id == 4) {
                                 return_data.push({
                                     'baslik': obj.duyuru.baslik,
                                     'icerik': obj.duyuru.icerik,
@@ -200,7 +202,7 @@
                         });
                         return return_data;
 
-                    }
+                    },
                 },
                 "columns": columns
 

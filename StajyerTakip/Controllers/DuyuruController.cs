@@ -79,8 +79,16 @@ namespace StajyerTakip.Controllers
             List<object> liste = new List<object>();
             foreach (var duyuru in duyurular)
             {
-                Profil profil = db.Hesaplar.Find(duyuru.EkleyenID);
-                string adsoyad = profil.Ad + " " + profil.Soyad;
+                string adsoyad = "";
+                try
+                {
+                    Profil profil = db.Hesaplar.Find(duyuru.EkleyenID);
+                    adsoyad = profil.Ad + " " + profil.Soyad;
+                }
+                catch (Exception ex)
+                {
+                    adsoyad = "<i>[Silinen Kullanıcı]</i>";
+                }
                 var nesne = new { duyuru = duyuru, adsoyad = adsoyad };
                 liste.Add(nesne);
             }

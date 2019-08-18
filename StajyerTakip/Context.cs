@@ -60,6 +60,10 @@ namespace StajyerTakip
             modelBuilder.Entity<BirimveStajyer>().HasKey(bc => new { bc.BirimID, bc.StajyerID });
 
             modelBuilder.Entity<BirimveStajyer>().HasOne(bc => bc.Stajyer).WithMany(b => b.Birimler).HasForeignKey(bc => bc.StajyerID);
+
+
+            modelBuilder.Entity<Profil>().HasIndex(u=>u.Email).IsUnique(true);
+            modelBuilder.Entity<Profil>().HasIndex(u=>u.KullaniciAdi).IsUnique(true);
         }
     }
 }
