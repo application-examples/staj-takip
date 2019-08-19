@@ -5,28 +5,6 @@
   </PropertyGroup>
 
 
-
-
-  <ItemGroup>
-    <Compile Remove="Migrations\20190718104811_init.cs" />
-    <Compile Remove="Migrations\20190718104811_init.Designer.cs" />
-    <Compile Remove="Migrations\20190718112304_init.cs" />
-    <Compile Remove="Migrations\20190718112304_init.Designer.cs" />
-    <Compile Remove="Migrations\20190718112712_init.cs" />
-    <Compile Remove="Migrations\20190718112712_init.Designer.cs" />
-    <Compile Remove="Migrations\20190718113326_init.cs" />
-    <Compile Remove="Migrations\20190718113326_init.Designer.cs" />
-    <Compile Remove="Migrations\20190723081830_init.cs" />
-    <Compile Remove="Migrations\20190723081830_init.Designer.cs" />
-    <Compile Remove="Migrations\20190729002437_init.cs" />
-    <Compile Remove="Migrations\20190729002437_init.Designer.cs" />
-    <Compile Remove="Migrations\20190730101242_init.cs" />
-    <Compile Remove="Migrations\20190730101242_init.Designer.cs" />
-    <Compile Remove="Migrations\20190818010112_init.cs" />
-    <Compile Remove="Migrations\20190818010112_init.Designer.cs" />
-  </ItemGroup>
-
-
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
@@ -47,9 +25,6 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\_Sidebar1.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Stajyer\Sil.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

@@ -135,19 +135,19 @@
                         type: "GET",
                         "dataSrc": function (data) {
                             var return_data = new Array();
-                           
+
                             $.each(data, function (id, obj) {
                                 var birimler = "";
                                 $.each(obj.birimler, function (id, veri) {
                                     birimler += '<div class="badge badge-primary">' + veri.birim.ad + '</div>';
                                 });
                                 return_data.push({
-                                    'foto': '<div class="text-center"><img src="/' + obj.profil.fotograf + '" alt="profile_image" draggable="false" class="rounded-circle" style="border:2px solid #808080;" width="48" /></div>',
-                                    'adsoyad': obj.profil.ad + " " + obj.profil.soyad,
+                                    'foto': '<div class="text-center"><img src="' + obj.profil.fotograf + '" alt="profile_image" draggable="false" class="rounded-circle" style="border:2px solid #808080;" width="36" /></div>',
+                                    'adsoyad': '<a class="" href="/Stajyer/Profil/'+obj.profil.kullaniciAdi+'">'+ obj.profil.ad + " " + obj.profil.soyad+'</a>',
                                     'okul': obj.okul,
                                     'bolum': obj.bolum,
                                     'devamsizlik': '<div class="text-center"><button class="btn btn-success devekle" data-toggle="modal" data-target="#devamsizlikekle" id="' + obj.id + '" type="button"><i class="mdi mdi-calendar-plus"></i> Ekle</button> <button data-toggle="modal" data-target="#devamsizlikduzenle" class="btn btn-info devduzenle" id="' + obj.id + '" type="button"><i class="mdi mdi-pencil"></i> Düzenle</button> <a href="/Devamsizlik/Goruntule/' + obj.id + '" class="btn btn-dark"><span class="mdi mdi-eye text-white"></span> Görüntüle</a></div>',
-                                    'gunluk': '<a href="/Gunluk/Listele/'+obj.id+'" class="btn btn-dark"><i class="mdi mdi-eye"></i> Görüntüle</a>',
+                                    'gunluk': '<a href="/Gunluk/Listele/' + obj.id + '" class="btn btn-dark"><i class="mdi mdi-eye"></i> Görüntüle</a>',
                                     'birim': birimler,
                                     'stajyer': '<div class=""><a class= "btn btn-info" href="/Stajyer/Duzenle/' + obj.id + '"><i class="mdi mdi-pencil" ></i> Düzenle</a> <button type="button" id="' + obj.id + '" class="btn btn-danger stajyersil"><span class="mdi mdi-eraser text-white"></span> Sil</button></div>'
                                 });

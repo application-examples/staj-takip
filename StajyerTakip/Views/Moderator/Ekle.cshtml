@@ -3,6 +3,11 @@
     ViewData["Title"] = "Ekle";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="~/js/user_checkjs.js">
+    //Bu formdaki elementlerin idleri ile oluşturulmuş custom js dosyasıdır. Eğer Formdaki elementlerin idsinde değişiklik yaparsanız bu dosyaya gözatmayı unutmayın çünkü formun bazı
+    //özelliklerini kullanılmaz hale getirecektir.
+    //Dikkatiniz için teşekkür ederim.
+</script>
 
 <div class="container border-secondary">
     <div class="row">
@@ -54,6 +59,8 @@
                     <div class="form-group">
                         <label for="kullaniciadi">Kullanıcı Adı</label>
                         <input type="text" class="form-control" id="kullaniciadi" name="Profil.KullaniciAdi" placeholder="Kullancı Adı" required>
+                        <div class="px-2 py-1" id="messageusername" hidden="hidden">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="Sifre">Şifre</label>
@@ -63,8 +70,11 @@
                     <div class="form-group">
                         <label for="email">Email Adres</label>
                         <input type="email" class="form-control" id="email" name="Profil.Email" placeholder="Email" required>
+                        <div class="px-2 py-1" id="messagemail" hidden="hidden">
+
+                        </div>
                     </div>
-                   
+
                 </div>
                 <h5>İletişim Bilgileri</h5>
                 <hr />
@@ -119,7 +129,8 @@
                     </div>
                 </div>
                 <input type="text" class="custom-file-input" id="img" name="img" hidden />
-                <button type="submit" class="btn btn-success ">Kaydet</button>
+                <button type="submit" id="submit" class="btn btn-success ">Kaydet</button>
+                <button type="submit" id="submit1" class="btn btn-success " hidden="hidden">Kaydet</button>
                 <a href="~/Moderator/Listele" class="btn btn-primary">İptal</a>
             </form>
         </div>

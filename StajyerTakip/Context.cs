@@ -29,6 +29,7 @@ namespace StajyerTakip
         public DbSet<BirimveKoordinator> BirimveKoordinator { get; internal set; }
         public DbSet<SistemYoneticisi> SistemYoneticisi { get; set; }
         public DbSet<Duyuru> Duyurular { get; set; }
+        public DbSet<Yorum> Yorumlar { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //StajyerProje
@@ -64,6 +65,7 @@ namespace StajyerTakip
 
             modelBuilder.Entity<Profil>().HasIndex(u=>u.Email).IsUnique(true);
             modelBuilder.Entity<Profil>().HasIndex(u=>u.KullaniciAdi).IsUnique(true);
+
         }
     }
 }

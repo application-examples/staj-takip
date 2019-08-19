@@ -1,0 +1,389 @@
+﻿@model Stajyer
+@{
+    ViewData["Title"] = "Profil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    body {
+        background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+    }
+
+    .emp-profile {
+        padding: 3%;
+        margin-top: 3%;
+        margin-bottom: 3%;
+        border-radius: 0.5rem;
+        background: #fff;
+    }
+
+    .profile-img {
+        text-align: center;
+    }
+
+        .profile-img img {
+            width: 70%;
+            height: 100%;
+        }
+
+        .profile-img .file {
+            position: relative;
+            overflow: hidden;
+            margin-top: -20%;
+            width: 70%;
+            border: none;
+            border-radius: 0;
+            font-size: 15px;
+            background: #212529b8;
+        }
+
+            .profile-img .file input {
+                position: absolute;
+                opacity: 0;
+                right: 0;
+                top: 0;
+            }
+
+    .profile-head h5 {
+        color: #333;
+    }
+
+    .profile-head h6 {
+        color: #0062cc;
+    }
+
+    .profile-edit-btn {
+        border: none;
+        border-radius: 1.5rem;
+        width: 70%;
+        padding: 2%;
+        font-weight: 600;
+        color: #6c757d;
+        cursor: pointer;
+    }
+
+    .proile-rating {
+        font-size: 12px;
+        color: #818182;
+        margin-top: 5%;
+    }
+
+        .proile-rating span {
+            color: #495057;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+    .profile-head .nav-tabs {
+        margin-bottom: 5%;
+    }
+
+        .profile-head .nav-tabs .nav-link {
+            font-weight: 600;
+            border: none;
+        }
+
+            .profile-head .nav-tabs .nav-link.active {
+                border: none;
+                border-bottom: 2px solid #0062cc;
+            }
+
+    .profile-work {
+        padding: 14%;
+        margin-top: -15%;
+    }
+
+        .profile-work p {
+            font-size: 12px;
+            color: #818182;
+            font-weight: 600;
+            margin-top: 10%;
+        }
+
+        .profile-work a {
+            text-decoration: none;
+            color: #495057;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .profile-work ul {
+            list-style: none;
+        }
+
+    .profile-tab label {
+        font-weight: 600;
+    }
+
+    .profile-tab p {
+        font-weight: 600;
+        color: #0062cc;
+    }
+</style>
+
+@{
+    double avg = 0;
+    if (Model.Yorumlar.Count == 0)
+    {
+        avg = 0;
+    }
+    else
+    {
+        avg = Model.Yorumlar.Average(x => x.Puan);
+    }
+}
+<input type="text" hidden="hidden" id="stajyerid" value="@Model.ID" />
+<div class="container emp-profile">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="@Model.Profil.Fotograf" alt="" />
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        @Model.Profil.Ad @Model.Profil.Soyad
+                    </h5>
+                    <h6>
+                        @Model.Okul
+                    </h6>
+                    <h6>
+                        @Model.Bolum
+                    </h6>
+                    <p class="proile-rating">Puan Ortalaması : <span>@Math.Round(avg,2)</span></p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Hakkında</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Yorumlar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <a href="~/Stajyer/Duzenle/@Model.ID" class="btn btn-outline-secondary" name="btnAddMore">Stajyeri Düzenle</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-work">
+                    <p>Projeler</p>
+                    @foreach (var i in Model.Projeler.Take(5))
+                    {
+                        <a href="#">@i.ProjeID</a>
+
+                    }
+                    <p>Son 5 Günlük</p>
+                    @foreach (var i in Model.Gunlukler.OrderByDescending(x => x.ID).Take(5))
+                    {
+                        <a href="~/Gunluk/Goruntule/@i.ID">@i.Baslik @i.Tarih.ToString("dd/MMM")</a>
+                    }
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Kullanıcı Adı</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.Profil.KullaniciAdi</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>İsim</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.Profil.Ad @Model.Profil.Soyad</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.Profil.Email</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Telefon</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.Profil.Telefon</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Ünvan</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Stajyer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <button class="btn btn-block btn-outline-success" id="yorumgoster" data-toggle="collapse" data-target="#yorumyap2" aria-expanded="false" aria-controls="yorumyap2" type="button" onclick="$(this).prop('hidden','hidden')"><i class="mdi mdi-comment"></i> Yorum yap</button>
+                        <div class="card collapse border border-muted pl-3 py-2 pr-3 pt-4" id="yorumyap2">
+                            <div class="row no-gutters">
+                                <div class="col-12">
+                                    <div class="card-block">
+                                        <button type="button" id="yorumyapgizle" class="float-right btn btn-outline-secondary">&minus;</button>
+                                        <h4 class="card-title">Yorum yapın</h4>
+                                        <div class="form-group mt-2">
+                                            <label>Başlık:</label>
+                                            <input id="baslik" type="text" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Yorum:</label>
+                                            <textarea id="yorum" class="form-control"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Puan:</label>
+                                            <select class="form-control" id="puan">
+                                                <option>10</option>
+                                                <option>9</option>
+                                                <option>8</option>
+                                                <option>7</option>
+                                                <option>6</option>
+                                                <option>5</option>
+                                                <option>4</option>
+                                                <option>3</option>
+                                                <option>2</option>
+                                                <option>1</option>
+                                            </select>
+                                        </div>
+                                        <button id="yorumbuton" type="button" class="btn btn-success float-right">Yorum yap</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-bordered w-100" id="yorumlar">
+                            <thead hidden="hidden">
+                            <th></th></thead>
+                            <tbody class="w-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    var yorumlar;
+    $(function () {
+        
+
+        var yorumlaricek = () => {
+            yorumlar = $('#yorumlar').DataTable({
+                searching: false,
+                pageLength: 3,
+                lengthChange: false,
+                ordering: false,
+                "language": { "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json" },
+                destroy: true,
+                "ajax": {
+                    url: '/Stajyer/YorumlariCek',
+                    data: { id: $('#stajyerid').val() },
+                    dataType: 'json',
+                    type: 'GET',
+                    "dataSrc": function (data) {
+                        var return_data = new Array();
+                        $.each(data, function (id, obj) {
+                            return_data.push({
+                                "col":
+                                    '<div class="card border-bottom-0">' +
+                                    '<div class= "row no-gutters px-4 py-2 pt-3" >' +
+                                    '<div class="col-auto ">' +
+                                    ' <img src="' + obj.yorumlayan.fotograf + '" data-toggle="tooltip" data-placament="top" title="' + obj.yorumlayan.ad + ' ' + obj.yorumlayan.soyad + '" class="img-fluid yorumlayan rounded-circle" alt="" width="48">' +
+                                    '</div>' +
+                                    '<div class="col">' +
+                                    '<div class="card-block px-2 pl-3">' +
+                                    '<span class="badge badge-pill badge-secondary float-right"><i class="mdi mdi-star"></i>' + obj.puan +'</span> <h6 class="card-title">' + obj.baslik + '</h6> ' +
+
+                                    '<div class="card-subtitle text-muted">27 Haziran 2019<hr/></div>' + obj.icerik + '</p>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>' +
+
+                                    '</div >'
+                            });
+                        });
+
+                        return return_data;
+                    }
+                },
+                "columns": [{ "data": "col", "width": "100%" }]
+            });
+        }
+
+
+        yorumlaricek();
+        $(document).on('click', '#yorumbuton', function (e) {
+
+            var baslik = $('#baslik').val();
+            var yorum = $('#yorum').val();
+            var puan = $('#puan').val();
+
+            if (baslik == '') {
+                Swal.mixin({
+                    toast: 'true',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                }).fire({
+                    type: 'warning',
+                    title: 'Yorum başlığı girilmedi'
+                });
+
+                return false;
+            } else if (yorum == '') {
+                    Swal.mixin({
+                        toast: 'true',
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                    }).fire({
+                        type: 'warning',
+                        title: 'Yorum girilmedi.'
+                    });
+
+                    return false;
+                }
+
+            $.ajax({
+                url: '/Stajyer/YorumEkle',
+                data: {
+                    id: $('#stajyerid').val(), yorum: { baslik: baslik,icerik: yorum, puan: puan}
+                },
+                dataType: 'json',
+                type: 'POST',
+                success: function (data) {
+                    yorumlar.destroy();
+                    yorumlaricek();
+                    Swal.fire('Başarılı', 'Yorum başarıyla eklendi.', 'success');
+                    $('#baslik').val('');
+                    $('#yorum').val('');
+                },
+                error: function (data) {
+                    Swal.fire('Hata oluştu.', 'Yorum eklenemedi.', 'error');
+                }
+
+            });
+        });
+
+        $(document).on('click', '#yorumyapgizle', function (e) {
+            $('#yorumgoster').prop('hidden', false);
+            $('#yorumyap2').removeClass('show');
+        });
+    });
+
+</script>

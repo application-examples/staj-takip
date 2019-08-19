@@ -3,7 +3,11 @@
     ViewData["Title"] = "Ekle";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<script src="~/js/user_checkjs.js">
+    //Bu formdaki elementlerin idleri ile oluşturulmuş custom js dosyasıdır. Eğer Formdaki elementlerin idsinde değişiklik yaparsanız bu dosyaya gözatmayı unutmayın çünkü formun bazı
+    //özelliklerini kullanılmaz hale getirecektir.
+    //Dikkatiniz için teşekkür ederim.
+</script>
 
 
 <div class="container border-secondary">
@@ -93,12 +97,14 @@
                             <select name="Birimler[]" id="select2" multiple="multiple" class="form-control" asp-items="@ViewBag.Birimler" required></select>
                         </div>
                     </div>
+                </div>
+                <div>
                     <h5>İletişim Bilgileri</h5>
                     <hr />
                     <div class="card card-body " style="border-radius:10px 20px;">
                         <div class="form-group">
                             <label for="telefonnumarasi">Telefon Numarası:</label>
-                            <input type="text" id="telefon" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" name="Profil.Telefon" placeholder="Telefon Numarası">
+                            <input type="text" id="telefon" class="form-control" name="Profil.Telefon" placeholder="Telefon Numarası">
                         </div>
                         <div class="form-group">
                             <label for="okul">Okulu:</label>
@@ -134,7 +140,7 @@
                     </div>
                     <input type="text" class="custom-file-input" id="img" name="img" hidden />
                     <button id="submit" type="submit" class="btn btn-success ">Kaydet</button>
-                    <button id="submit1" type="submit" hidden="hidden"></button>
+                    <button id="submit1" type="submit" hidden="hidden">s</button>
                     <a href="~/Stajyer/Listele" class="btn btn-primary">İptal</a>
             </form>
         </div>
@@ -144,86 +150,7 @@
 <script>
 
 
-
-    $(function () {
-        var success_icon = '<i class="mdi mdi-check-circle text-success"></i>';
-        var danger_icon = '<i class="mdi mdi-close-circle text-danger"></i>';
-        $(document).on('keyup', '#kullaniciadi', function (e) {
-            var html = "";
-            $('#messageusername').prop('hidden', false);
-
-            $.ajax({
-                url: '/Account/UsernameCheck',
-                data: { username: $('#kullaniciadi').val() },
-                dataType: 'json',
-                success: function (data) {
-                    if (data) {
-                        html = '<div class="text-danger"><div>' + danger_icon + ' Kullanıcı adı zaten kullanımda.</div></div>';
-                        $('#messageusername').html(html);
-                    }
-                    else {
-                        html = '<div class="text-success"><div>' + success_icon + ' Kullanıcı adı kullanılabilir.</div></div>';
-                        $('#messageusername').html(html);
-                    }
-                }
-            });
-        });
-
-        $(document).on('keyup', '#email', function (e) {
-            var html = "";
-            $('#messagemail').prop('hidden', false);
-
-            $.ajax({
-                url: '/Account/EmailCheck',
-                data: { email: $('#email').val() },
-                dataType: 'json',
-                success: function (data) {
-                    if (data) {
-                        html = '<div class="text-danger"><div>' + danger_icon + ' Email zaten kullanımda.</div></div>';
-                        $('#messagemail').html(html);
-                    }
-                    else {
-                        html = '<div class="text-success"><div>' + success_icon + ' Email kullanılabilir.</div></div>';
-                        $('#messagemail').html(html);
-                    }
-                }
-            });
-        });
-        $(document).on('click', '#submit', function (e) {
-            e.preventDefault();
-
-           //TODO: burada kodlar daha iyi optimize edilebilirdi, reusable kodlar oluşturulabilirdi ama zaman kısıtlı oldugu için böyle olmak zorunda ileride kodları düzenleyen biri olursa hallediversin.
-
-            $.ajax({
-                url: '/Account/UsernameCheck',
-                data: { username: $('#kullaniciadi').val() },
-                dataType: 'json',
-                success: function (data) {
-                    if (!data) {
-                    }
-                    else {
-                        $('#kullaniciadi').focus();
-                        return;
-                    }
-                }
-            });
-
-            $.ajax({
-                url: '/Account/EmailCheck',
-                data: { email: $('#email').val() },
-                dataType: 'json',
-                success: function (data) {
-                    if (!data) {
-                        $('#submit1').click();
-                    }
-                    else {
-                        $('#email').focus();
-                        return;
-                    }
-                }
-            });
-        });
-    });
+   
 
 
     $('#telefon').inputmask({ "mask": "0(999) 999-9999" });

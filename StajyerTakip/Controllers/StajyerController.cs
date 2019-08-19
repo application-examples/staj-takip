@@ -25,6 +25,44 @@ namespace StajyerTakip.Controllers
             this.db = db;
         }
 
+
+        [StajyerUstYetki]
+        public ActionResult Profil(string id)
+        {
+            Profil profil = db.Hesaplar.Where(x => x.KullaniciAdi == id).SingleOrDefault();
+            Stajyer stajyer = db.Stajyerler.Where(x => x.ProfilID == profil.ID).Include(x => x.Gunlukler).Include(x=>x.Yorumlar).ThenInclude(x=>x.Yorumlayan).Include(x => x.Devamsizliklar).Include(x => x.Profil).Include(x => x.Birimler).ThenInclude(x => x.Birim).Include(x=>x.Projeler).ThenInclude(x=>x.Proje).SingleOrDefault();
+
+            return View(stajyer);
+        }
+
+        [StajyerUstYetki]
+        public JsonResult YorumlariCek(int id)
+        {
+            List<Yorum> yorumlar = db.Yorumlar.Where(x => x.StajyerID == id).Include(x=>x.Yorumlayan).OrderByDescending(x=>x.ID).ToList();
+            
+            return Json(yorumlar);
+        }
+
+
+        [StajyerUstYetki]
+        [HttpPost]
+        public JsonResult YorumEkle(int id,Yorum yorum)
+        {
+
+            int yorumlayanid = (int)HttpContext.Session.GetInt32("profilid");
+            Profil profil = db.Hesaplar.Find(yorumlayanid);
+            yorum.StajyerID = id;
+            yorum.YorumlayanID = yorumlayanid;
+            yorum.Yorumlayan = profil;
+            yorum.YorumlayanAdi = profil.Ad + " " + profil.Soyad;
+            yorum.EklenmeTarihi = DateTime.UtcNow;
+
+            db.Yorumlar.Add(yorum);
+            db.SaveChanges();
+            return Json(true);
+
+        }
+
         [StajyerUstYetki]
         public IActionResult Ekle()
         {
