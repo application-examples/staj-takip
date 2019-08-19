@@ -109,7 +109,7 @@
 
                     <div class="input-group date" id="datetimepicker5">
 
-                        <input type="date" class="form-control form-control-lg datepicker" name="Tarih" id="dtarih" required />
+                        <input type="date" min="@DateTime.UtcNow.Year-01-01" max="@DateTime.UtcNow.Year-12-31" class="form-control form-control-lg datepicker" name="Tarih" id="dtarih" required />
                     </div>
                 </div>
             </div>
@@ -221,6 +221,7 @@
         $(document).on('click', '#btnKaydet', function () {
 
             var tarih = $('#dtarih').val();
+            
             if (tarih == '') {
                 Swal.mixin({
                     toast: true,
@@ -233,16 +234,21 @@
                 });
                 return false;
             }
-
             $.ajax({
                 url: '/Devamsizlik/Ekle',
-                data: { id: id, model: { tarih: tarih } },
+                data: { id: id, devamsizlik: { tarih: tarih } },
                 type: "POST",
-                success: function () {
-                    $('#devamsizlikekle').modal('hide');
-                    Swal.fire('Başarılı', 'Devamsızlık Başarıyla eklendi.', 'success');
+                success: function (data) {
+                    if (data.result) {
+                        $('#devamsizlikekle').modal('hide');
+                        Swal.fire('Başarılı', 'Devamsızlık Başarıyla eklendi.', 'success');
+                    }
+                    else {
+                        Swal.fire('Oops..', 'Eklenirken bir sorunla karşılaşıldı..'+data.message, 'error');
+
+                    }
                 },
-                error: function () {
+                error: function (request, status, error) {
                     Swal.fire('Oops..', 'Eklenirken bir sorunla karşılaşıldı..', 'error');
                 }
             });

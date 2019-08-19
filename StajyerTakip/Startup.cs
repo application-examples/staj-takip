@@ -47,13 +47,14 @@ namespace StajyerTakip
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseSession();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Error/Error");
+                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
 

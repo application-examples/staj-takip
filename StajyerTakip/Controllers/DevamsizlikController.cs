@@ -138,6 +138,10 @@ namespace StajyerTakip.Controllers
 
             devamsizlik.ID = 0;
             devamsizlik.StajyerID = id;
+
+            if (db.Devamsizlik.Where(x => x.StajyerID == devamsizlik.StajyerID && x.Tarih == devamsizlik.Tarih).SingleOrDefault() != null)
+                return Json(new { result = false, message = "Bu tarihe ait kayıt zaten mevcut!" });
+
             db.Devamsizlik.Add(devamsizlik);
             db.SaveChanges();
             return Json(new { result = true, message = "başarılı" });
