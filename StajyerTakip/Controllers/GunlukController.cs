@@ -82,10 +82,10 @@ namespace StajyerTakip.Controllers
 
         [StajyerID]
         [ServiceFilter(typeof(GunlukListeFiltre))]
-        
+
         public JsonResult GunlukleriCekJson(int id)
         {
-            Stajyer stajyer = db.Stajyerler.Where(x => x.ID == id).Include(x => x.Profil).Include(x => x.Gunlukler).SingleOrDefault();
+            Stajyer stajyer = db.Stajyerler.Where(x => x.ID == id).Include(x => x.Devamsizliklar).Include(x => x.Profil).Include(x => x.Gunlukler).SingleOrDefault();
 
             return Json(stajyer);
         }

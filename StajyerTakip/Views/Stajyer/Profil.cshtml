@@ -279,6 +279,20 @@
 
 <script>
     var yorumlar;
+    function formatDate(date) {
+        var monthNames = [
+            "Ocak", "Şubat", "Mart",
+            "Nisan", "Mayıs", "Haziran", "Temmuz",
+            "Ağustos", "Eylül", "Ekim",
+            "Kasım", "Aralık"
+        ];
+
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+
+        return day + ' ' + monthNames[monthIndex] + ' ' + year;
+    }
     $(function () {
         
 
@@ -309,7 +323,7 @@
                                     '<div class="card-block px-2 pl-3">' +
                                     '<span class="badge badge-pill badge-secondary float-right"><i class="mdi mdi-star"></i>' + obj.puan +'</span> <h6 class="card-title">' + obj.baslik + '</h6> ' +
 
-                                    '<div class="card-subtitle text-muted">27 Haziran 2019<hr/></div>' + obj.icerik + '</p>' +
+                                    '<div class="card-subtitle text-muted">' + formatDate(new Date(Date.parse(obj.eklenmeTarihi))) + '<hr/></div>' + obj.icerik + '</p>' +
                                     '</div>' +
                                     '</div>' +
                                     '</div>' +

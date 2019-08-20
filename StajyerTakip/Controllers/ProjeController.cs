@@ -91,6 +91,16 @@ namespace StajyerTakip.Controllers
             return View(projeler);
         }
 
+        public ActionResult Projeler()
+        {
+            return View();
+        }
+
+        public JsonResult ProjeleriCekJson()
+        {
+            var Projeler = db.Projeler.ToList();
+            return Json(Projeler);
+        }
       
 
     }
