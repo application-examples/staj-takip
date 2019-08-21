@@ -34,7 +34,7 @@ namespace StajyerTakip
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            var connection = @"Server = 127.0.0.1; Port = 3306; Database = DenemeDB; uid=root; pwd=1234; CharSet= utf8;";
+            var connection = @"Server=yenisunucu.mysql.database.azure.com; Port=3306; Database=stajdb; Uid=nekinci@yenisunucu; Pwd=+Niyazi678+; SslMode=Preferred;";
             services.AddDbContext<Context>(options => options.UseMySql(connection));
             services.AddMvc().AddJsonOptions(options=> { options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDistributedMemoryCache();

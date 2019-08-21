@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using StajyerTakip.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace StajyerTakip.Controllers
 {
@@ -42,7 +44,9 @@ namespace StajyerTakip.Controllers
         [HttpPost]
         public IActionResult Index(Profil hesap)
         {
-            var hesap1 = db.Hesaplar.ToList().Find(x => (x.Email == hesap.KullaniciAdi || x.KullaniciAdi == hesap.KullaniciAdi) && x.Sifre == hesap.Sifre);
+            SHA1 sha = new SHA1CryptoServiceProvider();
+            var data = Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(hesap.Sifre)));
+            var hesap1 = db.Hesaplar.ToList().Find(x => (x.Email == hesap.KullaniciAdi || x.KullaniciAdi == hesap.KullaniciAdi) && x.Sifre == data);
             if (hesap1 == null)
             {
                 ViewData["Mesaj"] = "Kullanıcı adı ve/veya şifre hatalı.";
@@ -51,7 +55,7 @@ namespace StajyerTakip.Controllers
             HttpContext.Session.SetString("kadi", hesap1.KullaniciAdi);
             HttpContext.Session.SetInt32("profilid", hesap1.ID);
             HttpContext.Session.SetInt32("yetki", hesap1.Rol);
-            HttpContext.Session.SetString("profilfotograf", hesap1.Fotograf ?? "~/images/man.png");
+            HttpContext.Session.SetString("profilfotograf", hesap1.Fotograf ?? "/images/man.png");
 
 
             if (hesap1.Rol == 4)

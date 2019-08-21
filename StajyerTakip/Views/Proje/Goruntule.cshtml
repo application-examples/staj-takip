@@ -3,7 +3,13 @@
     ViewData["Title"] = "Goruntule";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using Microsoft.AspNetCore.Http
+@{
+    var yetki = Context.Session.GetInt32("yetki");
+    var profilid = Context.Session.GetInt32("profilid");
+    var id = Context.Session.GetInt32("id");
 
+}
 <div class="container">
     <div class="row">
         <div class="col-5 h-100">
@@ -107,6 +113,100 @@
                     </div>
                 </div>
             </div>
+            <h4>Sohbet</h4><hr />
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Proje Hakkında Konuşun</h4>
+                            <div class="chat-box scrollable ps-container ps-theme-default ps-active-y" style="height:475px;" data-ps-id="c3c3b199-cd45-090b-b626-8efd1ae929a8">
+                                <!--chat Row -->
+                                <ul class="chat-list" id="chatlist"></ul>
+                                <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 475px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 445px;"></div></div>
+                            </div>
+                        </div>
+                        <div class="card-body border-top">
+                            <div class="row">
+                                <div class="col-9">
+                                    <div class="input-field m-t-0 m-b-0">
+                                        <textarea id="chat" placeholder="Yazın ve enterlayın" class="form-control border-0"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <button type="button" class="btn-circle btn-lg btn-cyan float-right text-white" href="" id="gonder"><i class="fas fa-paper-plane"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<input type="text" id="id1" value="@Model.ID" hidden />
+<input type="text" id="profilid" value="@profilid" hidden />
+<script>
+
+    $(function () {
+        var id = $('#id1').val();
+        var profilid = $('#profilid').val();
+        var cek = () => {
+            $.ajax({
+                url: '/Proje/GetAllMessages',
+                data: { id: id },
+                dataType: 'json',
+                success: function (list) {
+                    var html = "";
+                    $('#chatlist').html('');
+                    console.log('girdi');
+                    $.each(list, function (id, data) {
+                        if (data.yazanProfilID != profilid) {
+                            html += '<li class="chat-item">' +
+                                '<div class="chat-img" > <img src="' + data.yazanProfil.fotograf + '" alt="user"></div>' +
+                                '<div class="chat-content">' +
+                                '<h6 class="font-medium">' + data.yazanProfil.ad + ' ' + data.yazanProfil.soyad + '</h6>' +
+                                '<div class="box bg-light-info">' + data.mesaj + '</div>' +
+                                '</div>' +
+                                '<div class="chat-time">10:56 am</div>' +
+                                '</li >';
+                        }
+                        else {
+                            html += ' <li class="odd chat-item">' +
+                                '<div class="chat-content">' +
+                                '<div class="box bg-light-inverse">' + data.mesaj + '</div>' +
+                                '<br>' +
+                                '</div>' +
+                                '<div class="chat-time">10:59 am</div>' +
+                                '</li >';
+                        }
+                    });
+                    $('#chatlist').html(html);
+                }
+            });
+        }
+        cek();
+
+
+        setInterval(cek, 1000 * 10);
+        var gonder = () => {
+            $.ajax({
+                url: '/Proje/MessageSend',
+                data: { chat: { mesaj: $('#chat').val(), yazanProfilID: profilid }, id: id },
+                dataType: 'json',
+                type: 'POST',
+                success: function (data) {
+                    $('#chat').val('');
+                    cek();
+                },
+                error: function () {
+                    alert('Mesaj gönderilirken hata oluştu.');
+                }
+            });
+        }
+
+        $(document).on('click', '#gonder', function () {
+            gonder();
+        });
+    });
+</script>

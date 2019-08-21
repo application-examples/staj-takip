@@ -27,13 +27,13 @@ namespace StajyerTakip.Controllers
 
         [StajyerUstYetki]
         [HttpPost]
-        public JsonResult Duzenle(Models.Proje proje, int id, string[] stajyerler, string[] bkoordinatorleri)
+        public async JsonResult Duzenle(Models.Proje proje, int id, string[] stajyerler, string[] bkoordinatorleri)
         {
 
             var yetki = HttpContext.Session.GetInt32("yetki");
             var idx = HttpContext.Session.GetInt32("id");
 
-            Models.Proje anaveri = db.Projeler.Where(x => x.ID == id).Include(x => x.Stajyerler).ThenInclude(x => x.Stajyer).ThenInclude(x => x.Profil).Include(x => x.BirimKoordinatorleri).ThenInclude(x => x.BirimKoordinatoru).ThenInclude(x => x.Profil).SingleOrDefault();
+             Models.Proje anaveri = await db.Projeler.Where(x => x.ID == id).Include(x => x.Stajyerler).ThenInclude(x => x.Stajyer).ThenInclude(x => x.Profil).Include(x => x.BirimKoordinatorleri).ThenInclude(x => x.BirimKoordinatoru).ThenInclude(x => x.Profil).SingleOrDefaultAsync();
 
             List<StajyerProje> yeniStajyerler = new List<StajyerProje>();
             List<ProjeBirim> yeniBKler = new List<ProjeBirim>();
@@ -79,7 +79,7 @@ namespace StajyerTakip.Controllers
             anaveri.Baslangic = proje.Baslangic;
             anaveri.Bitis = proje.Bitis;
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return Json(true);
 
         }
@@ -225,6 +225,25 @@ namespace StajyerTakip.Controllers
         {
             Proje proje = db.Projeler.Find(id);
             db.Projeler.Remove(proje);
+            db.SaveChanges();
+            return Json(true);
+        }
+
+
+        public JsonResult GetAllMessages (int id)
+        {
+
+            List<Chat> Mesajlar = db.Mesajlar.Where(x => x.ProjeID == id).OrderByDescending(x=>x.ID).Include(x => x.YazanProfil).ToList();
+
+            return Json(Mesajlar);
+        }
+
+        [HttpPost]
+        public JsonResult MessageSend(int id,Chat chat)
+        {
+            chat.ProjeID = id;
+            chat.Tarih = DateTime.Now;
+            db.Mesajlar.Add(chat);
             db.SaveChanges();
             return Json(true);
         }

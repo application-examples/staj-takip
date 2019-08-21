@@ -67,7 +67,9 @@
                     </div>
                     <div class="form-group">
                         <label for="Sifre">Şifre</label>
-                        <input type="password" class="form-control" id="Sifre" name="Profil.Sifre" placeholder="Şifre" value="@Model.Profil.Sifre" required>
+                        <input type="password" class="form-control" id="Sifre" name="Profil.Sifre" placeholder="Beni böyle boş bırakırsan eski şifre geçerli olur,değiştirisen yeni şifre belirlemiş olursun." value="">
+                        <i class="text-muted pl-2">Eğer boş bırakılırsa eski şifre doldurulursa yeni şifre olarak kabul edilir.</i>
+
                     </div>
                     @if (yetki != 4 && yetki != 3)
                     {

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -73,13 +75,23 @@ namespace StajyerTakip.Controllers
                     }
                 }
             }
+
+
+            if (!string.IsNullOrEmpty(update.Profil.Sifre))
+            {
+                SHA1 sha = new SHA1CryptoServiceProvider();
+
+                string sifrelenmisveri = Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(update.Profil.Sifre)));
+                update.Profil.Sifre = sifrelenmisveri;
+                anaveri.Profil.Sifre = update.Profil.Sifre;
+            }
+
             anaveri.Profil.Ad = update.Profil.Ad;
             anaveri.Profil.Adres = update.Profil.Adres;
             anaveri.Profil.Email = update.Profil.Email;
             anaveri.Profil.Il = update.Profil.Il;
             anaveri.Profil.Ilce = update.Profil.Ilce;
             anaveri.Profil.KullaniciAdi = update.Profil.KullaniciAdi;
-            anaveri.Profil.Sifre = update.Profil.Sifre;
             anaveri.Profil.Sokak = update.Profil.Sokak;
             anaveri.Profil.Soyad = update.Profil.Soyad;
             anaveri.Profil.Telefon = update.Profil.Telefon;

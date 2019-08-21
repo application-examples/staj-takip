@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -86,7 +88,10 @@ namespace StajyerTakip.Controllers
             {
                 birimler.Add(new BirimveKoordinator { BirimID = Int32.Parse(Birimler[i]), BirimKoordinatoru = birimkoordinatoru });
             }
+            SHA1 sha = new SHA1CryptoServiceProvider();
 
+            string sifrelenmisveri = Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(birimkoordinatoru.Profil.Sifre)));
+            birimkoordinatoru.Profil.Sifre = sifrelenmisveri;
             birimkoordinatoru.Profil.Rol = 3;
             birimkoordinatoru.Birimler = birimler;
             db.Hesaplar.Add(birimkoordinatoru.Profil);
@@ -182,10 +187,20 @@ namespace StajyerTakip.Controllers
                 anaveri.Birimler = birimler;
             }
 
+
+            if (!string.IsNullOrEmpty(birimkoordinatoru.Profil.Sifre))
+            {
+                SHA1 sha = new SHA1CryptoServiceProvider();
+
+                string sifrelenmisveri = Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(birimkoordinatoru.Profil.Sifre)));
+                birimkoordinatoru.Profil.Sifre = sifrelenmisveri;
+                anaveri.Profil.Sifre = birimkoordinatoru.Profil.Sifre;
+            }
+
+
             anaveri.Profil.Ad = birimkoordinatoru.Profil.Ad;
             anaveri.Profil.Soyad = birimkoordinatoru.Profil.Soyad;
             anaveri.Profil.KullaniciAdi = birimkoordinatoru.Profil.KullaniciAdi;
-            anaveri.Profil.Sifre = birimkoordinatoru.Profil.Sifre;
             anaveri.Profil.Email = birimkoordinatoru.Profil.Email;
             anaveri.Profil.Telefon = birimkoordinatoru.Profil.Telefon;
             anaveri.Unvan = birimkoordinatoru.Unvan;

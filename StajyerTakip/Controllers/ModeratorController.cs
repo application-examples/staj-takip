@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -64,6 +66,11 @@ namespace StajyerTakip.Controllers
                     }
                 }
             }
+
+            SHA1 sha = new SHA1CryptoServiceProvider();
+
+            string sifrelenmisveri = Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(moderator.Profil.Sifre)));
+            moderator.Profil.Sifre = sifrelenmisveri;
             moderator.Profil.Rol = 2;
             moderator.Profil.Fotograf = path;
             db.Hesaplar.Add(moderator.Profil);
@@ -85,7 +92,7 @@ namespace StajyerTakip.Controllers
         [HttpPost]
         [ModeratorID]
         [BirimKoordinatoruUstYetki]
-        public  IActionResult Duzenle(Moderator moderator, int id, string img)
+        public IActionResult Duzenle(Moderator moderator, int id, string img)
         {
             Moderator anaveri = db.Moderatorler.Find(id);
             Profil profil = db.Hesaplar.ToList().Find(x => x.ID == anaveri.ProfilID);
@@ -123,10 +130,21 @@ namespace StajyerTakip.Controllers
                     }
                 }
             }
+
+
+            if (!string.IsNullOrEmpty(moderator.Profil.Sifre))
+            {
+                SHA1 sha = new SHA1CryptoServiceProvider();
+
+                string sifrelenmisveri = Convert.ToBase64String(sha.ComputeHash(Encoding.UTF8.GetBytes(moderator.Profil.Sifre)));
+                moderator.Profil.Sifre = sifrelenmisveri;
+                anaveri.Profil.Sifre = moderator.Profil.Sifre;
+            }
+
+
             anaveri.Profil.Ad = moderator.Profil.Ad;
             anaveri.Profil.Soyad = moderator.Profil.Soyad;
             anaveri.Profil.KullaniciAdi = moderator.Profil.KullaniciAdi;
-            anaveri.Profil.Sifre = moderator.Profil.Sifre;
             anaveri.Profil.Email = moderator.Profil.Email;
             anaveri.Profil.Telefon = moderator.Profil.Telefon;
             anaveri.Unvan = moderator.Unvan;
@@ -180,7 +198,7 @@ namespace StajyerTakip.Controllers
         [ModeratorUstYetki]
         public IActionResult Listele()
         {
-            
+
             return View();
 
 
@@ -192,7 +210,7 @@ namespace StajyerTakip.Controllers
 
         public JsonResult ModeratorleriCek()
         {
-            List<Moderator> moderatorler = db.Moderatorler.Include(x=>x.Profil).ToList();
+            List<Moderator> moderatorler = db.Moderatorler.Include(x => x.Profil).ToList();
 
             return Json(moderatorler);
         }

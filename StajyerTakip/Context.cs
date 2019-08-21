@@ -31,6 +31,7 @@ namespace StajyerTakip
         public DbSet<SistemYoneticisi> SistemYoneticisi { get; set; }
         public DbSet<Duyuru> Duyurular { get; set; }
         public DbSet<Yorum> Yorumlar { get; set; }
+        public DbSet<Chat> Mesajlar { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //StajyerProje

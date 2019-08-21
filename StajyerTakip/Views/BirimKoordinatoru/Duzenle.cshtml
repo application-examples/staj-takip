@@ -66,7 +66,9 @@
                     </div>
                     <div class="form-group">
                         <label for="Sifre">Şifre</label>
-                        <input type="password" class="form-control" id="Sifre" name="Profil.Sifre" placeholder="Şifre" value="@Model.Profil.Sifre" required>
+                        <input type="password" class="form-control" id="Sifre" name="Profil.Sifre" placeholder="Beni böyle boş bırakırsan eski şifre geçerli olur,değiştirisen yeni şifre belirlemiş olursun." value="">
+                        <i class="text-muted pl-2">Eğer boş bırakılırsa eski şifre doldurulursa yeni şifre olarak kabul edilir.</i>
+
                     </div>
 
                     <div class="form-group">
@@ -89,27 +91,27 @@
                 <div class="card card-body " style="border-radius:10px 20px;">
                     @if (yetki != 3)
                     {
-                        //TODO Ünvan seçili gelicek.
                         <div class="form-group">
                             <label for="unvan"> Ünvan:</label>
                             <select class="form-control" id="unvan" name="Unvan">
-                                <option> Teknisyen</option>
-                                <option> Uzman</option>
-                                <option> Öğretim Planlamacısı</option>
-                                <option> Çevirmen</option>
-                                <option> Okutman</option>
-                                <option> Öğretim Görevlisi </option>
-                                <option> Öğretim Üyesi </option>
-                                <option> Araştırma Görevlisi</option>
-                                <option> Araştırma Görevlisi Doktor</option>
-                                <option> Yardımcı Doçent</option>
-                                <option> Yardımcı Doçent Doktor</option>
-                                <option> Doçent</option>
-                                <option> Doçent Doktor</option>
-                                <option> Profesör</option>
-                                <option> Profesör Doktor</option>
-                                <option> Ordinaryüs Profesör</option>
+                                <option>Teknisyen</option>
+                                <option>Uzman</option>
+                                <option>Öğretim Planlamacısı</option>
+                                <option>Çevirmen</option>
+                                <option>Okutman</option>
+                                <option>Öğretim Görevlisi </option>
+                                <option>Öğretim Üyesi </option>
+                                <option>Araştırma Görevlisi</option>
+                                <option>Araştırma Görevlisi Doktor</option>
+                                <option>Yardımcı Doçent</option>
+                                <option>Yardımcı Doçent Doktor</option>
+                                <option>Doçent</option>
+                                <option>Doçent Doktor</option>
+                                <option>Profesör</option>
+                                <option>Profesör Doktor</option>
+                                <option>Ordinaryüs Profesör</option>
                             </select>
+                            <input id="unvanhidden" type="text" hidden="hidden" value="@Model.Unvan" />
                         </div>
                     }
                     <div class="form-group">
@@ -139,7 +141,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="text" class="custom-file-input" id="img" name="img" hidden/>
+                <input type="text" class="custom-file-input" id="img" name="img" hidden />
                 <button type="submit" class="btn btn-success ">Kaydet</button>
                 <a href="~/BirimKoordinatoru/Listele" class="btn btn-primary">İptal</a>
             </form>
@@ -154,6 +156,15 @@
         placeholder: 'Birim seçin',
         theme: 'bootstrap4',
         width: 'element'
+    });
+
+    $(function () {
+        var unvan = $('#unvanhidden').val();
+        $('#unvan > option').each(function () {
+            if ($(this).val() == unvan) {
+                $(this).attr('selected', 'selected');
+            }
+        });
     });
 </script>
 <script src="~/js/photo-edit.js">
