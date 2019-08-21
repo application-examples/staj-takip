@@ -12,9 +12,8 @@ namespace StajyerTakip.Models
         public string Icerik { get; set; }
         public DateTime Baslangic { get; set; }
         public DateTime Bitis { get; set; }
-        public string KullanilanTeknolojiler { get; set; }
         public string Link { get; set; }
-
+        public string KullanilanTeknolojiler { get; set; }
         public List<StajyerProje> Stajyerler { get; set; }
         public List<ProjeBirim> BirimKoordinatorleri { get; set; }
     }

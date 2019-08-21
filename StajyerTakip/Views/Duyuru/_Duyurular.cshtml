@@ -1,8 +1,9 @@
 ﻿@model List<Duyuru>
 
+<h4 class="text-muted pt-2 pb-1 px-3">Son 5 Duyuru</h4>
 @foreach (var duyuru in Model)
 {
-    <a href="javascript:void(0)" class="link border-top">
+    <a href="~/Duyuru/Goruntule/@duyuru.ID" class="link border-top">
         <div class="d-flex no-block align-items-center p-10">
             <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
             <div class="m-l-10">

@@ -131,7 +131,7 @@ namespace StajyerTakip.Controllers
         [HttpPost]
         public IActionResult DuyurulariCek()
         {
-            List<Duyuru> Duyurular = db.Duyurular.ToList();
+            List<Duyuru> Duyurular = db.Duyurular.OrderByDescending(x => x.ID).Take(5).ToList();
 
             return PartialView("_Duyurular", Duyurular);
         }

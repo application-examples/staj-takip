@@ -20,7 +20,7 @@ namespace StajyerTakip.Controllers
         }
         public IActionResult Index()
         {
-            List<Duyuru> Duyurular = db.Duyurular.ToList();
+            List<Duyuru> Duyurular = db.Duyurular.OrderByDescending(x => x.ID).Take(5).ToList();
             ViewBag.Duyurular = Duyurular;
             return View();
         }

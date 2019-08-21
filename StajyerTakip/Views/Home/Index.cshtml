@@ -2,14 +2,20 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using Microsoft.AspNetCore.Http
+@{
+    var yetki = Context.Session.GetInt32("yetki");
+    var profilid = Context.Session.GetInt32("profilid");
+    var id = Context.Session.GetInt32("id");
 
+}
 <div class="row">
     <div class="col-12 d-flex no-block align-items-center">
         <h4 class="page-title">Staj Takip Sistemi</h4>
         <div class="ml-auto text-right">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Anasayfa</a></li>
+                    <li class="breadcrumb-item"><a href="#"></a></li>
                 </ol>
             </nav>
         </div>
@@ -17,43 +23,71 @@
 </div>
 
 <div class="row ">
+
     <!-- Column -->
     <div class="col-md-6 col-lg-3">
-        <a class="card card-hover" href="~/Home/Index">
-            <div class="box bg-cyan text-center">
-                <h1 class="font-light text-white"><i class="mdi mdi-view-dashboard"></i></h1>
-                <h6 class="text-white">Dashboard</h6>
-            </div>
-        </a>
+        @if (yetki != 4)
+        {
+            <a class="card card-hover" href="~/Stajyer/Listele">
+                <div class="box bg-success text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-account"></i></h1>
+                    <h6 class="text-white">Stajyerler</h6>
+                </div>
+            </a>
+        }
+        @if (yetki == 4)
+        {
+            <a class="card card-hover" href="~/Devamsizlik/Goruntule">
+                <div class="box bg-success text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-account"></i></h1>
+                    <h6 class="text-white">Devamsızlıklarım</h6>
+                </div>
+            </a>
+        }
     </div>
     <!-- Column -->
     <div class="col-md-6 col-lg-3">
-        <a class="card card-hover" href="~/Stajyer/Listele">
-            <div class="box bg-success text-center">
-                <h1 class="font-light text-white"><i class="mdi mdi-account"></i></h1>
-                <h6 class="text-white">Stajyer</h6>
-            </div>
-        </a>
-    </div>
-    <!-- Column -->
-    <div class="col-md-6 col-lg-3">
-        <a class="card card-hover" href="~/Gunluk/Yonet">
+        <a class="card card-hover" href="~/Duyuru/Listele">
             <div class="box bg-warning text-center">
                 <h1 class="font-light text-white"><i class="mdi mdi-collage"></i></h1>
-                <h6 class="text-white">Günlük</h6>
+                <h6 class="text-white">Duyurular</h6>
             </div>
         </a>
     </div>
     <!-- Column -->
+    @if (yetki != 4)
+    {
+        <div class="col-md-6 col-lg-3">
+            <a class="card card-hover" href="~/Birim/Listele">
+                <div class="box bg-danger text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
+                    <h6 class="text-white">Birimler</h6>
+                </div>
+            </a>
+        </div>
+    }
+    @if (yetki == 4)
+    {
+        <div class="col-md-6 col-lg-3">
+            <a class="card card-hover" href="~/Gunluk/Listele">
+                <div class="box bg-danger text-center">
+                    <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
+                    <h6 class="text-white">Günlükler</h6>
+                </div>
+            </a>
+        </div>
+    }
+    <!-- Column -->
     <div class="col-md-6 col-lg-3">
-        <a class="card card-hover" href="~/Devamsizlik/Yonet">
-            <div class="box bg-danger text-center">
-                <h1 class="font-light text-white"><i class="mdi mdi-border-outside"></i></h1>
-                <h6 class="text-white">Devamsızlık</h6>
+        <a class="card card-hover" href="~/Proje/Projeler">
+            <div class="box bg-cyan text-center">
+                <h1 class="font-light text-white"><i class="mdi mdi-view-dashboard"></i></h1>
+                <h6 class="text-white">Projeler</h6>
             </div>
         </a>
     </div>
 </div>
+
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -67,7 +101,7 @@
                         <i class="fa fa-check-circle w-30px m-t-5"></i>
                         <div>
                             <a href="~/Duyuru/Goruntule/@duyuru.ID" class="m-b-0 font-medium p-0">@duyuru.Baslik</a>
-                            <span class="text-muted">@duyuru.Icerik.Substring(0,Math.Min(duyuru.Icerik.Length,20))</span>
+                            <span class="text-muted">@duyuru.Icerik.Substring(0, Math.Min(duyuru.Icerik.Length, 20))</span>
                         </div>
                         <div class="ml-auto">
                             <div class="tetx-right">

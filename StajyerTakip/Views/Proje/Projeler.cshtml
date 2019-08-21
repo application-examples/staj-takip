@@ -19,16 +19,17 @@
                 <nav class=" navbar navbar-light bg-white">
                     <a class="navbar-brand">Proje Ekle</a>
 
-                    <button class="btn btn-success my-2 my-sm-0" type="button" data-toggle="modal" data-target="#projeekle">Ekle</button>
+                    <button class="btn btn-success my-2 my-sm-0" id="ekle" type="button" data-toggle="modal" data-target="#projeekle">Ekle</button>
                 </nav>
             </div>
         </div>
     </div>
 }
+
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Duyuru Listesi</h4>
+            <h4 class="card-title">Proje Listesi</h4>
 
 
             <div class="table-responsive">
@@ -72,21 +73,105 @@
     </div>
 </div>
 
+
+
+<!--Modal Proje Ekleme START-->
+
+<div class="modal modal-darker" id="projeekle">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Proje Ekle</h5>
+                <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form method="post" class="px-2 py-2">
+                    <div class="form-group">
+                        <label>Proje Adı:</label>
+                        <input type="text" class="form-control" name="Ad" id="ad" />
+                    </div>
+                    <div class="form-group">
+                        <label>Proje Açıklaması:</label>
+                        <textarea class="form-control" name="Icerik" id="icerik"></textarea>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label>Başlangıç Tarihi:</label>
+                            <input type="date" name="Baslangic" class="form-control" id="baslangic" />
+                        </div>
+                        <div class="col-6">
+                            <label>Bitiş Tarihi:</label>
+                            <input type="date" name="Bitis" class="form-control" id="bitis" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Proje Linki:</label>
+                        <input type="text" name="Link" class="form-control" id="link" />
+                    </div>
+                    @if (yetki == 2 || yetki == 1)
+                    {
+                        <div class="form-group">
+                            <label>Birim Koordinatörleri:</label>
+                            <select class="form-control" multiple="multiple" id="bkoordinatorleri"></select>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <label>Stajyerler:</label>
+                        <select class="form-control" multiple="multiple" id="stajyerler"></select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btnKaydet">Kaydet</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Vazgeç</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal Proje Ekleme END-->
+<!--Modal Proje Duzenleme START-->
+<!--Modal Proje Duzenleme END-->
+
 <input type="hidden" id="sessionauthid" value="@yetki" />
 <input type="hidden" id="sessionprofileid" value="@profilid" />
 <input type="hidden" id="sessionid" value="@id" />
 <script>
-    var projelistesi;
-    var columns;
-    var id;
 
-    this.session_auth_id = $('#sessionauthid').val();
-    this.session_profile_id = $('#sessionprofileid').val();
-    this.session_id = $('#sessionid').val();
+
+
     $(function () {
+        var ekleme = true;
+        $('#stajyerler').select2({
+            theme: 'bootstrap4',
+            width: 'element',
+            placeholder: 'Stajyer seçin',
+            ajax: {
+                url: '/Proje/StajyerCek',
+                dataType: 'json',
+            },
+            multiple: true
+        });
+
+        $('#bkoordinatorleri').select2({
+            placeholder: 'Birim Koordinatörü seçin',
+            theme: 'bootstrap4',
+            width: 'element',
+            ajax: {
+                url: '/Proje/BKCek',
+                dataType: 'json'
+            }
+        });
+        this.session_auth_id = $('#sessionauthid').val();
+        this.session_profile_id = $('#sessionprofileid').val();
+        this.session_id = $('#sessionid').val();
+        var projelistesi;
+        var columns;
+        var id;
         if (this.session_auth_id == 1 || this.session_auth_id == 2 || this.session_auth_id == 3) {
             columns = [
-                { "data": "baslik" },
+                { "data": "ad" },
                 { "data": "icerik" },
                 { "data": "baslangic" },
                 { "data": "bitis" },
@@ -98,7 +183,7 @@
             ];
         } if (this.session_auth_id == 4) {
             columns = [
-                { "data": "baslik" },
+                { "data": "ad" },
                 { "data": "icerik" },
                 { "data": "baslangic" },
                 { "data": "bitis" },
@@ -109,7 +194,8 @@
         }
 
         var projelericek = () => {
-            $('#projeler').DataTable({
+            console.log(document.session_auth_id);
+            projelistesi = $('#projeler').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.12/i18n/Turkish.json"
                 },
@@ -121,24 +207,25 @@
                     type: 'GET',
                     "dataSrc": function (data) {
                         var return_data = new Array();
+                        console.log(document.session_auth_id);
                         $.each(data, function (id, obj) {
                             if (document.session_auth_id == 1 || document.session_auth_id == 2 || document.session_auth_id == 3) {
                                 console.log('girdi');
                                 return_data.push({
-                                    'baslik': obj.baslik,
-                                    'icerik': obj.icerik.substr(0, Math.min(obj.duyuru.icerik.length, 72)),
+                                    'ad': obj.ad,
+                                    'icerik': obj.icerik.substr(0, Math.min(obj.icerik.length, 72)),
                                     'baslangic': new Date(obj.baslangic).getDay().toString() + '/' + new Date(obj.baslangic).getMonth().toString() + new Date(obj.baslangic).getFullYear().toString(),
                                     'bitis': new Date(obj.bitis).getDay().toString() + '/' + new Date(obj.bitis).getMonth().toString() + new Date(obj.bitis).getFullYear().toString(),
-                                    'link': obj.link,
+                                    'link': '<a href="' + obj.link + '">Link</a>',
                                     'goruntule': '<a class="btn btn-success" href="/Proje/Goruntule/' + obj.id + '"><span class="mdi mdi-eye text-white"></span> Görüntüle</a>',
-                                    'duzenle': '<button type="button" class="btn btn-info duzenle"  id = "' + obj.duyuru.id + '" data-toggle="modal" data-target="#duyuruduzenle"><i class="mdi mdi-pencil text-white"></i> Düzenle</button>',
-                                    'sil': '<button type="button" class="btn btn-danger sil" id = "' + obj.duyuru.id + '"><i class="mdi mdi-eraser text-white"></i> Sil</button>'
+                                    'duzenle': '<button type="button" class="btn btn-info projeduzenle"  id = "' + obj.id + '" data-toggle="modal" data-target="#projeekle"><i class="mdi mdi-pencil text-white"></i> Düzenle</button>',
+                                    'sil': '<button type="button" class="btn btn-danger projesil" id = "' + obj.id + '"><i class="mdi mdi-eraser text-white"></i> Sil</button>'
                                 });
                             }
                             if (document.session_auth_id == 4) {
                                 return_data.push({
-                                    'baslik': obj.baslik,
-                                    'icerik': obj.icerik.substr(0, Math.min(obj.duyuru.icerik.length, 72)),
+                                    'ad': obj.ad,
+                                    'icerik': obj.icerik.substr(0, Math.min(obj.icerik.length, 72)),
                                     'baslangic': new Date(obj.baslangic).getDay().toString() + '/' + new Date(obj.baslangic).getMonth().toString() + new Date(obj.baslangic).getFullYear().toString(),
                                     'bitis': new Date(obj.bitis).getDay().toString() + '/' + new Date(obj.bitis).getMonth().toString() + new Date(obj.bitis).getFullYear().toString(),
                                     'link': obj.link,
@@ -156,5 +243,206 @@
             });
         }
 
+        projelericek();
+
+        var check = () => {
+
+            var ad = $('#ad').val();
+            var icerik = $('#icerik').val();
+            var baslangic = $('#baslangic').val();
+            var bitis = $('#bitis').val();
+            var link = $('#link').val();
+
+            if (ad == '') {
+                Swal.mixin({
+                    toast: 'true',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                }).fire({
+                    type: 'warning',
+                    title: 'Proje adı girilmedi.'
+                    });
+                return false;
+            } else if (icerik == '') {
+                Swal.mixin({
+                    toast: 'true',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                }).fire({
+                    type: 'warning',
+                    title: 'Proje Açıklaması girilmedi.'
+                    });
+                return false;
+
+            } else if (baslangic == '') {
+                Swal.mixin({
+                    toast: 'true',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                }).fire({
+                    type: 'warning',
+                    title: 'Başlangıç tarihi girilmedi.'
+                    });
+                return false;
+
+            } else if (bitis == '') {
+                Swal.mixin({
+                    toast: 'true',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                }).fire({
+                    type: 'warning',
+                    title: 'Bitiş tarihi girilmedi.'
+                    });
+                return false;
+
+            } else if (link == '') {
+                Swal.mixin({
+                    toast: 'true',
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                }).fire({
+                    type: 'warning',
+                    title: 'Link girilmedi.'
+                    });
+                return false;
+
+            }
+            return true;
+        }
+
+        $(document).on('click', '#btnKaydet', function () {
+            var ad = $('#ad').val();
+            var icerik = $('#icerik').val();
+            var baslangic = $('#baslangic').val();
+            var bitis = $('#bitis').val();
+            var link = $('#link').val();
+            var stajyerler = $('#stajyerler').val();
+            var bkoordinatorleri = $('#bkoordinatorleri').val();
+            if (!check())
+                return;
+            console.log('asfasf');
+            if (ekleme) {
+                $.ajax({
+                    url: '/Proje/EkleAjax',
+                    data: { proje: { ad: ad, icerik: icerik, baslangic: baslangic, bitis: bitis, link: link }, stajyerler: stajyerler, bkoordinatorleri: bkoordinatorleri },
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (data) {
+                        projelistesi.destroy();
+                        projelericek();
+                        Swal.fire('Başarılı', 'Başarıyla eklendi.', 'success');
+                        $('#stajyerler').val(null).trigger('change');
+                        $('#bkoordinatorleri').val(null).trigger('change');
+                        $('#ad').val('');
+                        $('#icerik').val('');
+                        $('#baslangic').val('');
+                        $('#bitis').val('');
+                        $('#link').val('');
+                        $('#projeekle').modal('hide');
+                    },
+                    error: function (data) {
+                        Swal.fire('Hata', 'Ooopss..Bir sorunla karşılaşıldı.', 'error');
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    url: '/Proje/Duzenle',
+                    data: { id: id,proje: { ad: ad, icerik: icerik, baslangic: baslangic, bitis: bitis, link: link }, stajyerler: stajyerler, bkoordinatorleri: bkoordinatorleri },
+                    type: 'post',
+                    success: function (data) {
+                        projelistesi.destroy();
+                        projelericek();
+                        Swal.fire('Başarılı', 'Başarıyla Güncellendi.', 'success');
+                        $('#stajyerler').val(null).trigger('change');
+                        $('#bkoordinatorleri').val(null).trigger('change');
+                        $('#ad').val('');
+                        $('#icerik').val('');
+                        $('#baslangic').val('');
+                        $('#bitis').val('');
+                        $('#link').val('');
+                        $('#projeekle').modal('hide');
+                    },
+                    error: function (data) {
+                        Swal.fire('Hata', 'Ooopss..Bir sorunla karşılaşıldı.', 'error');
+                    }
+                });
+            }
+        });
+
+        $(document).on('click', '.projeduzenle', function () {
+            id = this.id;
+            ekleme = false;
+            $.ajax({
+                url: '/Proje/ProjeCek',
+                data: { id: id },
+                dataType: 'json',
+                success: function (data) {
+                    $('#ad').val(data.ad);
+                    $('#icerik').val(data.icerik);
+                    $('#link').val(data.link);
+                    $('#baslangic').val(data.baslangic);
+                    $('#bitis').val(data.bitis);
+                }
+            });
+
+        });
+
+        $(document).on('click', '#ekle', function () {
+            ekleme = true;
+        });
+
+        
+        $(document).on('click', '.projesil', function () {
+            id = this.id;
+
+            Swal.fire({
+                title: "Gerçekten silmek istiyor musunuz?",
+                html: "Proje silinecektir, <strong>onaylıyor musunuz?</strong>",
+                type: "question",
+                showConfirmButton: true,
+                confirmButtonText: "<i class='mdi mdi-eraser'></i> Sil",
+                confirmButtonColor: '#dc3545',
+                showCancelButton: true,
+                cancelButtonText: '<i class="mdi mdi-close-circle"></i> Kapat'
+            }).then(function (data) {
+                if (data.value) {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Proje/SilAjax",
+                        data: { id: id },
+                        dataType: "json",
+                        success: function (data) {
+                            Swal.fire('Silindi', 'Proje başarıyla silindi.', 'success');
+                            projelistesi.destroy();
+                            projelericek();
+                        },
+                        error: function (data) {
+                            Swal.fire('Silinemedi', 'Silinemedi, silinirken bir hata oluştu.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+
+        $('#projeekle').on('hidden.bs.modal', function () {
+            $('#stajyerler').val(null).trigger('change');
+            $('#bkoordinatorleri').val(null).trigger('change');
+            $('#ad').val('');
+            $('#icerik').val('');
+            $('#baslangic').val('');
+            $('#bitis').val('');
+            $('#link').val('');
+        });
     });
+
+
+
 </script>

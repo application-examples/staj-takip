@@ -1,68 +1,112 @@
-﻿@model List<Proje>
+﻿@model Proje
 @{
     ViewData["Title"] = "Goruntule";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
-    <form>
-        <div class="form-group">
-            <label for="projeadi">Proje Adı</label>
-            <input type="text" class="form-control" id="projeadi" placeholder="Proje Adı" disabled>
-        </div>
+    <div class="row">
+        <div class="col-5 h-100">
+            <h4>Üyeler</h4><hr />
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Birim Koordinatörleri</h4>
+                </div>
+                <div class="comment-widgets scrollable ps-container ps-theme-default" data-ps-id="817a7410-88c7-23a4-7ebb-83b12d06d09f">
+                    <!-- Comment Row -->
+                    @foreach (var i in Model.BirimKoordinatorleri)
+                    {
+                        <div class="d-flex flex-row comment-row m-t-0">
+                            <div class="p-2"><img src="@i.BirimKoordinatoru.Profil.Fotograf" alt="user" width="50" class="rounded-circle"></div>
+                            <div class="comment-text w-100">
+                                <h6 class="font-medium">@i.BirimKoordinatoru.Profil.Ad @i.BirimKoordinatoru.Profil.Soyad</h6>
+                                <span class="m-b-0 d-block">@i.BirimKoordinatoru.Unvan</span>
+                                <span class="m-b-15 d-block">@i.BirimKoordinatoru.Profil.KullaniciAdi</span>
+                                <div class="comment-footer">
+                                    <span class="text-muted float-right">@i.BirimKoordinatoru.Profil.Email</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
 
-        <div class="form-group">
-            <label for="projeaciklamasi">Proje Açıklaması</label>
-            <textarea class="form-control" id="projeaciklamasi" placeholder="Proje Açıklaması" rows="3" disabled></textarea>
-        </div>
+                    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Stajyerler</h4>
+                </div>
+                <div class="comment-widgets scrollable ps-container ps-theme-default" data-ps-id="817a7410-88c7-23a4-7ebb-83b12d06d09f">
+                    <!-- Comment Row -->
+                    @foreach (var i in Model.Stajyerler)
+                    {
+                        <div class="d-flex flex-row comment-row m-t-0">
+                            <div class="p-2"><img src="@i.Stajyer.Profil.Fotograf" alt="user" width="50" class="rounded-circle"></div>
+                            <div class="comment-text w-100">
+                                <h6 class="font-medium">@i.Stajyer.Profil.Ad @i.Stajyer.Profil.Soyad</h6>
+                                <span class="m-b-0 d-block">@i.Stajyer.Okul</span>
+                                <span class="m-b-0 d-block">@i.Stajyer.Bolum</span>
+                                <span class="m-b-15 d-block">@i.Stajyer.Profil.KullaniciAdi</span>
+                                <div class="comment-footer">
+                                    <span class="text-muted float-right">@i.Stajyer.Profil.Email</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
 
-        <div class="form-group">
-            <label for="kullanilacakteknolojiler">Kullanılacak Teknolojiler:</label>
-            <select multiple class="form-control" id="kullanilacakteknolojiler">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-            </select>
+                    <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="form-group col-sm-6">
-                    <label for="tarih">Proje Başlangıç: </label>
-                    <div class="form-group">
-                        <div class='input-group date' id='tarih'>
-                            <input type='date' class="form-control" disabled />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
+        <div class="col-7">
+            <h4>Proje Bilgileri</h4><hr />
+            <div class="card">
+                <div class="card-header bg-info text-info">
+                    Proje Bilgileri
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-2 offset-1">
+                            <label class="h6">Proje Adı: </label>
+                        </div>
+                        <div class="col-5">
+                            <label class="h6">@Model.Ad</label>
                         </div>
                     </div>
-                </div>
-
-                <div class="form-group col-sm-6">
-                    <label for="tarih">Proje Bitiş: </label>
-                    <div class="form-group">
-                        <div class='input-group date' id='tarih'>
-                            <input type='date' class="form-control" disabled />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
+                    <div class="row mt-3">
+                        <div class="col-sm-2 offset-1">
+                            <label class="h6">Proje Açıklaması: </label>
+                        </div>
+                        <div class="col-5">
+                            <p class="h6">@Model.Icerik</p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-sm-2 offset-1">
+                            <label class="h6">Başlangıç Tarihi: </label>
+                        </div>
+                        <div class="col-5">
+                            <label class="h6">@Model.Baslangic.ToString("dd/MMMM/yyyy")</label>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-sm-2 offset-1">
+                            <label class="h6">Bitiş Tarihi: </label>
+                        </div>
+                        <div class="col-5">
+                            <label class="h6">@Model.Bitis.ToString("dd/MMMM/yyyy")</label>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-sm-2 offset-1">
+                            <label class="h6">Proje Linki: </label>
+                        </div>
+                        <div class="col-5">
+                            <label class="h6"><a class="" href="@Model.Link">@Model.Ad</a></label>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-            <label for="url">Proje Bağlantısı</label>
-            <input type="url" class="form-control" id="url" placeholder="url" disabled>
-      
-
-
-
-    </form>
-
+    </div>
 </div>
