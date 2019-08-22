@@ -27,7 +27,7 @@ namespace StajyerTakip.Controllers
 
         [StajyerUstYetki]
         [HttpPost]
-        public async JsonResult Duzenle(Models.Proje proje, int id, string[] stajyerler, string[] bkoordinatorleri)
+        public async Task<JsonResult> Duzenle(Models.Proje proje, int id, string[] stajyerler, string[] bkoordinatorleri)
         {
 
             var yetki = HttpContext.Session.GetInt32("yetki");

@@ -34,8 +34,10 @@ namespace StajyerTakip
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            var connection = @"Server=yenisunucu.mysql.database.azure.com; Port=3306; Database=stajdb; Uid=nekinci@yenisunucu; Pwd=+Niyazi678+; SslMode=Preferred;";
-            services.AddDbContext<Context>(options => options.UseMySql(connection));
+            var connection = @"Server=yenisunucu.mysql.database.azure.com; Port=3306; Database=stajdb; Uid=nekinci@yenisunucu; Pwd=+Niyazi678+; SslMode=Preferred; CharSet = utf8;";
+            services.AddDbContext<Context>(options => options.UseMySql(connection,mysqlOptions=> {
+                mysqlOptions.UnicodeCharSet(Pomelo.EntityFrameworkCore.MySql.Infrastructure.CharSet.Utf8mb4).CharSetBehavior(Pomelo.EntityFrameworkCore.MySql.Infrastructure.CharSetBehavior.AppendToAllColumns);
+            }));
             services.AddMvc().AddJsonOptions(options=> { options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDistributedMemoryCache();
             services.AddSession();
@@ -47,7 +49,6 @@ namespace StajyerTakip
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseSession();
-            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

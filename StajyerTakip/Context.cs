@@ -32,8 +32,11 @@ namespace StajyerTakip
         public DbSet<Duyuru> Duyurular { get; set; }
         public DbSet<Yorum> Yorumlar { get; set; }
         public DbSet<Chat> Mesajlar { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             //StajyerProje
             modelBuilder.Entity<StajyerProje>().HasKey(bc => new { bc.StajyerID, bc.ProjeID });
 

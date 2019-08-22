@@ -130,7 +130,7 @@
             "ajax": {
                 url: "/Birim/BirimleriCek",
                 responsive: true,
-                type: "POST",
+                type: "GET",
                 "dataSrc": function (data) {
                     var return_data = new Array();
                     $.each(data, function (id, obj) {
@@ -169,7 +169,7 @@
     var birimcek = function (ids) {
         return $.ajax({
             url: '/Birim/Goruntule',
-            type: 'POST',
+            type: 'GET',
             dataType: 'json',
             data: { id: ids },
             success: function (data) {
@@ -289,7 +289,7 @@
                     $.ajax({
                         url: "/Birim/Sil",
                         data: { id: id },
-                        type: "POST",
+                        type: "DELETE",
                         dataType: "json",
                         success: function (data) {
                             Swal.fire('Silindi', 'Birim başarıyla silindi. <b>Koordinatör ve Stajyerler arasındaki bağlantıyı kontrol etmeyi unutmayın!</b>', 'success');

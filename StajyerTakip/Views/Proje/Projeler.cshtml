@@ -387,8 +387,8 @@
                     $('#ad').val(data.ad);
                     $('#icerik').val(data.icerik);
                     $('#link').val(data.link);
-                    $('#baslangic').val(data.baslangic);
-                    $('#bitis').val(data.bitis);
+                    $('#baslangic').val(data.baslangic.split('T')[0]);
+                    $('#bitis').val(data.bitis.split('T')[0]);
                 }
             });
 

@@ -57,7 +57,7 @@ namespace StajyerTakip.Controllers
         }
 
         [BirimKoordinatoruUstYetki]
-        [HttpPost]
+        [HttpGet]
         public JsonResult BirimleriCek()
         {
             List<Models.Birim> birimler = db.Birimler.OrderByDescending(x => x.ID).ToList();
@@ -66,7 +66,7 @@ namespace StajyerTakip.Controllers
         }
 
         [BirimKoordinatoruUstYetki]
-        [HttpPost]
+        [HttpGet]
         public JsonResult Goruntule(int id)
         {
             Models.Birim birim = db.Birimler.Find(id);
@@ -74,7 +74,7 @@ namespace StajyerTakip.Controllers
         }
 
         [BirimKoordinatoruUstYetki]
-        [HttpPost]
+        [HttpDelete]
         public JsonResult Sil(int id)
         {
             Models.Birim birim = db.Birimler.Find(id);
