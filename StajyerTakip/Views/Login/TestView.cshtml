@@ -1,0 +1,38 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TestView</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+    <div id="veriler">
+
+    </div>
+</body>
+</html>
+
+
+<script>
+
+    $(function () {
+        $.ajax({
+            url: '/Login/Duyurular',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+            }
+        });
+    });
+</script>
+
+

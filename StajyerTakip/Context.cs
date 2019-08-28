@@ -11,7 +11,7 @@ namespace StajyerTakip
     {
         public Context(DbContextOptions<Context> options) : base(options)
         {
-                
+
         }
 
         public DbSet<Stajyer> Stajyerler { get; set; }

@@ -8,16 +8,40 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
+using System.Diagnostics;
+using System.Net;
 
 namespace StajyerTakip.Controllers
 {
     public class LoginController : Controller
     {
         private readonly Context db;
-
         public LoginController(Context db)
         {
             this.db = db;
+            
+        }
+
+        public IActionResult TestView()
+        {
+            return View();
+        }
+
+        public JsonResult Duyurular()
+        {
+            Console.WriteLine(DateTime.Now);
+            List<Duyuru> a = new List<Duyuru>
+            {
+                new Duyuru{ID=1,Baslik="ss"},
+                new Duyuru{ID=1,Baslik="ss"}
+            };
+
+            Console.WriteLine(DateTime.Now);
+
+            return Json(a);
+
         }
 
         [HttpPost]

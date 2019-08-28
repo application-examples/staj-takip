@@ -138,15 +138,15 @@ namespace StajyerTakip.Controllers
 
 
         [StajyerUstYetki]
-        public JsonResult ProjeCek(int id)
+        public async Task<JsonResult> ProjeCek(int id)
         {
-            Proje proje = db.Projeler.Find(id);
+            Proje proje = await db.Projeler.FindAsync(id);
             return Json(proje);
         }
 
-        public JsonResult StajyerCek()
+        public async Task<JsonResult> StajyerCek()
         {
-            var Stajyerler = db.Stajyerler.Include(x => x.Profil).ToList();
+            var Stajyerler = await db.Stajyerler.Include(x => x.Profil).ToListAsync();
             var results = new List<object>();
 
             foreach (var i in Stajyerler)
@@ -162,10 +162,10 @@ namespace StajyerTakip.Controllers
         }
 
 
-        public JsonResult BKCek()
+        public async Task<JsonResult> BKCek()
         {
 
-            var BK = db.BirimKoordinatorleri.Include(x => x.Profil).ToList();
+            var BK = await db.BirimKoordinatorleri.Include(x => x.Profil).ToListAsync();
             var results = new List<object>();
 
             foreach (var i in BK)
@@ -181,19 +181,19 @@ namespace StajyerTakip.Controllers
             return Json(new { results = results });
         }
 
-        public JsonResult ProjeleriCekJson()
+        public async Task<JsonResult> ProjeleriCekJson()
         {
             var yetki = HttpContext.Session.GetInt32("yetki");
             var id = HttpContext.Session.GetInt32("id");
             List<Proje> Projeler;
             if (yetki == 2 || yetki == 1)
             {
-                Projeler = db.Projeler.ToList();
+                Projeler = await db.Projeler.ToListAsync();
                 return Json(Projeler);
             }
             if (yetki == 3)
             {
-                var bk = db.ProjeBirim.Where(x => x.BirimKoordinatoruID == id).Include(x => x.Proje);
+                var bk = await db.ProjeBirim.Where(x => x.BirimKoordinatoruID == id).Include(x => x.Proje).ToListAsync();
                 Projeler = new List<Proje>();
                 foreach (var i in bk)
                 {
@@ -204,7 +204,7 @@ namespace StajyerTakip.Controllers
             }
             if (yetki == 4)
             {
-                var stajyer = db.StajyerProjeler.Where(x => x.StajyerID == id).Include(x => x.Proje);
+                var stajyer = await db.StajyerProjeler.Where(x => x.StajyerID == id).Include(x => x.Proje).ToListAsync();
                 Projeler = new List<Proje>();
                 foreach (var i in stajyer)
                 {
@@ -221,30 +221,30 @@ namespace StajyerTakip.Controllers
 
         [StajyerUstYetki]
         [HttpPost]
-        public JsonResult SilAjax(int id)
+        public async Task<JsonResult> SilAjax(int id)
         {
-            Proje proje = db.Projeler.Find(id);
+            Proje proje = await db.Projeler.FindAsync(id);
             db.Projeler.Remove(proje);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return Json(true);
         }
 
 
-        public JsonResult GetAllMessages (int id)
+        public async Task<JsonResult> GetAllMessages (int id)
         {
 
-            List<Chat> Mesajlar = db.Mesajlar.Where(x => x.ProjeID == id).OrderByDescending(x=>x.ID).Include(x => x.YazanProfil).ToList();
+            List<Chat> Mesajlar = await db.Mesajlar.Where(x => x.ProjeID == id).OrderByDescending(x=>x.ID).Include(x => x.YazanProfil).ToListAsync();
 
             return Json(Mesajlar);
         }
 
         [HttpPost]
-        public JsonResult MessageSend(int id,Chat chat)
+        public async Task<JsonResult> MessageSend(int id,Chat chat)
         {
             chat.ProjeID = id;
             chat.Tarih = DateTime.Now;
             db.Mesajlar.Add(chat);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return Json(true);
         }
     }

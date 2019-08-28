@@ -22,7 +22,6 @@
     <script src="~/croppie/croppie.min.js"></script>
 </head>
 <body>
-    <!-- ============================================================== -->
     @*
 
         <div class="preloader">
@@ -33,65 +32,25 @@
         </div>
     *@
     <div id="main-wrapper">
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
         @{
             await Html.RenderPartialAsync("Topbar");
         }
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
         @{
             await Html.RenderPartialAsync("Sidebar");
         }
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
             <div class="container-fluid">
                 @RenderBody()
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
             <footer class="footer text-center">
                 Akdeniz Üniversitesi Bilgisayar Bilimleri Araştırma ve Uygulama Merkezi <a href="https://baum.akdeniz.edu.tr">Baum Stajyerleri</a>.
             </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- Bootstrap tether Core JavaScript -->
     <script src="~/res/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="~/res/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/res/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <!--Wave Effects -->
     <script src="~/res/js/waves.js"></script>
-    <!--Menu sidebar -->
     <script src="~/res/js/sidebarmenu.js"></script>
     <script src="~/res/js/custom.js"></script>
 

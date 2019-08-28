@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace StajyerTakip.Models
 {
+
     public class Chat
     {
         public int ID { get; set; }
@@ -15,7 +16,7 @@ namespace StajyerTakip.Models
         public int YazanProfilID { get; set; }
         public Profil YazanProfil { get; set; }
 
-        [Column(TypeName = "VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_turkish_ci")]
+       // [Column(TypeName = "VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_turkish_ci")]
         public string Mesaj { get; set; }
         public DateTime Tarih { get; set; }
     }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StajyerTakip.Models
-{
+namespace StajyerTakip.Models { 
+
     public class BirimKoordinatoru 
     {
         public int ID { get; set; }

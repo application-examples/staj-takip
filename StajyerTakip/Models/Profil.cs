@@ -8,16 +8,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+
 namespace StajyerTakip.Models
 {
+
     public class Profil
     {
 
         public int ID { get; set; }
         public string Ad { get; set; }
         public string Soyad { get; set; }
+        [StringLength(100)]
         public string Email { get; set; }
         public string Sifre { get; set; }
+        [StringLength(100)]
         public string KullaniciAdi { get; set; }
         public string Fotograf { get; set; }
         public string Telefon { get; set; }

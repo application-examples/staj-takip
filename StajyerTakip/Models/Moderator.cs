@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace StajyerTakip.Models
 {
+
     public class Moderator 
     {
         public int ID { get; set; }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +27,10 @@ namespace StajyerTakip
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
@@ -34,20 +40,28 @@ namespace StajyerTakip
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            var connection = @"Server=yenisunucu.mysql.database.azure.com; Port=3306; Database=stajdb; Uid=nekinci@yenisunucu; Pwd=+Niyazi678+; SslMode=Preferred; CharSet = utf8;";
-            services.AddDbContext<Context>(options => options.UseMySql(connection,mysqlOptions=> {
-                mysqlOptions.UnicodeCharSet(Pomelo.EntityFrameworkCore.MySql.Infrastructure.CharSet.Utf8mb4).CharSetBehavior(Pomelo.EntityFrameworkCore.MySql.Infrastructure.CharSetBehavior.AppendToAllColumns);
-            }));
-            services.AddMvc().AddJsonOptions(options=> { options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //var connection = @"Server=35.193.6.67; Port=3306; Database=stajdb; Uid=root; Pwd=1234; SslMode=Preferred; CharSet=utf8";
+            var connection = @"Server=mysqlsunucum.mysql.database.azure.com; Port=3306; Database=denemedb; Uid=nekinci@mysqlsunucum; Pwd=+Niyazi678+; SslMode=Preferred; CharSet=utf8mb4";
+              services.AddDbContext<Context>(options => options.UseMySql(connection,mysqlOptions=> {
+                   mysqlOptions.UnicodeCharSet(Pomelo.EntityFrameworkCore.MySql.Infrastructure.CharSet.Utf8mb4).CharSetBehavior(Pomelo.EntityFrameworkCore.MySql.Infrastructure.CharSetBehavior.AppendToAllColumns);
+                  }));
+        //    services.AddDbContext<Context>(options => options.UseMySQL(connection));
+            services.AddMvc().AddJsonOptions(options => { options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDistributedMemoryCache();
             services.AddSession();
             services.AddScoped<GunlukGoruntuleme>();
             services.AddScoped<GunlukListeFiltre>();
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.KnownProxies.Add(IPAddress.Parse("10.0.0.100"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+
             app.UseSession();
             if (env.IsDevelopment())
             {
@@ -55,11 +69,15 @@ namespace StajyerTakip
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Error/Error");
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
+           // app.UseForwardedHeaders(new ForwardedHeadersOptions
+         //   {
+        //        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+       //     });
+            app.UseAuthentication();
+        //    app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 

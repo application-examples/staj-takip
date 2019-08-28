@@ -128,10 +128,10 @@ namespace StajyerTakip.Controllers
             return View(duyuru);
         }
 
-        [HttpPost]
-        public IActionResult DuyurulariCek()
+        [HttpGet]
+        public async Task<IActionResult> DuyurulariCek()
         {
-            List<Duyuru> Duyurular = db.Duyurular.OrderByDescending(x => x.ID).Take(5).ToList();
+            List<Duyuru> Duyurular = await db.Duyurular.OrderByDescending(x => x.ID).Take(5).ToListAsync();
 
             return PartialView("_Duyurular", Duyurular);
         }

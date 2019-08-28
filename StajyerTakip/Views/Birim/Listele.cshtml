@@ -173,10 +173,12 @@
             dataType: 'json',
             data: { id: ids },
             success: function (data) {
-                $('#birimadi1').val(data.ad);
-                $('#birimaciklama').html(data.aciklama);
+
             }
 
+        }).done(function (data) {
+            $('#birimadi1').val(data.ad);
+            $('#birimaciklama').html(data.aciklama);
         });
     }
 

@@ -1,13 +1,6 @@
-﻿
-
-
-
-
-
-
-
-namespace StajyerTakip.Models
+﻿namespace StajyerTakip.Models
 {
+
     public class BirimveKoordinator
     {
         public int BirimID { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StajyerTakip.Attributes;
 using StajyerTakip.Models;
 
@@ -18,6 +19,7 @@ namespace StajyerTakip.Controllers
         public BirimController(Context db)
         {
             this.db = db;
+            
         }
 
 
@@ -60,8 +62,7 @@ namespace StajyerTakip.Controllers
         [HttpGet]
         public JsonResult BirimleriCek()
         {
-            List<Models.Birim> birimler = db.Birimler.OrderByDescending(x => x.ID).ToList();
-
+            List<Birim> birimler = db.Birimler.OrderByDescending(x => x.ID).AsNoTracking().ToList();
             return Json(birimler);
         }
 

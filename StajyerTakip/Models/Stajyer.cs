@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace StajyerTakip.Models
 {
+
+
     public class Stajyer
     {
         public int ID { get; set; }

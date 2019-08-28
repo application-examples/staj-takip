@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace StajyerTakip.Models
 {
+
     public class ProjeBirim
     {
         public int ProjeID { get; set; }

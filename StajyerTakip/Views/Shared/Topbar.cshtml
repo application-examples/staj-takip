@@ -105,7 +105,7 @@
         var i = 0;
         var vericek= function () {
             $.ajax({
-                type: "POST",
+                type: "GET",
                 url: '/Duyuru/DuyurulariCek',
                 dataType: "text",
                 success: function (data) {
@@ -117,7 +117,7 @@
         }
         vericek();
         setInterval(vericek, (1000 * 20));
-
+          
     });
 </script>
 
