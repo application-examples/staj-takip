@@ -25,5 +25,15 @@ namespace StajyerTakip.Controllers
         {
             return db.Hesaplar.Where(x => x.Email == email).SingleOrDefault() != null ? Json(true) : Json(false);
         }
+
+        public JsonResult Duyurular()
+        {
+            return Json(db.Duyurular.ToList());
+        }
+
+        public IActionResult Deneme()
+        {
+            return View();
+        }
     }
 }

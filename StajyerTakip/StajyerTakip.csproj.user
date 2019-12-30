@@ -10,7 +10,7 @@
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_ViewDialogWidth>600</WebStackScaffolding_ViewDialogWidth>
     <NameOfLastUsedPublishProfile>StajyerTakip20190826114345 - Web Deploy</NameOfLastUsedPublishProfile>
-    <ActiveDebugProfile>IISExpress</ActiveDebugProfile>
+    <ActiveDebugProfile>StajyerTakip</ActiveDebugProfile>
     <WebStackScaffolding_DbContextTypeFullName>StajyerTakip.Context</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
     <GoogleCloudPublishChoice>Gce</GoogleCloudPublishChoice>

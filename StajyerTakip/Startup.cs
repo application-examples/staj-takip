@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -41,7 +41,7 @@ namespace StajyerTakip
             });
 
             //var connection = @"Server=35.193.6.67; Port=3306; Database=stajdb; Uid=root; Pwd=1234; SslMode=Preferred; CharSet=utf8";
-            var connection = @"Server=mysqlsunucum.mysql.database.azure.com; Port=3306; Database=denemedb; Uid=nekinci@mysqlsunucum; Pwd=+Niyazi678+; SslMode=Preferred; CharSet=utf8mb4";
+            var connection = @"Server=localhost; Port=3306; Database=denemedb; Uid=root; Pwd=; SslMode=Preferred; CharSet=utf8mb4";
               services.AddDbContext<Context>(options => options.UseMySql(connection,mysqlOptions=> {
                    mysqlOptions.UnicodeCharSet(Pomelo.EntityFrameworkCore.MySql.Infrastructure.CharSet.Utf8mb4).CharSetBehavior(Pomelo.EntityFrameworkCore.MySql.Infrastructure.CharSetBehavior.AppendToAllColumns);
                   }));
@@ -80,7 +80,7 @@ namespace StajyerTakip
         //    app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            app.UseCors();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -164,6 +164,14 @@
             ];
         }
 
+        $.ajax({
+            url: "http://localhost:5000/api/v1/values",
+            type: 'GET',
+            success: function (data) {
+                console.log(data);
+            }
+        });
+
         var duyurularicek = () => {
             duyurulistesi = $('#duyurular1').DataTable({
                 "language": {
@@ -173,7 +181,7 @@
                 "ordering": false,
                 responsive: true,
                 "ajax": {
-                    url: '/Duyuru/DuyurulariCekJson',
+                    url: 'http://localhost:5000/api/v1/values',
                     type: 'GET',
                     "dataSrc": function (data) {
                         var return_data = new Array();
