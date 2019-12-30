@@ -4,8 +4,8 @@
 
 ## İlgili Ekran Görüntüleri
 
-![](scrsaves/1.png)
-![](scrsaves/2.png)
-![](scrsaves/3.png)
-![](scrsaves/4.png)
-![](scrsaves/5.png)
+![](scrsaves\1.png)
+![](scrsaves\2.png)
+![](scrsaves\3.png)
+![](scrsaves\4.png)
+![](scrsaves\5.png)
