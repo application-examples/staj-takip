@@ -4,8 +4,10 @@
 
 ## İlgili Ekran Görüntüleri
 
-![](scrsaves\1.png)
-![](scrsaves\2.png)
-![](scrsaves\3.png)
-![](scrsaves\4.png)
-![](scrsaves\5.png)
+##İlgili SQL  script dosyasi klasördedir.
+
+![](/scrsaves/1.PNG)
+![](/scrsaves/2.PNG)
+![](/scrsaves/3.PNG)
+![](/scrsaves/4.PNG)
+![](/scrsaves/5.PNG)
